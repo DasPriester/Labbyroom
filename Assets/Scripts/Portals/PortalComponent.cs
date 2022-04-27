@@ -12,23 +12,24 @@ public class PortalComponent : MonoBehaviour
 
     RenderTexture viewTexture;
 
-    List<PortalTraveller> trackedTravellers = new List<PortalTraveller>();
+    List<PortalTraveller> trackedTravellers;
 
     private void Awake()
     {
         playerCam = Camera.main;
         portalCam = GetComponentInChildren<Camera>();
         portalCam.enabled = false;
+        trackedTravellers = new List<PortalTraveller>();
     }
 
     private void LateUpdate()
     {
         print(trackedTravellers.Count);
-
         for (int i = 0; i < trackedTravellers.Count; i++)
         {
             PortalTraveller traveller = trackedTravellers[i];
             Transform travellerT = traveller.transform;
+            var m = linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * travellerT.localToWorldMatrix;
 
             Vector3 offsetFromPortal = travellerT.position - transform.position;
             int portalSide = System.Math.Sign(Vector3.Dot(offsetFromPortal, transform.forward));
@@ -37,13 +38,13 @@ public class PortalComponent : MonoBehaviour
             if (portalSide != portalSideOld)
             {
                 print("woosh");
-                Matrix4x4 m = linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * travellerT.localToWorldMatrix;
                 traveller.Teleport(transform, linkedPortal.transform, m.GetColumn(3), m.rotation);
-
                 linkedPortal.OnTravellerEnterPortal(traveller);
-                trackedTravellers.RemoveAt(i);
+                trackedTravellers.Remove(traveller);
                 i--;
-            } else
+
+            }
+            else
             {
                 traveller.previousOffsetFromPortal = offsetFromPortal;
             }
@@ -79,7 +80,7 @@ public class PortalComponent : MonoBehaviour
         screen.enabled = true;
     }
 
-    private void OnTravellerEnterPortal(PortalTraveller traveller)
+    void OnTravellerEnterPortal(PortalTraveller traveller)
     {
         if (!trackedTravellers.Contains(traveller))
         {
@@ -89,7 +90,7 @@ public class PortalComponent : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         var traveller = other.GetComponent<PortalTraveller>();
         if (traveller)
@@ -98,7 +99,7 @@ public class PortalComponent : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
         var traveller = other.GetComponent<PortalTraveller>();
         if (traveller && trackedTravellers.Contains(traveller))
