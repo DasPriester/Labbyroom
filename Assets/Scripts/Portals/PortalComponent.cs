@@ -23,6 +23,7 @@ public class PortalComponent : MonoBehaviour
 
     private void LateUpdate()
     {
+
         for (int i = 0; i < trackedTravellers.Count; i++)
         {
             PortalTraveller traveller = trackedTravellers[i];
@@ -31,12 +32,11 @@ public class PortalComponent : MonoBehaviour
             Vector3 offsetFromPortal = travellerT.position - transform.position;
             int portalSide = System.Math.Sign(Vector3.Dot(offsetFromPortal, transform.forward));
             int portalSideOld = System.Math.Sign(Vector3.Dot(traveller.previousOffsetFromPortal, transform.forward));
-            Debug.Log(portalSide);
 
             if (portalSide != portalSideOld)
             {
                 Debug.Log("woosh");
-                Matrix4x4 m = linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * playerCam.transform.localToWorldMatrix;
+                Matrix4x4 m = linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * traveller.transform.localToWorldMatrix;
                 traveller.Teleport(transform, linkedPortal.transform, m.GetColumn(3), m.rotation);
 
                 linkedPortal.OnTravellerEnterPortal(traveller);
