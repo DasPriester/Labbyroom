@@ -23,6 +23,7 @@ public class PortalComponent : MonoBehaviour
 
     private void LateUpdate()
     {
+        print(trackedTravellers.Count);
 
         for (int i = 0; i < trackedTravellers.Count; i++)
         {
@@ -35,6 +36,7 @@ public class PortalComponent : MonoBehaviour
 
             if (portalSide != portalSideOld)
             {
+                print("woosh");
                 Matrix4x4 m = linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * travellerT.localToWorldMatrix;
                 traveller.Teleport(transform, linkedPortal.transform, m.GetColumn(3), m.rotation);
 
