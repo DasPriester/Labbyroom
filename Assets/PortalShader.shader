@@ -30,7 +30,6 @@ Shader "Custom/Portal"
 
             sampler2D _MainTex;
             float4 _InactiveColour;
-            int displayMask; // set to 1 to display texture, otherwise will draw test colour
             
 
             v2f vert (appdata v)
@@ -45,7 +44,7 @@ Shader "Custom/Portal"
             {
                 float2 uv = i.screenPos.xy / i.screenPos.w;
                 fixed4 portalCol = tex2D(_MainTex, uv);
-                return portalCol * displayMask + _InactiveColour * (1-displayMask);
+                return portalCol;
             }
             ENDCG
         }
