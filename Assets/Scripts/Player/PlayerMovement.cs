@@ -21,9 +21,6 @@ public class PlayerMovement : PortalTraveller
 
     float yawSmoothV;
     float pitchSmoothV;
-    float verticalVelocity;
-    Vector3 velocity;
-    Vector3 smoothV;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
@@ -35,7 +32,6 @@ public class PlayerMovement : PortalTraveller
 
     public float sensitivity = 20f;
     public Transform playerBody;
-    float xRotation = 0f;
 
     private void Start()
     {
