@@ -35,8 +35,7 @@ public class PortalComponent : MonoBehaviour
 
             if (portalSide != portalSideOld)
             {
-                Debug.Log("woosh");
-                Matrix4x4 m = linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * traveller.transform.localToWorldMatrix;
+                Matrix4x4 m = linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * travellerT.localToWorldMatrix;
                 traveller.Teleport(transform, linkedPortal.transform, m.GetColumn(3), m.rotation);
 
                 linkedPortal.OnTravellerEnterPortal(traveller);
