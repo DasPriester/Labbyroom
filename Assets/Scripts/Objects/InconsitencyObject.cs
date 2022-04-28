@@ -26,7 +26,7 @@ public class InconsitencyObject : MonoBehaviour
     [SerializeField] bool keepAspect = false;
     [SerializeField] Vector3 colorInconsistency = Vector3.one * 0.1f;
 
-    [SerializeField] bool escalate = false;
+    //[SerializeField] bool escalate = false;
 
     void Awake()
     {

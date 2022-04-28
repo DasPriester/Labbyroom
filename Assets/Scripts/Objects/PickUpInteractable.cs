@@ -9,6 +9,8 @@ public class PickUpInteractable : Interactable
     [SerializeField] private bool UseParticle = true;
     [SerializeField] private bool UseOutline = true;
 
+    [SerializeField] private string displayName = "";
+
     [SerializeField] private AudioClip pickUpSound = default;
 
     public override void OnInteract()
@@ -18,6 +20,10 @@ public class PickUpInteractable : Interactable
 
         if (UseParticle)
             GetComponent<ParticleSystem>().Play();
+
+        PlayerInventory inv = Camera.main.GetComponentInParent<PlayerInventory>();
+
+        inv.AddItem(displayName);
 
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<MeshCollider>().enabled = false;
@@ -35,8 +41,9 @@ public class PickUpInteractable : Interactable
 
     public override void OnFocus()
     {
-        if(UseOutline)
+        if (UseOutline) 
             gameObject.GetComponent<Outline>().enabled = true;
+                
     }
     public override void OnLoseFcous()
     {

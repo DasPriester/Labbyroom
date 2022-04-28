@@ -5041,6 +5041,7 @@ MonoBehaviour:
   UseParticle: 1
   flipSound: {fileID: 8300000, guid: 79cc084204f5d304f95c364b0e1a4c88, type: 3}
   leverAnimator: {fileID: 6374754295333600231}
+  doorSound: {fileID: 8300000, guid: 1fc04f96bd9490e488fa28e105c66a3b, type: 3}
   doorAnimator: {fileID: 0}
   door2Animator: {fileID: 0}
 --- !u!64 &7847663799404890604
