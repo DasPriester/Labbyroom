@@ -119,7 +119,7 @@ public class PortalComponent : MonoBehaviour
             startIndex = renderOrderIndex;
         }
 
-        screen.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+        screen.enabled = false;
         linkedPortal.screen.material.SetInt("displayMask", 0);
 
         for (int i = startIndex; i < recursionLimit; i++)
@@ -135,7 +135,7 @@ public class PortalComponent : MonoBehaviour
             }
         }
 
-        screen.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+        screen.enabled = true;
     }
 
     public static bool BoundsOverlap(MeshFilter nearObject, MeshFilter farObject, Camera camera)
@@ -220,7 +220,10 @@ public class PortalComponent : MonoBehaviour
         float screenThickness = dstToNearClipPlaneCorner;
 
         Transform screenT = screen.transform;
+        float dist = Vector3.Distance(transform.position + new Vector3(0f, 1.5f, 0f), viewPoint);
+        bool inFrontOfPortal = dist < screen.transform.localScale.x / 2;
         bool camFacingSameDirAsPortal = Vector3.Dot(transform.forward, transform.position - viewPoint) > 0;
+        screenThickness = inFrontOfPortal ? screenThickness : screenT.localScale.z / 2;
         screenT.localScale = new Vector3(screenT.localScale.x, screenT.localScale.y, screenThickness);
         screenT.localPosition = Vector3.forward * screenThickness * ((camFacingSameDirAsPortal) ? 0.5f : -0.5f);
         return screenThickness;
