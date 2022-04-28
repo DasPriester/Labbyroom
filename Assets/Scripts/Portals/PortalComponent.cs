@@ -141,9 +141,10 @@ public class PortalComponent : MonoBehaviour
         float screenThickness = dstToNearClipPlaneCorner;
 
         Transform screenT = screen.transform;
-        float dist = Vector3.Distance(screen.transform.position + new Vector3(0f, 1.5f, 0f), viewPoint);
-        bool inFrontOfPortal = dist < screen.transform.localScale.x / 2;
+        float dist = Vector3.Distance(screenT.position, viewPoint);
+        bool inFrontOfPortal = dist < screenT.localScale.x / 1.5;
         bool camFacingSameDirAsPortal = Vector3.Dot(transform.forward, transform.position - viewPoint) > 0;
+        print(inFrontOfPortal);
         screenThickness = inFrontOfPortal ? screenThickness : screenT.localScale.z / 2;
         screenT.localScale = new Vector3(screenT.localScale.x, screenT.localScale.y, screenThickness);
         screenT.localPosition = Vector3.forward * screenThickness * ((camFacingSameDirAsPortal) ? 0.5f : -0.5f);
