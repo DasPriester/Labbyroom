@@ -519,6 +519,7 @@ GameObject:
   - component: {fileID: 572590314389289766}
   - component: {fileID: 2957400196031129421}
   - component: {fileID: 4107785965377854495}
+  - component: {fileID: 8484442011506903135}
   m_Layer: 0
   m_Name: Pillar
   m_TagString: Untagged
@@ -621,6 +622,19 @@ MonoBehaviour:
   nearClipOffset: 0.05
   nearClipLimit: 0.2
   recursionLimit: 1
+--- !u!65 &8484442011506903135
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8965903303397978804}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9049937505124991204
 GameObject:
   m_ObjectHideFlags: 0
