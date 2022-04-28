@@ -12,9 +12,9 @@ public abstract class Interactable : MonoBehaviour
     public abstract void OnFocus();
     public abstract void OnLoseFcous();
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(transform.position, transform.localScale);
-    }
+//    private void OnDrawGizmos()
+//    {
+//        Gizmos.color = Color.yellow;
+//        Gizmos.DrawWireCube(transform.position, transform.localScale);
+//    }
 }

@@ -59,7 +59,7 @@ public class PlayerController : PortalTraveller
 
     [Header("Interaction")]
     [SerializeField] private Vector3 interactionRayPoint = new Vector3(0.5f, 0.5f, 0);
-    [SerializeField] private float interactionDistance = 2;
+    [SerializeField] private float interactionDistance = 4;
     [SerializeField] private LayerMask interactionLayer = default;
     private Interactable currentInteractable;
 
