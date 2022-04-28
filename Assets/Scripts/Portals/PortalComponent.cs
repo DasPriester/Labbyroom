@@ -141,7 +141,7 @@ public class PortalComponent : MonoBehaviour
         float screenThickness = dstToNearClipPlaneCorner;
 
         Transform screenT = screen.transform;
-        float dist = Vector3.Distance(transform.position + new Vector3(0f, 1.5f, 0f), viewPoint);
+        float dist = Vector3.Distance(screen.transform.position + new Vector3(0f, 1.5f, 0f), viewPoint);
         bool inFrontOfPortal = dist < screen.transform.localScale.x / 2;
         bool camFacingSameDirAsPortal = Vector3.Dot(transform.forward, transform.position - viewPoint) > 0;
         screenThickness = inFrontOfPortal ? screenThickness : screenT.localScale.z / 2;
@@ -198,8 +198,8 @@ public class PortalComponent : MonoBehaviour
         if (linkedPortal)
         {
             Gizmos.color = Color.green;
-            Vector3 a = transform.position + Vector3.up * (screen.transform.localScale.y / 2);
-            Vector3 b = linkedPortal.transform.position + Vector3.up * (screen.transform.localScale.y / 2);
+            Vector3 a = screen.transform.position;
+            Vector3 b = linkedPortal.screen.transform.position;
 
             Vector3 am = a;
             Vector3 bi = b;
@@ -217,12 +217,12 @@ public class PortalComponent : MonoBehaviour
 
             Gizmos.color = Color.blue;
             DrawArrow(a - transform.forward, a);
-            DrawArrow(b, b + linkedPortal.transform.forward);
+            DrawArrow(b, b + linkedPortal.screen.transform.forward);
 
 
             Gizmos.color = Color.red;
             DrawArrow(a + transform.forward, a);
-            DrawArrow(b, b - linkedPortal.transform.forward);
+            DrawArrow(b, b - linkedPortal.screen.transform.forward);
         }
     }
 
