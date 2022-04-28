@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class PortalComponent : MonoBehaviour
 {
@@ -18,17 +19,6 @@ public class PortalComponent : MonoBehaviour
     public float nearClipOffset = 0.05f;
     public float nearClipLimit = 0.2f;
     public int recursionLimit = 5;
-
-    static readonly Vector3[] cubeCornerOffsets = {
-        new Vector3 (1, 1, 1),
-        new Vector3 (-1, 1, 1),
-        new Vector3 (-1, -1, 1),
-        new Vector3 (-1, -1, -1),
-        new Vector3 (-1, 1, -1),
-        new Vector3 (1, -1, -1),
-        new Vector3 (1, 1, -1),
-        new Vector3 (1, -1, 1),
-    };
 
     private void Awake()
     {
@@ -79,15 +69,9 @@ public class PortalComponent : MonoBehaviour
         }
     }
 
-    private bool VisibleFromCamera(Renderer renderer, Camera camera)
-    {
-        Plane[] frustumPlanes = GeometryUtility.CalculateFrustumPlanes(camera);
-        return GeometryUtility.TestPlanesAABB(frustumPlanes, renderer.bounds);
-    }
-
     private void Update()
     {
-        if (!VisibleFromCamera(linkedPortal.screen, playerCam))
+        if (!CameraUtility.VisibleFromCamera(linkedPortal.screen, playerCam))
         {
             return;
         }
@@ -105,7 +89,7 @@ public class PortalComponent : MonoBehaviour
             if (i > 0)
             {
                 // No need for recursive rendering if linked portal is not visible through this portal
-                if (!BoundsOverlap(screenMeshFilter, linkedPortal.screenMeshFilter, portalCam))
+                if (!CameraUtility.BoundsOverlap(screenMeshFilter, linkedPortal.screenMeshFilter, portalCam))
                 {
                     break;
                 }
@@ -137,70 +121,7 @@ public class PortalComponent : MonoBehaviour
 
         screen.enabled = true;
     }
-
-    public static bool BoundsOverlap(MeshFilter nearObject, MeshFilter farObject, Camera camera)
-    {
-
-        var near = GetScreenRectFromBounds(nearObject, camera);
-        var far = GetScreenRectFromBounds(farObject, camera);
-
-        // ensure far object is indeed further away than near object
-        if (far.zMax > near.zMin)
-        {
-            // Doesn't overlap on x axis
-            if (far.xMax < near.xMin || far.xMin > near.xMax)
-            {
-                return false;
-            }
-            // Doesn't overlap on y axis
-            if (far.yMax < near.yMin || far.yMin > near.yMax)
-            {
-                return false;
-            }
-            // Overlaps
-            return true;
-        }
-        return false;
-    }
-
-    public static MinMax3D GetScreenRectFromBounds(MeshFilter renderer, Camera mainCamera)
-    {
-        MinMax3D minMax = new MinMax3D(float.MaxValue, float.MinValue);
-
-        Vector3[] screenBoundsExtents = new Vector3[8];
-        var localBounds = renderer.sharedMesh.bounds;
-        bool anyPointIsInFrontOfCamera = false;
-
-        for (int i = 0; i < 8; i++)
-        {
-            Vector3 localSpaceCorner = localBounds.center + Vector3.Scale(localBounds.extents, cubeCornerOffsets[i]);
-            Vector3 worldSpaceCorner = renderer.transform.TransformPoint(localSpaceCorner);
-            Vector3 viewportSpaceCorner = mainCamera.WorldToViewportPoint(worldSpaceCorner);
-
-            if (viewportSpaceCorner.z > 0)
-            {
-                anyPointIsInFrontOfCamera = true;
-            }
-            else
-            {
-                // If point is behind camera, it gets flipped to the opposite side
-                // So clamp to opposite edge to correct for this
-                viewportSpaceCorner.x = (viewportSpaceCorner.x <= 0.5f) ? 1 : 0;
-                viewportSpaceCorner.y = (viewportSpaceCorner.y <= 0.5f) ? 1 : 0;
-            }
-
-            // Update bounds with new corner point
-            minMax.AddPoint(viewportSpaceCorner);
-        }
-
-        // All points are behind camera so just return empty bounds
-        if (!anyPointIsInFrontOfCamera)
-        {
-            return new MinMax3D();
-        }
-
-        return minMax;
-    }
+    
 
     void OnTravellerEnterPortal(PortalTraveller traveller)
     {
@@ -272,33 +193,47 @@ public class PortalComponent : MonoBehaviour
         }
     }
 
-    public struct MinMax3D
+    private void OnDrawGizmosSelected()
     {
-        public float xMin;
-        public float xMax;
-        public float yMin;
-        public float yMax;
-        public float zMin;
-        public float zMax;
-
-        public MinMax3D(float min, float max)
+        if (linkedPortal)
         {
-            this.xMin = min;
-            this.xMax = max;
-            this.yMin = min;
-            this.yMax = max;
-            this.zMin = min;
-            this.zMax = max;
-        }
+            Gizmos.color = Color.green;
+            Vector3 a = transform.position + Vector3.up * (screen.transform.localScale.y / 2);
+            Vector3 b = linkedPortal.transform.position + Vector3.up * (screen.transform.localScale.y / 2);
 
-        public void AddPoint(Vector3 point)
-        {
-            xMin = Mathf.Min(xMin, point.x);
-            xMax = Mathf.Max(xMax, point.x);
-            yMin = Mathf.Min(yMin, point.y);
-            yMax = Mathf.Max(yMax, point.y);
-            zMin = Mathf.Min(zMin, point.z);
-            zMax = Mathf.Max(zMax, point.z);
+            Vector3 am = a;
+            Vector3 bi = b;
+            am.Scale(Vector3.one * 0.9f);
+            bi.Scale(Vector3.one * 0.1f);
+            am = am + bi;
+
+            Vector3 ai = a;
+            Vector3 bm = b;
+            ai.Scale(Vector3.one * 0.1f);
+            bm.Scale(Vector3.one * 0.9f);
+            bm = bm + ai;
+
+            DrawArrow(am, bm);
+
+            Gizmos.color = Color.blue;
+            DrawArrow(a - transform.forward, a);
+            DrawArrow(b, b + linkedPortal.transform.forward);
+
+
+            Gizmos.color = Color.red;
+            DrawArrow(a + transform.forward, a);
+            DrawArrow(b, b - linkedPortal.transform.forward);
         }
+    }
+
+    static void DrawArrow(Vector3 a, Vector3 b)
+    {
+        Gizmos.DrawLine(a, b);
+        Vector3 dir = (a - b).normalized;
+        Vector3 n = Vector3.Cross(dir, (SceneView.lastActiveSceneView.camera.transform.position - b).normalized);
+        n.Scale(Vector3.one * 0.5f);
+        Gizmos.DrawLine(b + dir + n, b);
+        Gizmos.DrawLine(b + dir - n, b);
+        Gizmos.DrawLine(a, b);
     }
 }

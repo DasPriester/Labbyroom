@@ -399,6 +399,14 @@ PrefabInstance:
       propertyPath: linkedPortal
       value: 
       objectReference: {fileID: 636223430}
+    - target: {fileID: 3254051265726217479, guid: 6c880ec3445b744d484353ab3292b15b, type: 3}
+      propertyPath: linkedPortalA
+      value: 
+      objectReference: {fileID: 636223430}
+    - target: {fileID: 3254051265726217479, guid: 6c880ec3445b744d484353ab3292b15b, type: 3}
+      propertyPath: linkedPortalB
+      value: 
+      objectReference: {fileID: 1726679679}
     - target: {fileID: 3938903058769901690, guid: 6c880ec3445b744d484353ab3292b15b, type: 3}
       propertyPath: m_Name
       value: Portal 1
@@ -464,34 +472,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68fa5eaa09b64c6c9f65913ec5d72e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &702165626 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8460410003938108310, guid: 666954af78a82424d8c846561a9dffbd, type: 3}
-  m_PrefabInstance: {fileID: 8460410003852982898}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &702165627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 702165626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 321c91b3a74c34b469183defc0b292bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 3
-  runSpeed: 6
-  smoothMoveTime: 0.1
-  jumpForce: 8
-  gravity: 18
-  lockCursor: 0
-  mouseSensitivity: 10
-  pitchMinMax: {x: -40, y: 85}
-  rotationSmoothTime: 0.1
-  yaw: 0
-  pitch: 0
 --- !u!1001 &841283329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -503,6 +483,14 @@ PrefabInstance:
       propertyPath: linkedPortal
       value: 
       objectReference: {fileID: 1726679679}
+    - target: {fileID: 3254051265726217479, guid: 6c880ec3445b744d484353ab3292b15b, type: 3}
+      propertyPath: linkedPortalA
+      value: 
+      objectReference: {fileID: 1726679679}
+    - target: {fileID: 3254051265726217479, guid: 6c880ec3445b744d484353ab3292b15b, type: 3}
+      propertyPath: linkedPortalB
+      value: 
+      objectReference: {fileID: 636223430}
     - target: {fileID: 3938903058769901690, guid: 6c880ec3445b744d484353ab3292b15b, type: 3}
       propertyPath: m_Name
       value: Portal 2
@@ -565,6 +553,7 @@ GameObject:
   - component: {fileID: 1571689390}
   - component: {fileID: 1571689389}
   - component: {fileID: 1571689388}
+  - component: {fileID: 1571689392}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -648,6 +637,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1571689392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571689387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1986f1a1dcc154f4592638af4f05d191, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: 1
+  moveY: 0
+  moveInconsistency: 1
+  rotate: 1
+  rotateInconsistency: {x: 5, y: 5, z: 5}
+  chageColor: 0
+  colorInconsistency: {x: 0.1, y: 0.1, z: 0.1}
+  escalate: 0
 --- !u!114 &1726679679 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3254051265726217479, guid: 6c880ec3445b744d484353ab3292b15b, type: 3}
@@ -715,5 +724,5 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 8460410003938108311, guid: 666954af78a82424d8c846561a9dffbd, type: 3}
+    - {fileID: 8460410003008753827, guid: 666954af78a82424d8c846561a9dffbd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 666954af78a82424d8c846561a9dffbd, type: 3}
