@@ -194,15 +194,24 @@ public class PlayerController : PortalTraveller
 
     private void HandleInteractionCheck()
     {
-        if (Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance))
+        // get Ray hit and check if hit is interactable
+        if (Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance) && hit.collider.gameObject.layer == 6)
         {
-            if (hit.collider.gameObject.layer == 6 && 
-                (currentInteractable == null || hit.collider.gameObject.GetInstanceID() != currentInteractable.GetInstanceID()))
+            
+            // check if new hit
+            if (currentInteractable == null || hit.collider.gameObject.GetInstanceID() != currentInteractable.gameObject.GetInstanceID())
             {
+
+
+                if (currentInteractable != null)
+                    currentInteractable.OnLoseFcous();
+
+
                 hit.collider.TryGetComponent(out currentInteractable);
 
                 if (currentInteractable)
                     currentInteractable.OnFocus();
+                
             }
         }
         else if (currentInteractable)
@@ -210,6 +219,7 @@ public class PlayerController : PortalTraveller
             currentInteractable.OnLoseFcous();
             currentInteractable = null;
         }
+    
     } 
     
 

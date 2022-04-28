@@ -12,6 +12,7 @@ public class LeverInteractable : Interactable
     [SerializeField] private AudioClip flipSound = default;
     [SerializeField] private Animator leverAnimator = default;
 
+    [SerializeField] private AudioClip doorSound = default;
     [SerializeField] private Animator doorAnimator = default;
     [SerializeField] private Animator door2Animator = default;
 
@@ -20,6 +21,8 @@ public class LeverInteractable : Interactable
         
         if (UseAudio)
             AudioSource.PlayClipAtPoint(flipSound, transform.position);
+            AudioSource.PlayClipAtPoint(doorSound, doorAnimator.gameObject.transform.position);
+            AudioSource.PlayClipAtPoint(doorSound, door2Animator.gameObject.transform.position);
 
         if (UseParticle)
         {
