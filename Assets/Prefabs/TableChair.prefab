@@ -106,7 +106,6 @@ MonoBehaviour:
   chageColor: 1
   keepAspect: 0
   colorInconsistency: {x: 0.05, y: 0.05, z: 0.05}
-  escalate: 0
 --- !u!64 &1297397626936924494
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -227,7 +226,6 @@ MonoBehaviour:
   chageColor: 1
   keepAspect: 0
   colorInconsistency: {x: 0.05, y: 0.05, z: 0.05}
-  escalate: 0
 --- !u!64 &2681328524146938573
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -348,7 +346,6 @@ MonoBehaviour:
   chageColor: 1
   keepAspect: 0
   colorInconsistency: {x: 0.1, y: 0.1, z: 0.1}
-  escalate: 0
 --- !u!64 &3452858187392826511
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -374,7 +371,7 @@ GameObject:
   - component: {fileID: 6296603182059749454}
   m_Layer: 0
   m_Name: TableChair
-  m_TagString: Untagged
+  m_TagString: Footsteps/Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
