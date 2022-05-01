@@ -5039,6 +5039,7 @@ MonoBehaviour:
   UseAudio: 1
   UseOutline: 1
   UseParticle: 1
+  UseAnimation: 1
   flipSound: {fileID: 8300000, guid: 79cc084204f5d304f95c364b0e1a4c88, type: 3}
   leverAnimator: {fileID: 6374754295333600231}
   doorSound: {fileID: 8300000, guid: 1fc04f96bd9490e488fa28e105c66a3b, type: 3}

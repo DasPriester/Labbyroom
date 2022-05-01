@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class PickUpInteractable : Interactable
 {
-    [Header("Juiciness")]
-    [SerializeField] private bool UseAudio = true;
-    [SerializeField] private bool UseParticle = true;
-    [SerializeField] private bool UseOutline = true;
+    [SerializeField] private string prefabName = "";
 
-    [SerializeField] private string displayName = "";
-
+    [SerializeField] private AudioClip placeSound = default;
     [SerializeField] private AudioClip pickUpSound = default;
     [SerializeField] private ParticleSystem pickUpParticle = default;
+
+    private GameObject prefab;
+
+    public void Start()
+    {
+        prefab = (GameObject)Resources.Load("Prefabs/"+prefabName);
+    }
+
+    public void OnPlace(Vector3 position)
+    {
+        AudioSource.PlayClipAtPoint(placeSound, position);
+    }
 
     public override void OnInteract()
     {
@@ -22,8 +30,8 @@ public class PickUpInteractable : Interactable
         if (UseParticle)
             Instantiate(pickUpParticle, transform.position, Quaternion.identity).Play();
 
-        PlayerInventory inv = Camera.main.GetComponentInParent<PlayerInventory>();
-        inv.AddItem(displayName);
+        var inv = GameObject.Find("UI/Inventory").GetComponent<PlayerInventory>();
+        inv.AddItem(prefab, prefabName);
 
         Destroy(gameObject);
     }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5024667580364720868}
   - component: {fileID: 8696993802869622923}
   m_Layer: 0
-  m_Name: PickUpKey
+  m_Name: Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,8 +146,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseAudio: 1
-  UseParticle: 1
   UseOutline: 1
-  displayName: Key
+  UseParticle: 1
+  UseAnimation: 1
+  prefabName: Key
+  placeSound: {fileID: 8300000, guid: 6f0cfe23fe02b18488c69d04d5aa969b, type: 3}
   pickUpSound: {fileID: 8300000, guid: c2587d145786f4d4e8dae8d1bbb44973, type: 3}
   pickUpParticle: {fileID: 8452545625293292680, guid: 547fd1e2e7e6e44418ce27e79cd08083, type: 3}

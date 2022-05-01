@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class LeverDoorInteractable : Interactable
 {
-    [Header("Juiciness")]
-    [SerializeField] private bool UseAudio = true;
-    [SerializeField] private bool UseOutline = true;
-    [SerializeField] private bool UseParticle = true;
-
     [SerializeField] private AudioClip flipSound = default;
     [SerializeField] private Animator leverAnimator = default;
 
@@ -18,11 +13,13 @@ public class LeverDoorInteractable : Interactable
 
     public override void OnInteract()
     {
-        
+
         if (UseAudio)
+        {
             AudioSource.PlayClipAtPoint(flipSound, transform.position);
             AudioSource.PlayClipAtPoint(doorSound, doorAnimator.gameObject.transform.position);
             AudioSource.PlayClipAtPoint(doorSound, door2Animator.gameObject.transform.position);
+        }
 
         if (UseParticle)
         {
@@ -31,8 +28,8 @@ public class LeverDoorInteractable : Interactable
             shape.rotation = new Vector3(-45, shape.rotation.y * -1, 0);
         }
 
-
-        leverAnimator.SetTrigger("ToggleTrigger");
+        if(UseAnimation)
+            leverAnimator.SetTrigger("ToggleTrigger");
         doorAnimator.SetTrigger("ToggleTrigger");
         door2Animator.SetTrigger("ToggleTrigger");
         

@@ -3,15 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ButtonSummonInteractable : Interactable
-{
-
-    [Header("Juiciness")]
-    [SerializeField] private bool UseAudio = true;
-    [SerializeField] private bool UseOutline = true;
-    [SerializeField] private bool UseParticle = true;
-    [SerializeField] private bool UseAnimation = true;
-
-    
+{   
     [SerializeField] private AudioClip buttonSound = default;
     [SerializeField] private Animator buttonAnimator = default;
 

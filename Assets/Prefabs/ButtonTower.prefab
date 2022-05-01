@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 1807104789698127123}
   - component: {fileID: 2110599684225460094}
   - component: {fileID: 3758931808799202781}
+  - component: {fileID: 6138933724145918848}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -148,6 +149,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6138933724145918848
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6258339988149159227}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1277366460620338370, guid: 7e14afc6d5f3e8b4fb009359bd2124fc, type: 3}
 --- !u!1 &7071532672444889160
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,9 +275,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UseAudio: 1
   UseOutline: 1
+  UseParticle: 1
+  UseAnimation: 1
   buttonSound: {fileID: 8300000, guid: 2360d0a4749034b4984c5301408f4e3f, type: 3}
-  prefab: {fileID: 8742471451781248404, guid: 3dc0032bda0a3a24f848db19061df8c0, type: 3}
   buttonAnimator: {fileID: 4673219654553825622}
+  summonParticle: {fileID: 0}
+  summonPrefab: {fileID: 0}
+  summonLocation: {fileID: 0}
 --- !u!114 &4363732825103124653
 MonoBehaviour:
   m_ObjectHideFlags: 0
