@@ -252,7 +252,7 @@ public class PlayerController : PortalTraveller
             if (item.prefab != null)
             {
 
-                Instantiate(item.prefab, new Vector3(hit.point.x, hit.point.y + 0.1f, hit.point.z), gameObject.transform.rotation);
+                Instantiate(item.prefab, new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z), gameObject.transform.rotation);
                 inv.RemoveItem(item);
                 item.prefab.GetComponent<PickUpInteractable>().OnPlace(hit.point);
             }

@@ -50,6 +50,7 @@ public class PlayerInventory : MonoBehaviour
 
             }
         }
+
     }
 
     public void AddItem(GameObject prefab, string name)
@@ -94,11 +95,20 @@ public class PlayerInventory : MonoBehaviour
         {
             invList.Remove(item);
 
-            GameObject slot = slots[index];
-            Image image = slot.GetComponentsInChildren<Image>()[1];
-            image.enabled = false;
-            image.sprite = null;
-            slot.GetComponentInChildren<Text>().enabled = false;
+            for(int i = 0; i < invList.Count; i++)
+            {
+                GameObject slot = slots[i];
+                Image image = slot.GetComponentsInChildren<Image>()[1];
+                image.sprite = Resources.Load<Sprite>("Sprites/" + invList[i].name);
+                slot.GetComponentInChildren<Text>().text = "" + invList[i].amount;
+            }
+
+
+            GameObject lastSlot = slots[invList.Count];
+            Image lastImage = lastSlot.GetComponentsInChildren<Image>()[1];
+            lastImage.enabled = false;
+            lastImage.sprite = null;
+            lastSlot.GetComponentInChildren<Text>().enabled = false;
         }
 
     }
