@@ -62,7 +62,7 @@ public class PortalComponent : MonoBehaviour
     {
         if (viewTexture == null || viewTexture.width != Screen.width || viewTexture.height != Screen.height)
         {
-            viewTexture = new RenderTexture(Screen.width, Screen.height, 0);
+            viewTexture = new RenderTexture(Screen.width, Screen.height, 8);
             portalCam.targetTexture = viewTexture;
 
             linkedPortal.screen.material.SetTexture("_MainTex", viewTexture);
@@ -111,7 +111,10 @@ public class PortalComponent : MonoBehaviour
             portalCam.transform.SetPositionAndRotation(renderPositions[i], renderRotations[i]);
             SetNearClipPlane();
             linkedPortal.ProtectScreenFromClipping(portalCam.transform.position);
-            portalCam.Render();
+            if (portalCam.transform.eulerAngles != Vector3.zero)
+            {
+                portalCam.Render();
+            }
 
             if (i == startIndex)
             {

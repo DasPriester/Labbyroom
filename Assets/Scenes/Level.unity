@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -427,11 +427,87 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8696993802869622922, guid: 6ce383862c5cb9b44acca66b567ef6af, type: 3}
   m_PrefabInstance: {fileID: 429857500}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &430944802 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6654876819060775882, guid: 6c880ec3445b744d484353ab3292b15b, type: 3}
+  m_PrefabInstance: {fileID: 594155517}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &430944805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430944802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!95 &445722932 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5278579137962947600, guid: 6c880ec3445b744d484353ab3292b15b, type: 3}
   m_PrefabInstance: {fileID: 594155517}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &446961387 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8036440833047574813, guid: 1eee90572563b4f1282fdaadfaaa8a19, type: 3}
+  m_PrefabInstance: {fileID: 4164531545469371461}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &446961390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446961387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!224 &472536015 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2588724498381213133, guid: 93ef123127fc3a94187cd0c2364c7deb, type: 3}
@@ -852,6 +928,10 @@ PrefabInstance:
       propertyPath: linkedPortalB
       value: 
       objectReference: {fileID: 1726679679}
+    - target: {fileID: 3254051265726217479, guid: 6c880ec3445b744d484353ab3292b15b, type: 3}
+      propertyPath: recursionLimit
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3938903058769901690, guid: 6c880ec3445b744d484353ab3292b15b, type: 3}
       propertyPath: m_Name
       value: PortalGrass
@@ -1030,6 +1110,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93ef123127fc3a94187cd0c2364c7deb, type: 3}
+--- !u!1 &694143346 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6654876819060775882, guid: 6c880ec3445b744d484353ab3292b15b, type: 3}
+  m_PrefabInstance: {fileID: 1975356648}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &694143349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694143346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &707833217
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,6 +1306,44 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8742471451781474740, guid: 3dc0032bda0a3a24f848db19061df8c0, type: 3}
   m_PrefabInstance: {fileID: 719104301}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &719182973 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6654876819060775882, guid: 6c880ec3445b744d484353ab3292b15b, type: 3}
+  m_PrefabInstance: {fileID: 826155894}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &719182976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719182973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1001 &719320123
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1956,6 +2112,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a55ad3c9d9a8c5448cc109ec085e1f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1419684430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6654876819060775882, guid: 6c880ec3445b744d484353ab3292b15b, type: 3}
+  m_PrefabInstance: {fileID: 841283329}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1419684433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419684430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!95 &1447581376 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5278579137962947600, guid: 6c880ec3445b744d484353ab3292b15b, type: 3}
