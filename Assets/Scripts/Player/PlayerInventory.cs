@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+//using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class PlayerInventory : MonoBehaviour
 {
     private Color halfWhite = new Color(1, 1, 1, 0.4f);
 
     private GameObject[] slots = new GameObject[7];
-    private List<Item> invList = new List<Item>();
+    private Item[] invList = new Item[7];
     private int current = 0;
 
     public struct Item
@@ -55,66 +56,58 @@ public class PlayerInventory : MonoBehaviour
 
     public void AddItem(GameObject prefab, string name)
     {
-        int index = invList.FindIndex(x => x.name == name);
+        int index = Array.FindIndex<Item>(invList, x => x.name == name);
 
         if (index != -1)
         {
-            Item item = invList[index];
-            item.amount += 1;
-            invList[index] = item;
+            invList[index].amount += 1;
 
             slots[index].GetComponentInChildren<Text>().text = "" + invList[index].amount;
-
         }
         else
         {
-            invList.Add(new Item(prefab, name, 1));
+            for (int i = 0; i < invList.Length; i++)
+            {
+                if (invList[i].prefab == null)
+                {
+                    invList[i] = new Item(prefab, name, 1);
 
-            GameObject slot = slots[invList.Count - 1];
-            Image image = slot.GetComponentsInChildren<Image>()[1];
-            image.enabled = true;
-            image.sprite = Resources.Load<Sprite>("Sprites/" + name);
-            slot.GetComponentInChildren<Text>().enabled = true;
-
+                    GameObject slot = slots[i];
+                    Image image = slot.GetComponentsInChildren<Image>()[1];
+                    image.enabled = true;
+                    image.sprite = Resources.Load<Sprite>("Sprites/" + name);
+                    slot.GetComponentInChildren<Text>().enabled = true;
+                    break;
+                }
+            }
         }
     }
 
     public void RemoveItem(Item item)
     {
-        int index = invList.IndexOf(item);
+        int index = Array.FindIndex<Item>(invList, x => x.name == item.name);
 
         if (item.amount > 1)
         {
-            Item oldItem = invList[index];
-            oldItem.amount -= 1;
-            invList[index] = oldItem;
+            invList[index].amount -= 1;
 
             slots[index].GetComponentInChildren<Text>().text = "" + invList[index].amount;
         }
         else
         {
-            invList.Remove(item);
+            invList[index] = new Item(null, null, 0);
 
-            for(int i = 0; i < invList.Count; i++)
-            {
-                GameObject slot = slots[i];
-                Image image = slot.GetComponentsInChildren<Image>()[1];
-                image.sprite = Resources.Load<Sprite>("Sprites/" + invList[i].name);
-                slot.GetComponentInChildren<Text>().text = "" + invList[i].amount;
-            }
-
-
-            GameObject lastSlot = slots[invList.Count];
-            Image lastImage = lastSlot.GetComponentsInChildren<Image>()[1];
-            lastImage.enabled = false;
-            lastImage.sprite = null;
-            lastSlot.GetComponentInChildren<Text>().enabled = false;
+            GameObject slot = slots[index];
+            Image image = slot.GetComponentsInChildren<Image>()[1];
+            image.enabled = false;
+            image.sprite = null;
+            slot.GetComponentInChildren<Text>().enabled = false;
         }
 
     }
     public Item CurrentItem()
     {
-        if(current >= invList.Count)
+        if(current >= invList.Length)
             return new Item(null, null, 0);
 
         return invList[current];
