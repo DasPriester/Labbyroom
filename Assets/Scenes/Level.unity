@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2286,10 +2286,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 472698509}
     m_Modifications:
-    - target: {fileID: 2404552962711730340, guid: 95a0564832cee3a4db252dc41a6af107, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 88ad707e6cd48cd4b996ddc1b40e8521, type: 2}
     - target: {fileID: 2404552962711730342, guid: 95a0564832cee3a4db252dc41a6af107, type: 3}
       propertyPath: m_Name
       value: WoodFloor
