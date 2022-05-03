@@ -7,6 +7,43 @@ public class Juiciness : MonoBehaviour
 {
     private enum levels { None, Basic, Full };
     private levels level = levels.Full;
+    PlayerController player;
+    ParticleSystem atmos;
+    List<Light> spots = new List<Light>();
+    List<MeshRenderer> dimSplits = new List<MeshRenderer>();
+
+    private void Start()
+    {
+        player = FindObjectOfType<PlayerController>();
+        ParticleSystem[] particles = FindObjectsOfType<ParticleSystem>();
+        Light[] lights = FindObjectsOfType<Light>();
+        MeshRenderer[] meshes = FindObjectsOfType<MeshRenderer>();
+
+        foreach (ParticleSystem ps in particles)
+        {
+            if (ps.name == "Atmospheric")
+            {
+                atmos = ps;
+            }
+        }
+
+        foreach (Light l in lights)
+        {
+            if (l.type == LightType.Spot)
+            {
+                spots.Add(l);
+            }
+        }
+
+        foreach(MeshRenderer mr in meshes)
+        {
+            if (mr.material.shader == Shader.Find("Shader Graphs/DimensionalSplit"))
+            {
+                dimSplits.Add(mr);
+            }
+        }
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab)) { 
@@ -14,12 +51,24 @@ public class Juiciness : MonoBehaviour
             if(level > levels.Full) 
                 level = levels.None;
 
-            PlayerController player = FindObjectOfType<PlayerController>();
             Interactable[] interactables = FindObjectsOfType<Interactable>();
 
             if (level == levels.None) {
                 player.useHeadbob = false;
                 player.useFootsteps = false;
+
+                atmos.Stop();
+
+                foreach (MeshRenderer ds in dimSplits)
+                {
+                    ds.enabled = false;
+                    ds.GetComponentInChildren<ParticleSystem>().Stop();
+                }
+
+                foreach (Light s in spots)
+                {
+                    s.enabled = false;
+                }
 
                 foreach (Interactable i in interactables)
                 {
@@ -34,6 +83,19 @@ public class Juiciness : MonoBehaviour
                 player.useHeadbob = true;
                 player.useFootsteps = true;
 
+                atmos.Play();
+
+                foreach (MeshRenderer ds in dimSplits)
+                {
+                    ds.enabled = false;
+                    ds.GetComponentInChildren<ParticleSystem>().Stop();
+                }
+
+                foreach (Light s in spots)
+                {
+                    s.enabled = false;
+                }
+
                 foreach (Interactable i in interactables)
                 {
                     i.UseAudio = true;
@@ -47,6 +109,19 @@ public class Juiciness : MonoBehaviour
             {
                 player.useHeadbob = true;
                 player.useFootsteps = true;
+
+                atmos.Play();
+
+                foreach (MeshRenderer ds in dimSplits)
+                {
+                    ds.enabled = true;
+                    ds.GetComponentInChildren<ParticleSystem>().Play();
+                }
+
+                foreach (Light s in spots)
+                {
+                    s.enabled = true;
+                }
 
                 foreach (Interactable i in interactables)
                 {
