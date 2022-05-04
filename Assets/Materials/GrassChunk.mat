@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Grass
-  m_Shader: {fileID: -6465566751694194690, guid: 060cd531418004e8cb817555f8b7b91d, type: 3}
+  m_Name: GrassChunk
+  m_Shader: {fileID: -6465566751694194690, guid: 01ba50f809c304d3893da316b59ce2e8, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -111,10 +111,10 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_015f55662c3a478e8468f507c6e12355: {r: 0.008101283, g: 0.14150941, b: 0, a: 0}
+    - Color_015f55662c3a478e8468f507c6e12355: {r: 0.016247386, g: 0.2924528, b: 0, a: 0}
     - Tiling: {r: 10, g: 5, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.0369217, g: 0.3018868, b: 0, a: 1}
+    - _Color: {r: 0.05623618, g: 0.4811321, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
