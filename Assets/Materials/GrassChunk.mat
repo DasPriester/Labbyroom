@@ -105,7 +105,9 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Speed: 1
     - _SrcBlend: 1
+    - _Steps: 3
     - _Surface: 0
     - _UVSec: 0
     - _WorkflowMode: 1
@@ -114,7 +116,8 @@ Material:
     - Color_015f55662c3a478e8468f507c6e12355: {r: 0.016247386, g: 0.2924528, b: 0, a: 0}
     - Tiling: {r: 10, g: 5, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.05623618, g: 0.4811321, b: 0, a: 1}
+    - _Color: {r: 0.03529412, g: 0.3019608, b: 0, a: 1}
+    - _DarkColor: {r: 0.007843138, g: 0.14117648, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

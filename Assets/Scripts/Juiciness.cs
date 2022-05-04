@@ -11,6 +11,7 @@ public class Juiciness : MonoBehaviour
     ParticleSystem atmos;
     List<Light> spots = new List<Light>();
     List<MeshRenderer> dimSplits = new List<MeshRenderer>();
+    List<MeshRenderer> grass = new List<MeshRenderer>();
 
     private void Start()
     {
@@ -41,6 +42,11 @@ public class Juiciness : MonoBehaviour
             {
                 dimSplits.Add(mr);
             }
+
+            if (mr.material.shader == Shader.Find("Shader Graphs/GrassChunk"))
+            {
+                grass.Add(mr);
+            }
         }
     }
 
@@ -63,6 +69,11 @@ public class Juiciness : MonoBehaviour
                 {
                     ds.enabled = false;
                     ds.GetComponentInChildren<ParticleSystem>().Stop();
+                }
+
+                foreach (MeshRenderer g in grass)
+                {
+                    g.enabled = false;
                 }
 
                 foreach (Light s in spots)
@@ -91,6 +102,12 @@ public class Juiciness : MonoBehaviour
                     ds.GetComponentInChildren<ParticleSystem>().Stop();
                 }
 
+                foreach (MeshRenderer g in grass)
+                {
+                    g.enabled = true;
+                    g.material.SetFloat("_Speed", 0f);
+                }
+
                 foreach (Light s in spots)
                 {
                     s.enabled = false;
@@ -116,6 +133,12 @@ public class Juiciness : MonoBehaviour
                 {
                     ds.enabled = true;
                     ds.GetComponentInChildren<ParticleSystem>().Play();
+                }
+
+                foreach (MeshRenderer g in grass)
+                {
+                    g.enabled = true;
+                    g.material.SetFloat("_Speed", 1.0f);
                 }
 
                 foreach (Light s in spots)
