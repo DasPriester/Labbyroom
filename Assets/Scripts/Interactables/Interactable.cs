@@ -15,13 +15,7 @@ public abstract class Interactable : MonoBehaviour
     {
         gameObject.layer = 6;
     }
-    public abstract void OnInteract();
-    public abstract void OnFocus();
+    public abstract void OnInteract(Vector3 pos);
+    public abstract void OnFocus(Vector3 pos);
     public abstract void OnLoseFcous();
-
-//    private void OnDrawGizmos()
-//    {
-//        Gizmos.color = Color.yellow;
-//        Gizmos.DrawWireCube(transform.position, transform.localScale);
-//    }
 }

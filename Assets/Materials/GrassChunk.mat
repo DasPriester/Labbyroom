@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LeverBaseMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 060cd531418004e8cb817555f8b7b91d, type: 3}
+  m_Name: GrassChunk
+  m_Shader: {fileID: -6465566751694194690, guid: 01ba50f809c304d3893da316b59ce2e8, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,9 +19,13 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _BaseMap:
-        m_Texture: {fileID: 0}
+    - Texture:
+        m_Texture: {fileID: 2800000, guid: 549b9da3af58a8d4db6c7f52bb0e5613, type: 3}
         m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: 549b9da3af58a8d4db6c7f52bb0e5613, type: 3}
+        m_Scale: {x: 10, y: 5}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
@@ -41,11 +45,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 10, y: 5}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 549b9da3af58a8d4db6c7f52bb0e5613, type: 3}
+        m_Scale: {x: 10, y: 5}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -76,6 +80,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_1253dd30f1594941bb59a2a29e699586: 5.7
     - Vector1_ef9e6344addf4d1186745eb55c42daf8: 3
     - _AlphaClip: 0
     - _Blend: 0
@@ -91,7 +96,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Metallic: 0.5
+    - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -100,19 +105,23 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Speed: 1
     - _SrcBlend: 1
+    - _Steps: 3
     - _Surface: 0
     - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_015f55662c3a478e8468f507c6e12355: {r: 0, g: 0.02476415, b: 0.1981132, a: 0}
-    - _BaseColor: {r: 0.3584906, g: 0.3192134, b: 0.29930583, a: 1}
-    - _Color: {r: 0.3584906, g: 0.3192134, b: 0.29930583, a: 1}
+    - Color_015f55662c3a478e8468f507c6e12355: {r: 0.016247386, g: 0.2924528, b: 0, a: 0}
+    - Tiling: {r: 10, g: 5, b: 0, a: 0}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.03529412, g: 0.3019608, b: 0, a: 1}
+    - _DarkColor: {r: 0.007843138, g: 0.14117648, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &9049107320181917172
+--- !u!114 &3469139211246078906
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

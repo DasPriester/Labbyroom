@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Default Flat
-  m_Shader: {fileID: -6465566751694194690, guid: 060cd531418004e8cb817555f8b7b91d, type: 3}
+  m_Name: Wall_Default
+  m_Shader: {fileID: -6465566751694194690, guid: 0f198c9f54f264aa1bbe0f273742cd5c, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -32,6 +32,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -89,7 +93,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_ef9e6344addf4d1186745eb55c42daf8: 2
+    - Vector1_1253dd30f1594941bb59a2a29e699586: 0
+    - Vector1_ef9e6344addf4d1186745eb55c42daf8: 3
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -120,7 +125,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_015f55662c3a478e8468f507c6e12355: {r: 0, g: 0.02476415, b: 0.1981132, a: 0}
-    - Vector2_53ad50ea85054a66960508f4b571df1c: {r: 0.04, g: 0.5, b: 0, a: 0}
+    - Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

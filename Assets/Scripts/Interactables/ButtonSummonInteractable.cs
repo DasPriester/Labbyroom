@@ -10,7 +10,7 @@ public class ButtonSummonInteractable : Interactable
     [SerializeField] private ParticleSystem summonParticle = default;
     [SerializeField] private GameObject summonPrefab = default;
     [SerializeField] private GameObject summonLocation = default;
-    public override void OnInteract()
+    public override void OnInteract(Vector3 pos)
     {
         if (UseAudio)
             AudioSource.PlayClipAtPoint(buttonSound, transform.position);
@@ -18,17 +18,17 @@ public class ButtonSummonInteractable : Interactable
         if (UseAnimation)
             buttonAnimator.SetTrigger("PressTrigger");
 
-        Vector3 pos = summonLocation.transform.position;
-        pos.y += 15;
+        Vector3 position = summonLocation.transform.position;
+        position.y += 15;
 
         if (UseParticle)
-            Instantiate(summonParticle, pos, Quaternion.identity).Play();
+            Instantiate(summonParticle, position, Quaternion.identity).Play();
 
-        Instantiate(summonPrefab, pos, Quaternion.identity);
+        Instantiate(summonPrefab, position, Quaternion.identity);
 
 
     }
-    public override void OnFocus()
+    public override void OnFocus(Vector3 pos)
     {
         if (UseOutline)
             gameObject.GetComponent<Outline>().enabled = true;

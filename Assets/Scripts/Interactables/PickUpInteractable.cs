@@ -22,7 +22,7 @@ public class PickUpInteractable : Interactable
         AudioSource.PlayClipAtPoint(placeSound, position);
     }
 
-    public override void OnInteract()
+    public override void OnInteract(Vector3 pos)
     {
         if (UseAudio)
             AudioSource.PlayClipAtPoint(pickUpSound, transform.position);
@@ -36,7 +36,7 @@ public class PickUpInteractable : Interactable
         Destroy(gameObject);
     }
 
-    public override void OnFocus()
+    public override void OnFocus(Vector3 pos)
     {
         if (UseOutline) 
             gameObject.GetComponent<Outline>().enabled = true;

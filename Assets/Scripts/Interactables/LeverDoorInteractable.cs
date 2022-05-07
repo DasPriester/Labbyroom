@@ -11,7 +11,7 @@ public class LeverDoorInteractable : Interactable
     [SerializeField] private Animator doorAnimator = default;
     [SerializeField] private Animator door2Animator = default;
 
-    public override void OnInteract()
+    public override void OnInteract(Vector3 pos)
     {
 
         if (UseAudio)
@@ -34,7 +34,7 @@ public class LeverDoorInteractable : Interactable
         door2Animator.SetTrigger("ToggleTrigger");
         
     }
-    public override void OnFocus()
+    public override void OnFocus(Vector3 pos)
     {
         if (UseOutline)
                 gameObject.GetComponent<Outline>().enabled = true;
