@@ -44,5 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Wall: {fileID: 1819586498260209660, guid: 925170e0a15fb42329a05c0ce752c48a, type: 3}
+  Portal: {fileID: 3254051265726217479, guid: f865c762d589b4299ab4c7e630d0f5be, type: 3}
   Dimensions: {x: 10, y: 4, z: 0.5}
   doors: []

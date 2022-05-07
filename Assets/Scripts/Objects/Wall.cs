@@ -5,15 +5,17 @@ using UnityEngine;
 public class Wall : Interactable
 {
     public WallManager manager;
+    //To be reworked (Temporary)
+    [SerializeField] Room roomType;
 
     override public void OnInteract(Vector3 pos)
     {
-        manager.AddDoor(pos, 2);
+        manager.AddDoor(pos, 2, roomType);
     }
 
     override public void OnFocus(Vector3 pos)
     {
-        manager.DrawDoor(pos, 2, GetComponent<MeshRenderer>().material);
+        return;
     }
 
     override public void OnLoseFcous()

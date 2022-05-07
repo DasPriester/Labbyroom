@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class WallManager : MonoBehaviour
 {
+    static float x = 0;
     [SerializeField] private Wall Wall = null;
+    [SerializeField] private PortalComponent Portal = null;
     [SerializeField] private Vector3 Dimensions = Vector3.one;
 
     private List<Wall> walls = new List<Wall>();
-    [SerializeField] private List<Vector2> doors = new List<Vector2>();
+    [SerializeField] public List<Vector2> doors = new List<Vector2>();
 
-    public bool AddDoor(Vector3 pos, float width)
+    private Camera playerCamera;
+
+    void Start()
+    {
+        UpdateWall();
+    }
+
+    public bool AddDoor(Vector3 pos, float width, Room roomType)
     {
         Vector3 inv = transform.InverseTransformPoint(pos);
         Vector2 door = new Vector2(inv.x + Dimensions.x / 2, width);
@@ -32,37 +41,26 @@ public class WallManager : MonoBehaviour
         doors.Add(door);
         UpdateWall();
 
+        InsertPortal(door, roomType);
+
         return true;
     }
 
-    public void DrawDoor(Vector3 pos, float width, Material mat)
+    private void InsertPortal(Vector2 door, Room roomType)
     {
-        Vector3 inv = transform.InverseTransformPoint(pos);
-        Vector2 door = new Vector2(inv.x + Dimensions.x / 2, width);
-
-        if (door.x < 0 || door.x + door.y > Dimensions.x)
-        {
-            return;
-        }
-
-        foreach (Vector2 d in doors)
-        {
-            if (Mathf.Abs(door.x - d.x) < (door.y + d.y) / 2)
-            {
-                return;
-            }
-        }
-
         Vector3 left = transform.position - transform.right * Dimensions.x / 2;
-        mat.SetVector("_DoorPos", left + door.x * transform.right + Dimensions.z / 2 * transform.forward);
-        mat.SetVector("_DoorDim", new Vector3(width, Dimensions.y));
-    }
 
-    private Camera playerCamera;
+        PortalComponent p1 = Instantiate(Portal, left + door.x * transform.right - transform.up * Dimensions.y / 2, transform.rotation);
+        x += 100;
+        Room room = Instantiate(roomType, Vector3.forward * x, new Quaternion());
+        Transform coords = room.AddAccessDoor();
+        coords.Rotate(transform.up, 180);
+        PortalComponent p2 = Instantiate(Portal, coords);
 
-    void Start()
-    {
-        UpdateWall();
+        p1.linkedPortal = p2;
+        p2.linkedPortal = p1;
+        p1.GetComponentInChildren<DoorInteractable>().UpdateConnection();
+        p2.GetComponentInChildren<DoorInteractable>().UpdateConnection();
     }
 
     private void OnDrawGizmos()
@@ -77,8 +75,8 @@ public class WallManager : MonoBehaviour
 
         doors.Sort((p1, p2) => p1.x.CompareTo(p2.x));
 
-        Vector3 left = - transform.right * Dimensions.x / 2;
-        Vector3 right = transform.right * Dimensions.x / 2;
+        Vector3 left = - Vector3.right * Dimensions.x / 2;
+        Vector3 right = Vector3.right * Dimensions.x / 2;
 
         foreach (Vector2 door in doors)
         {
@@ -91,7 +89,7 @@ public class WallManager : MonoBehaviour
         }
     }
 
-    private void UpdateWall()
+    public void UpdateWall()
     {
         foreach (Transform child in transform)
         {

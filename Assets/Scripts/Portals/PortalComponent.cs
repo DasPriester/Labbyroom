@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class PortalComponent : MonoBehaviour
 {
-    [SerializeField] PortalComponent linkedPortal = null;
+    [SerializeField] public PortalComponent linkedPortal = null;
     [SerializeField] MeshRenderer screen = null;
 
     Camera playerCam;
@@ -32,28 +32,31 @@ public class PortalComponent : MonoBehaviour
 
     private void LateUpdate()
     {
-        linkedPortal.ProtectScreenFromClipping(playerCam.transform.position);
-        for (int i = 0; i < trackedTravellers.Count; i++)
+        if (linkedPortal)
         {
-            PortalTraveller traveller = trackedTravellers[i];
-            Transform travellerT = traveller.transform;
-            var m = linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * travellerT.localToWorldMatrix;
-
-            Vector3 offsetFromPortal = travellerT.position - transform.position;
-            int portalSide = System.Math.Sign(Vector3.Dot(offsetFromPortal, transform.forward));
-            int portalSideOld = System.Math.Sign(Vector3.Dot(traveller.previousOffsetFromPortal, transform.forward));
-
-            if (portalSide != portalSideOld)
+            linkedPortal.ProtectScreenFromClipping(playerCam.transform.position);
+            for (int i = 0; i < trackedTravellers.Count; i++)
             {
-                traveller.Teleport(transform, linkedPortal.transform, m.GetColumn(3), m.rotation);
-                linkedPortal.OnTravellerEnterPortal(traveller);
-                trackedTravellers.Remove(traveller);
-                i--;
+                PortalTraveller traveller = trackedTravellers[i];
+                Transform travellerT = traveller.transform;
+                var m = linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * travellerT.localToWorldMatrix;
 
-            }
-            else
-            {
-                traveller.previousOffsetFromPortal = offsetFromPortal;
+                Vector3 offsetFromPortal = travellerT.position - transform.position;
+                int portalSide = System.Math.Sign(Vector3.Dot(offsetFromPortal, transform.forward));
+                int portalSideOld = System.Math.Sign(Vector3.Dot(traveller.previousOffsetFromPortal, transform.forward));
+
+                if (portalSide != portalSideOld)
+                {
+                    traveller.Teleport(transform, linkedPortal.transform, m.GetColumn(3), m.rotation);
+                    linkedPortal.OnTravellerEnterPortal(traveller);
+                    trackedTravellers.Remove(traveller);
+                    i--;
+
+                }
+                else
+                {
+                    traveller.previousOffsetFromPortal = offsetFromPortal;
+                }
             }
         }
     }
@@ -71,58 +74,61 @@ public class PortalComponent : MonoBehaviour
 
     private void Update()
     {
-        if (!CameraUtility.VisibleFromCamera(linkedPortal.screen, playerCam))
+        if (linkedPortal)
         {
-            return;
-        }
-
-        CreateViewTexture();
-
-        var localToWorldMatrix = playerCam.transform.localToWorldMatrix;
-        var renderPositions = new Vector3[recursionLimit];
-        var renderRotations = new Quaternion[recursionLimit];
-
-        int startIndex = 0;
-        portalCam.projectionMatrix = playerCam.projectionMatrix;
-        for (int i = 0; i < recursionLimit; i++)
-        {
-            if (i > 0)
+            if (!CameraUtility.VisibleFromCamera(linkedPortal.screen, playerCam))
             {
-                // No need for recursive rendering if linked portal is not visible through this portal
-                if (!CameraUtility.BoundsOverlap(screenMeshFilter, linkedPortal.screenMeshFilter, portalCam))
+                return;
+            }
+
+            CreateViewTexture();
+
+            var localToWorldMatrix = playerCam.transform.localToWorldMatrix;
+            var renderPositions = new Vector3[recursionLimit];
+            var renderRotations = new Quaternion[recursionLimit];
+
+            int startIndex = 0;
+            portalCam.projectionMatrix = playerCam.projectionMatrix;
+            for (int i = 0; i < recursionLimit; i++)
+            {
+                if (i > 0)
                 {
-                    break;
+                    // No need for recursive rendering if linked portal is not visible through this portal
+                    if (!CameraUtility.BoundsOverlap(screenMeshFilter, linkedPortal.screenMeshFilter, portalCam))
+                    {
+                        break;
+                    }
+                }
+                localToWorldMatrix = transform.localToWorldMatrix * linkedPortal.transform.worldToLocalMatrix * localToWorldMatrix;
+                int renderOrderIndex = recursionLimit - i - 1;
+                renderPositions[renderOrderIndex] = localToWorldMatrix.GetColumn(3);
+                renderRotations[renderOrderIndex] = localToWorldMatrix.rotation;
+
+                portalCam.transform.SetPositionAndRotation(renderPositions[renderOrderIndex], renderRotations[renderOrderIndex]);
+                startIndex = renderOrderIndex;
+            }
+
+            screen.enabled = false;
+            linkedPortal.screen.material.SetInt("displayMask", 0);
+
+            for (int i = startIndex; i < recursionLimit; i++)
+            {
+                portalCam.transform.SetPositionAndRotation(renderPositions[i], renderRotations[i]);
+                SetNearClipPlane();
+                linkedPortal.ProtectScreenFromClipping(portalCam.transform.position);
+                if (portalCam.transform.eulerAngles != Vector3.zero)
+                {
+                    portalCam.Render();
+                }
+
+                if (i == startIndex)
+                {
+                    linkedPortal.screen.material.SetInt("displayMask", 1);
                 }
             }
-            localToWorldMatrix = transform.localToWorldMatrix * linkedPortal.transform.worldToLocalMatrix * localToWorldMatrix;
-            int renderOrderIndex = recursionLimit - i - 1;
-            renderPositions[renderOrderIndex] = localToWorldMatrix.GetColumn(3);
-            renderRotations[renderOrderIndex] = localToWorldMatrix.rotation;
 
-            portalCam.transform.SetPositionAndRotation(renderPositions[renderOrderIndex], renderRotations[renderOrderIndex]);
-            startIndex = renderOrderIndex;
+            screen.enabled = true;
         }
-
-        screen.enabled = false;
-        linkedPortal.screen.material.SetInt("displayMask", 0);
-
-        for (int i = startIndex; i < recursionLimit; i++)
-        {
-            portalCam.transform.SetPositionAndRotation(renderPositions[i], renderRotations[i]);
-            SetNearClipPlane();
-            linkedPortal.ProtectScreenFromClipping(portalCam.transform.position);
-            if (portalCam.transform.eulerAngles != Vector3.zero)
-            {
-                portalCam.Render();
-            }
-
-            if (i == startIndex)
-            {
-                linkedPortal.screen.material.SetInt("displayMask", 1);
-            }
-        }
-
-        screen.enabled = true;
     }
     
 

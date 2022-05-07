@@ -113,3 +113,4 @@ MonoBehaviour:
   UseParticle: 0
   UseAnimation: 0
   manager: {fileID: 0}
+  roomType: {fileID: 1255976478663795016, guid: 26af1457050134ab7834708980f57815, type: 3}
