@@ -6,7 +6,6 @@ public class WallManager : MonoBehaviour
 {
     static float x = 0;
     [SerializeField] private Wall Wall = null;
-    [SerializeField] private PortalComponent Portal = null;
     [SerializeField] private Vector3 Dimensions = Vector3.one;
 
     private List<Wall> walls = new List<Wall>();
@@ -19,7 +18,7 @@ public class WallManager : MonoBehaviour
         UpdateWall();
     }
 
-    public bool AddDoor(Vector3 pos, float width, Room roomType)
+    public bool AddDoor(Vector3 pos, float width, Room roomType, PortalComponent portalType)
     {
         Vector3 inv = transform.InverseTransformPoint(pos);
         Vector2 door = new Vector2(inv.x + Dimensions.x / 2, width);
@@ -41,21 +40,20 @@ public class WallManager : MonoBehaviour
         doors.Add(door);
         UpdateWall();
 
-        InsertPortal(door, roomType);
+        InsertPortal(door, roomType, portalType);
 
         return true;
     }
 
-    private void InsertPortal(Vector2 door, Room roomType)
+    private void InsertPortal(Vector2 door, Room roomType, PortalComponent portalType)
     {
         Vector3 left = transform.position - transform.right * Dimensions.x / 2;
 
-        PortalComponent p1 = Instantiate(Portal, left + door.x * transform.right - transform.up * Dimensions.y / 2, transform.rotation);
+        PortalComponent p1 = Instantiate(portalType, left + door.x * transform.right - transform.up * Dimensions.y / 2, transform.rotation);
         x += 100;
         Room room = Instantiate(roomType, Vector3.forward * x, new Quaternion());
         Transform coords = room.AddAccessDoor();
-        coords.Rotate(transform.up, 180);
-        PortalComponent p2 = Instantiate(Portal, coords);
+        PortalComponent p2 = Instantiate(portalType, coords);
 
         p1.linkedPortal = p2;
         p2.linkedPortal = p1;

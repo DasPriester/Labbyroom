@@ -284,6 +284,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1957193662760640973, guid: 26af1457050134ab7834708980f57815, type: 3}
+      propertyPath: m_Name
+      value: Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078976873531788659, guid: 26af1457050134ab7834708980f57815, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 5518771474986691156, guid: 26af1457050134ab7834708980f57815, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -331,6 +339,10 @@ PrefabInstance:
     - target: {fileID: 5518771474986691159, guid: 26af1457050134ab7834708980f57815, type: 3}
       propertyPath: m_Name
       value: TestRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518771476128126092, guid: 26af1457050134ab7834708980f57815, type: 3}
+      propertyPath: m_Name
+      value: Floor
       objectReference: {fileID: 0}
     - target: {fileID: 6829447755827836524, guid: 26af1457050134ab7834708980f57815, type: 3}
       propertyPath: m_LocalPosition.y
