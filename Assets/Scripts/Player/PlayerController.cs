@@ -219,7 +219,7 @@ public class PlayerController : PortalTraveller
                 hit.collider.TryGetComponent(out currentInteractable);
 
                 if (currentInteractable)
-                    currentInteractable.OnFocus();
+                    currentInteractable.OnFocus(hit.point);
                 
             }
         }
@@ -236,7 +236,7 @@ public class PlayerController : PortalTraveller
         if(Input.GetKeyDown(interactKey) && currentInteractable != null && 
             Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
         {
-            currentInteractable.OnInteract();
+            currentInteractable.OnInteract(hit.point);
         }
     }
 
