@@ -36,13 +36,29 @@ public class PlayerCrafting : MonoBehaviour
 
     private void UpdateCraftMenu()
     {
+        if (!inv)
+            inv = GetComponentInChildren<PlayerInventory>();
+
         float i = 0;
         foreach (Recipe rec in recipes)
         {
             RectTransform nen = Instantiate(entry, content);
 
             nen.Find("Name").GetComponent<Text>().text = rec.name;
-            nen.Find("CraftButton").GetComponent<Button>().onClick.AddListener(() => { inv.CraftRecipe(rec); });
+            nen.Find("Cost").GetComponent<Text>().text = "Cost: " + DictToString(rec.Cost);
+            nen.Find("Yield").GetComponent<Text>().text = "Yield: " + DictToString(rec.Yield);
+            string nameOfResult = "";
+            foreach (PickUpInteractable p in rec.Yield.Keys)
+            {
+                nameOfResult = p.name;
+                break;
+            }
+            nen.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + nameOfResult);
+            Button button = nen.Find("CraftButton").GetComponent<Button>();
+            button.onClick.AddListener(() => { inv.CraftRecipe(rec); UpdateCraftMenu(); });
+            bool craftable = inv.IsCraftable(rec);
+            button.GetComponent<Image>().color = craftable ? Color.green : Color.gray;
+            button.interactable = craftable;
 
             nen.transform.position += Vector3.down * 70 * i;
             i++;
@@ -50,6 +66,20 @@ public class PlayerCrafting : MonoBehaviour
 
         entry.Find("Name").GetComponent<Text>().text = "Name";
         entry.Find("CraftButton").GetComponent<Button>().onClick.AddListener(() => { });
+    }
+
+    private string DictToString(Dictionary<PickUpInteractable, int> dict)
+    {
+        string[] o = new string[dict.Count];
+
+        int i = 0;
+        foreach (PickUpInteractable pi in dict.Keys)
+        {
+            o[i] = dict[pi] + "x " + pi.name;
+            i++;
+        }
+
+        return string.Join(", ", o);
     }
 
     private void Update()
@@ -67,7 +97,10 @@ public class PlayerCrafting : MonoBehaviour
             if (hidden)
                 Cursor.lockState = CursorLockMode.Locked;
             else
+            {
                 Cursor.lockState = CursorLockMode.None;
+                UpdateCraftMenu();
+            }
             Cursor.visible = !hidden;
 
             GameObject.Find("UI/CenterDot").GetComponent<Image>().color = hidden ? Color.white : Color.clear;

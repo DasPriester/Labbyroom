@@ -151,6 +151,27 @@ public class PlayerInventory : MonoBehaviour
 
     }
 
+    public bool CanRemoveItem(Item item)
+    {
+        int index = Array.FindIndex<Item>(invList, x => x.name == item.name);
+
+        if (index == -1)
+        {
+            return false;
+        }
+        else
+        {
+            if (invList[index].amount >= item.amount)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
     public void CraftRecipe(Recipe recipe)
     {
         Item[] invBackup = invList;
@@ -171,6 +192,17 @@ public class PlayerInventory : MonoBehaviour
         {
             invList = invBackup;
         }
+    }
+
+    public bool IsCraftable(Recipe recipe)
+    {
+        bool canCraft = true;
+        foreach (PickUpInteractable costName in recipe.Cost.Keys)
+        {
+            if (!CanRemoveItem(new Item(costName.gameObject, costName.name, recipe.Cost[costName])))
+                canCraft = false;
+        }
+        return canCraft;
     }
 
     public Item CurrentItem()
