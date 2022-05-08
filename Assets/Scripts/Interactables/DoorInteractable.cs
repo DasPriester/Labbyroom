@@ -13,7 +13,6 @@ public class DoorInteractable : Interactable
     private void Awake()
     {
         other = doorAnimator.GetComponentInParent<PortalComponent>();
-        door2Animator = other.linkedPortal.GetComponentInChildren<Animator>();
     }
 
     public void UpdateConnection()

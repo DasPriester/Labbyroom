@@ -40,10 +40,6 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
     {
         this.Clear();
         if (keys.Count > size)
-            for (int i = size; i < keys.Count; i++)
-            {
-                keys[i] = default;
-            }
             size = keys.Count;
 
         while (keys.Count < size)
