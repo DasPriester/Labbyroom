@@ -70,6 +70,11 @@ public class PlayerCrafting : MonoBehaviour
                 i++;
             }
         }
+
+        if (i > 0)
+            craftingMenu.transform.Find("Scroll View/NoContent").GetComponent<Text>().text = "";
+        else
+            craftingMenu.transform.Find("Scroll View/NoContent").GetComponent<Text>().text = "You have to discover a recipe first...";
     }
 
     private string DictToString(Dictionary<PickUpInteractable, int> dict)
@@ -95,22 +100,27 @@ public class PlayerCrafting : MonoBehaviour
 
         if ((Input.GetKey(KeyCode.Menu) || Input.GetKey(openKey)) && menuCooldown == 0)
         {
-            menuCooldown = 0.2f;
-            bool hidden = craftingMenu.ToggleHide();
-
-            if (hidden)
-                Cursor.lockState = CursorLockMode.Locked;
-            else
-            {
-                Cursor.lockState = CursorLockMode.None;
-                UpdateCraftMenu();
-            }
-            Cursor.visible = !hidden;
-
-            GameObject.Find("UI/CenterDot").GetComponent<Image>().color = hidden ? Color.white : Color.clear;
-
-            pc.enabled = hidden;
+            ToggleCraftingMenu();
         }
+    }
+
+    public void ToggleCraftingMenu()
+    {
+        menuCooldown = 0.2f;
+        bool hidden = craftingMenu.ToggleHide();
+
+        if (hidden)
+            Cursor.lockState = CursorLockMode.Locked;
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            UpdateCraftMenu();
+        }
+        Cursor.visible = !hidden;
+
+        GameObject.Find("UI/CenterDot").GetComponent<Image>().color = hidden ? Color.white : Color.clear;
+
+        pc.enabled = hidden;
     }
 
 }
