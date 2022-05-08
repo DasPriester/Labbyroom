@@ -83,25 +83,69 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public void RemoveItem(Item item)
+    public void AddItem(Item item)
     {
         int index = Array.FindIndex<Item>(invList, x => x.name == item.name);
 
-        if (item.amount > 1)
+        if (index != -1)
         {
-            invList[index].amount -= 1;
+            invList[index].amount += 1;
 
             slots[index].GetComponentInChildren<Text>().text = "" + invList[index].amount;
         }
         else
         {
-            invList[index] = new Item(null, null, 0);
+            for (int i = 0; i < invList.Length; i++)
+            {
+                if (invList[i].prefab == null)
+                {
+                    invList[i] = item;
 
-            GameObject slot = slots[index];
-            Image image = slot.GetComponentsInChildren<Image>()[1];
-            image.enabled = false;
-            image.sprite = null;
-            slot.GetComponentInChildren<Text>().enabled = false;
+                    GameObject slot = slots[i];
+                    Image image = slot.GetComponentsInChildren<Image>()[1];
+                    image.enabled = true;
+                    image.sprite = Resources.Load<Sprite>("Sprites/" + item.name);
+                    slot.GetComponentInChildren<Text>().enabled = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    public bool RemoveItem(Item item)
+    {
+        int index = Array.FindIndex<Item>(invList, x => x.name == item.name);
+
+        if (index == -1)
+        {
+            return false;
+        }
+        else
+        {
+            if (invList[index].amount >= item.amount)
+            {
+                invList[index].amount -= item.amount;
+            } else
+            {
+                return false;
+            }
+
+            if (invList[index].amount >= 1)
+            {
+                slots[index].GetComponentInChildren<Text>().text = "" + invList[index].amount;
+            }
+            else
+            {
+                invList[index] = new Item(null, null, 0);
+
+                GameObject slot = slots[index];
+                Image image = slot.GetComponentsInChildren<Image>()[1];
+                image.enabled = false;
+                image.sprite = null;
+                slot.GetComponentInChildren<Text>().enabled = false;
+            }
+
+            return true;
         }
 
     }

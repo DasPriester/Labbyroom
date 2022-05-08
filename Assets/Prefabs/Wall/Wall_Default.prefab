@@ -113,5 +113,3 @@ MonoBehaviour:
   UseParticle: 0
   UseAnimation: 0
   manager: {fileID: 0}
-  roomType: {fileID: 1255976478663795016, guid: 26af1457050134ab7834708980f57815, type: 3}
-  portalType: {fileID: 3254051265726217479, guid: f865c762d589b4299ab4c7e630d0f5be, type: 3}
