@@ -42,26 +42,29 @@ public class PlayerCrafting : MonoBehaviour
         float i = 0;
         foreach (Recipe rec in recipes)
         {
-            RectTransform nen = Instantiate(entry, content);
-
-            nen.Find("Name").GetComponent<Text>().text = rec.name;
-            nen.Find("Cost").GetComponent<Text>().text = "Cost: " + DictToString(rec.Cost);
-            nen.Find("Yield").GetComponent<Text>().text = "Yield: " + DictToString(rec.Yield);
-            string nameOfResult = "";
-            foreach (PickUpInteractable p in rec.Yield.Keys)
+            if (rec.unlocked)
             {
-                nameOfResult = p.name;
-                break;
-            }
-            nen.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + nameOfResult);
-            Button button = nen.Find("CraftButton").GetComponent<Button>();
-            button.onClick.AddListener(() => { inv.CraftRecipe(rec); UpdateCraftMenu(); });
-            bool craftable = inv.IsCraftable(rec);
-            button.GetComponent<Image>().color = craftable ? Color.green : Color.gray;
-            button.interactable = craftable;
+                RectTransform nen = Instantiate(entry, content);
 
-            nen.transform.position += Vector3.down * 70 * i;
-            i++;
+                nen.Find("Name").GetComponent<Text>().text = rec.name;
+                nen.Find("Cost").GetComponent<Text>().text = "Cost: " + DictToString(rec.Cost);
+                nen.Find("Yield").GetComponent<Text>().text = "Yield: " + DictToString(rec.Yield);
+                string nameOfResult = "";
+                foreach (PickUpInteractable p in rec.Yield.Keys)
+                {
+                    nameOfResult = p.name;
+                    break;
+                }
+                nen.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + nameOfResult);
+                Button button = nen.Find("CraftButton").GetComponent<Button>();
+                button.onClick.AddListener(() => { inv.CraftRecipe(rec); UpdateCraftMenu(); });
+                bool craftable = inv.IsCraftable(rec);
+                button.GetComponent<Image>().color = craftable ? Color.green : Color.gray;
+                button.interactable = craftable;
+
+                nen.transform.position += Vector3.down * 70 * i;
+                i++;
+            }
         }
 
         entry.Find("Name").GetComponent<Text>().text = "Name";

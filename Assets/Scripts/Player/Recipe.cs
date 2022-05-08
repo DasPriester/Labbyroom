@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public class Recipe : ScriptableObject
 {
     public string name;
+    public bool unlocked = false;
 
     public SerializableDictionary<PickUpInteractable, int> Cost;
     public SerializableDictionary<PickUpInteractable, int> Yield;
