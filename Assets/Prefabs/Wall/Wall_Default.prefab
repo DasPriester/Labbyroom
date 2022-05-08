@@ -112,4 +112,5 @@ MonoBehaviour:
   UseOutline: 0
   UseParticle: 0
   UseAnimation: 0
+  UseToolTip: 1
   manager: {fileID: 0}

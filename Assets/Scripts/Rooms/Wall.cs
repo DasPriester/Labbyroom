@@ -32,6 +32,11 @@ public class Wall : Interactable
 
     }
 
+    override public void Awake()
+    {
+        gameObject.layer = 6;
+    }
+
     override public void OnFocus(Vector3 pos)
     {
         return;

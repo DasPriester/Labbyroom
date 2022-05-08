@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: a7a4585e9c3f9794ea05c34a0214c4fe
+guid: 6ad6b02f40e6044beb147880668f249a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - toolTipPrefab: {fileID: 4212663078528121914, guid: bb02f2a9d81e54efdb19b8468f69c078, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -10,6 +10,7 @@ public class ButtonSummonInteractable : Interactable
     [SerializeField] private ParticleSystem summonParticle = default;
     [SerializeField] private GameObject summonPrefab = default;
     [SerializeField] private GameObject summonLocation = default;
+
     public override void OnInteract(Vector3 pos)
     {
         if (UseAudio)
@@ -27,16 +28,6 @@ public class ButtonSummonInteractable : Interactable
         Instantiate(summonPrefab, position, Quaternion.identity);
 
 
-    }
-    public override void OnFocus(Vector3 pos)
-    {
-        if (UseOutline)
-            gameObject.GetComponent<Outline>().enabled = true;
-    }
-    public override void OnLoseFcous()
-    {
-        if (UseOutline)
-            gameObject.GetComponent<Outline>().enabled = false;
     }
 }
 

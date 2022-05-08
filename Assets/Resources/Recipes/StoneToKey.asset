@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: StoneToKey
   m_EditorClassIdentifier: 
   name: Stone to Key
+  unlocked: 0
   Cost:
     keys:
     - {fileID: -3312713435364818256, guid: 3dc0032bda0a3a24f848db19061df8c0, type: 3}

@@ -23,7 +23,7 @@ public class PlayerController : PortalTraveller
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
     [SerializeField] private KeyCode crouchKey = KeyCode.LeftControl;
-    [SerializeField] private KeyCode interactKey = KeyCode.E;
+    [SerializeField] public KeyCode interactKey = KeyCode.E;
     [SerializeField] private KeyCode placeKey = KeyCode.Q;
 
     [Header("Movement Parameters")]

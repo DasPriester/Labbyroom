@@ -10,8 +10,13 @@ public class DoorInteractable : Interactable
     private Animator door2Animator = null;
     private PortalComponent other;
 
-    private void Awake()
+    public override void Awake()
     {
+        gameObject.layer = 6;
+
+        toolTip = Instantiate(Resources.Load<ToolTip>("Prefabs/ToolTip"), transform);
+        toolTip.key = Camera.main.GetComponentInParent<PlayerController>().interactKey;
+
         other = doorAnimator.GetComponentInParent<PortalComponent>();
     }
 
@@ -34,15 +39,5 @@ public class DoorInteractable : Interactable
         if (door2Animator)
             door2Animator.SetTrigger("ToggleTrigger");
         
-    }
-    public override void OnFocus(Vector3 pos)
-    {
-        if (UseOutline)
-                gameObject.GetComponent<Outline>().enabled = true;
-    }
-    public override void OnLoseFcous()
-    {
-        if (UseOutline)
-               gameObject.GetComponent<Outline>().enabled = false;
     }
 }

@@ -39,6 +39,10 @@ public class PlayerCrafting : MonoBehaviour
         if (!inv)
             inv = GetComponentInChildren<PlayerInventory>();
 
+        foreach (RectTransform g in content.GetComponentsInChildren<RectTransform>())
+            if (g != content)
+                Destroy(g.gameObject);
+
         float i = 0;
         foreach (Recipe rec in recipes)
         {
@@ -66,9 +70,6 @@ public class PlayerCrafting : MonoBehaviour
                 i++;
             }
         }
-
-        entry.Find("Name").GetComponent<Text>().text = "Name";
-        entry.Find("CraftButton").GetComponent<Button>().onClick.AddListener(() => { });
     }
 
     private string DictToString(Dictionary<PickUpInteractable, int> dict)

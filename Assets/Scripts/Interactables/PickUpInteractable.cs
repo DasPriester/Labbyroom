@@ -35,16 +35,4 @@ public class PickUpInteractable : Interactable
 
         Destroy(gameObject);
     }
-
-    public override void OnFocus(Vector3 pos)
-    {
-        if (UseOutline) 
-            gameObject.GetComponent<Outline>().enabled = true;
-                
-    }
-    public override void OnLoseFcous()
-    {
-        if(UseOutline)
-            gameObject.GetComponent<Outline>().enabled = false;
-    }
 }

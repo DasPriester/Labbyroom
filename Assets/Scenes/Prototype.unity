@@ -426,6 +426,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5910781459884920113, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
+      propertyPath: ToolTipOffset.z
+      value: -0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6432907728722272025, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_Name
       value: Recipe

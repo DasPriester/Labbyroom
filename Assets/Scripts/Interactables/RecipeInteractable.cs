@@ -1,11 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RecipeInteractable : Interactable
 {
     [SerializeField] private AudioClip pickupSound = default;
     [SerializeField] private Recipe recipe = null;
+
+    private void Start()
+    {
+        GameObject.Find("Canvas/Text").GetComponent<Text>().text = recipe.name;
+        string nameOfResult = "";
+        foreach (PickUpInteractable p in recipe.Yield.Keys)
+        {
+            nameOfResult = p.name;
+            break;
+        }
+        GameObject.Find("Canvas/Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + nameOfResult);
+    }
 
     public override void OnInteract(Vector3 pos)
     {
@@ -17,15 +30,5 @@ public class RecipeInteractable : Interactable
         recipe.unlocked = true;
         Destroy(gameObject);
         
-    }
-    public override void OnFocus(Vector3 pos)
-    {
-        if (UseOutline)
-                gameObject.GetComponent<Outline>().enabled = true;
-    }
-    public override void OnLoseFcous()
-    {
-        if (UseOutline)
-               gameObject.GetComponent<Outline>().enabled = false;
     }
 }

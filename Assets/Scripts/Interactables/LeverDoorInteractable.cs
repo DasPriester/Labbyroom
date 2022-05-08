@@ -34,14 +34,4 @@ public class LeverDoorInteractable : Interactable
         door2Animator.SetTrigger("ToggleTrigger");
         
     }
-    public override void OnFocus(Vector3 pos)
-    {
-        if (UseOutline)
-                gameObject.GetComponent<Outline>().enabled = true;
-    }
-    public override void OnLoseFcous()
-    {
-        if (UseOutline)
-               gameObject.GetComponent<Outline>().enabled = false;
-    }
 }
