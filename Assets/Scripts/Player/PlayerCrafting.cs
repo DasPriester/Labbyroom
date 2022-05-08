@@ -7,13 +7,13 @@ public class PlayerCrafting : MonoBehaviour
     [SerializeField]
     SerializableDictionary<KeyCode, Recipe> keyMap;
 
-    [SerializeField]
     PlayerInventory inv = null;
-
     Dictionary<KeyCode, float> cooldown = new Dictionary<KeyCode, float>();
 
     private void Awake()
     {
+        inv = GetComponentInChildren<PlayerInventory>();
+
         foreach (KeyCode key in keyMap.Keys)
         {
             cooldown.Add(key, 0);

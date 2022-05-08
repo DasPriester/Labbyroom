@@ -25,7 +25,8 @@ public class Wall : Interactable
             item.amount = 1;
             if (inv.RemoveItem(item))
             {
-                manager.AddDoor(pos, 2, key.roomType, key.portalType);
+                if (!manager.AddDoor(pos, 2, key.roomType, key.portalType))
+                    inv.AddItem(item);
             }
         }
 

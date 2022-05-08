@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallManager : MonoBehaviour
+public class WallManager : PortalConnector
 {
-    static float x = 0;
     [SerializeField] private Wall Wall = null;
     [SerializeField] private Vector3 Dimensions = Vector3.one;
 
@@ -40,25 +39,12 @@ public class WallManager : MonoBehaviour
         doors.Add(door);
         UpdateWall();
 
-        InsertPortal(door, roomType, portalType);
 
-        return true;
-    }
-
-    private void InsertPortal(Vector2 door, Room roomType, PortalComponent portalType)
-    {
         Vector3 left = transform.position - transform.right * Dimensions.x / 2;
 
-        PortalComponent p1 = Instantiate(portalType, left + door.x * transform.right - transform.up * Dimensions.y / 2, transform.rotation);
-        x += 100;
-        Room room = Instantiate(roomType, Vector3.forward * x, new Quaternion());
-        Transform coords = room.AddAccessDoor();
-        PortalComponent p2 = Instantiate(portalType, coords);
+        InsertPortal(left + door.x * transform.right - transform.up * Dimensions.y / 2, transform.rotation, roomType, portalType);
 
-        p1.linkedPortal = p2;
-        p2.linkedPortal = p1;
-        p1.GetComponentInChildren<DoorInteractable>().UpdateConnection();
-        p2.GetComponentInChildren<DoorInteractable>().UpdateConnection();
+        return true;
     }
 
     private void OnDrawGizmos()
