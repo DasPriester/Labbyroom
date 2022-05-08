@@ -77,6 +77,7 @@ public class PlayerInventory : MonoBehaviour
                     image.enabled = true;
                     image.sprite = Resources.Load<Sprite>("Sprites/" + name);
                     slot.GetComponentInChildren<Text>().enabled = true;
+                    slot.GetComponentInChildren<Text>().text = "" + 1;
                     break;
                 }
             }
@@ -89,7 +90,7 @@ public class PlayerInventory : MonoBehaviour
 
         if (index != -1)
         {
-            invList[index].amount += 1;
+            invList[index].amount += item.amount;
 
             slots[index].GetComponentInChildren<Text>().text = "" + invList[index].amount;
         }
@@ -106,6 +107,8 @@ public class PlayerInventory : MonoBehaviour
                     image.enabled = true;
                     image.sprite = Resources.Load<Sprite>("Sprites/" + item.name);
                     slot.GetComponentInChildren<Text>().enabled = true;
+                    slot.GetComponentInChildren<Text>().text = "" + item.amount;
+
                     break;
                 }
             }
@@ -130,11 +133,7 @@ public class PlayerInventory : MonoBehaviour
                 return false;
             }
 
-            if (invList[index].amount >= 1)
-            {
-                slots[index].GetComponentInChildren<Text>().text = "" + invList[index].amount;
-            }
-            else
+            if (invList[index].amount < 1)
             {
                 invList[index] = new Item(null, null, 0);
 
@@ -145,10 +144,35 @@ public class PlayerInventory : MonoBehaviour
                 slot.GetComponentInChildren<Text>().enabled = false;
             }
 
+            slots[index].GetComponentInChildren<Text>().text = "" + invList[index].amount;
+
             return true;
         }
 
     }
+
+    public void CraftRecipe(Recipe recipe)
+    {
+        Item[] invBackup = invList;
+        bool canCraft = true;
+        foreach (PickUpInteractable costName in recipe.Cost.Keys)
+        {
+            if (!RemoveItem(new Item(costName.gameObject, costName.name, recipe.Cost[costName])))
+                canCraft = false;
+        }
+
+        if (canCraft)
+        {
+            foreach (PickUpInteractable yieldName in recipe.Yield.Keys)
+            {
+                AddItem(new Item(yieldName.gameObject, yieldName.name, recipe.Yield[yieldName]));
+            }
+        } else
+        {
+            invList = invBackup;
+        }
+    }
+
     public Item CurrentItem()
     {
         if(current >= invList.Length)
