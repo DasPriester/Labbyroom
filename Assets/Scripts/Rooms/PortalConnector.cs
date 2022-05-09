@@ -8,7 +8,6 @@ public class PortalConnector : MonoBehaviour
 
     protected void InsertPortal(Vector3 pos, Quaternion rot, Room roomType, PortalComponent portalType)
     {
-
         PortalComponent p1 = Instantiate(portalType, pos, rot);
         x += 100;
         Room room = Instantiate(roomType, Vector3.forward * x, new Quaternion());

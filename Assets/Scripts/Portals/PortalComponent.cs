@@ -6,7 +6,7 @@ using UnityEditor;
 public class PortalComponent : MonoBehaviour
 {
     [SerializeField] public PortalComponent linkedPortal = null;
-    [SerializeField] MeshRenderer screen = null;
+    [SerializeField] public MeshRenderer screen = null;
 
     Camera playerCam;
     Camera portalCam;

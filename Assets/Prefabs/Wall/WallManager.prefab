@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3792920370674848358}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 4.75}
+  m_LocalPosition: {x: 0.1, y: 2, z: 4.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Wall: {fileID: 1819586498260209660, guid: 925170e0a15fb42329a05c0ce752c48a, type: 3}
-  Portal: {fileID: 3254051265726217479, guid: f865c762d589b4299ab4c7e630d0f5be, type: 3}
-  Dimensions: {x: 10, y: 4, z: 0.5}
+  Dimensions: {x: 9.6, y: 4, z: 0.2}
+  Preview: {fileID: 868616243610886772, guid: 5bb6cdf64c73643bdbb08a64a0a5bd61, type: 3}
   doors: []

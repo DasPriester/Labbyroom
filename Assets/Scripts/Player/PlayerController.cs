@@ -208,7 +208,7 @@ public class PlayerController : PortalTraveller
     private void HandleInteractionCheck()
     {
         if (Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance) && hit.collider.gameObject.layer == 6)
-        { 
+        {
             if (currentInteractable == null || hit.collider.gameObject.GetInstanceID() != currentInteractable.gameObject.GetInstanceID())
             {
 
@@ -228,7 +228,22 @@ public class PlayerController : PortalTraveller
             currentInteractable.OnLoseFcous();
             currentInteractable = null;
         }
-    
+
+
+        if (Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit wall, interactionDistance) && hit.collider.gameObject.layer == 6)
+        {
+            PortalSurface surface = wall.collider.gameObject.GetComponent<PortalSurface>();
+            Item item = GameObject.Find("UI/Inventory").GetComponent<PlayerInventory>().CurrentItem();
+
+            try
+            {
+                if (surface && item.prefab.GetComponent<Key>())
+                {
+                    surface.OnViewedAtWithKey(hit.point, item.prefab.GetComponent<Key>().portalType);
+                }
+            }
+            catch (System.NullReferenceException e) { }
+        }
     } 
     
     private void HandleInteractionInput()

@@ -20,10 +20,6 @@ public abstract class Interactable : MonoBehaviour
         if (UseToolTip)
         {
             toolTip = GetComponentInChildren<ToolTip>();
-            if (toolTip == null)
-            {
-                toolTip = GetComponentInParent<ToolTip>();
-            }
 
             if (toolTip)
             {

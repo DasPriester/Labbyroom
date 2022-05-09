@@ -22,6 +22,7 @@ public class DoorInteractable : Interactable
 
     public void UpdateConnection()
     {
+        other = doorAnimator.GetComponentInParent<PortalComponent>();
         door2Animator = other.linkedPortal.GetComponentInChildren<Animator>();
     }
 

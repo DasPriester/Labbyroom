@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallManager : PortalConnector
+public class WallManager : SurfaceManager
 {
     [SerializeField] private Wall Wall = null;
     [SerializeField] private Vector3 Dimensions = Vector3.one;
+    [SerializeField] private Hideable Preview = null;
+    private Hideable preview = null;
+    private float previewCooldown = 0;
 
     private List<Wall> walls = new List<Wall>();
     [SerializeField] public List<Vector2> doors = new List<Vector2>();
@@ -15,14 +18,51 @@ public class WallManager : PortalConnector
     void Start()
     {
         UpdateWall();
+
+        preview = Instantiate(Preview, transform);
     }
 
-    public bool AddDoor(Vector3 pos, float width, Room roomType, PortalComponent portalType)
+    private void Update()
+    {
+        if (preview)
+        {
+            if (previewCooldown > 0)
+            {
+                previewCooldown -= Time.deltaTime;
+                preview.GetComponent<CanvasGroup>().alpha = previewCooldown;
+            }
+            else
+            {
+                preview.Hide();
+                previewCooldown = 0;
+            }
+        }
+    }
+
+    public override bool AddDoor(Vector3 pos, Room roomType, PortalComponent portalType)
     {
         Vector3 inv = transform.InverseTransformPoint(pos);
-        Vector2 door = new Vector2(inv.x + Dimensions.x / 2, width);
+        Vector2 door = new Vector2(inv.x + Dimensions.x / 2, portalType.screen.transform.localScale.x);
 
-        if (door.x < 0 || door.x + door.y > Dimensions.x)
+        if (DoorFits(door))
+        {
+            doors.Add(door);
+            UpdateWall();
+
+
+            Vector3 left = transform.position - transform.right * Dimensions.x / 2;
+
+            InsertPortal(left + door.x * transform.right - transform.up * Dimensions.y / 2, transform.rotation, roomType, portalType);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool DoorFits(Vector2 door)
+    {
+        if (door.x - door.y / 2 < 0 || door.x + door.y / 2 > Dimensions.x)
         {
             return false;
         }
@@ -36,15 +76,29 @@ public class WallManager : PortalConnector
             }
         }
 
-        doors.Add(door);
-        UpdateWall();
-
-
-        Vector3 left = transform.position - transform.right * Dimensions.x / 2;
-
-        InsertPortal(left + door.x * transform.right - transform.up * Dimensions.y / 2, transform.rotation, roomType, portalType);
-
         return true;
+    }
+
+    public override void OnViewedAtWithKey(Vector3 pos, PortalComponent portalType)
+    {
+        Vector3 inv = transform.InverseTransformPoint(pos);
+        Vector2 door = new Vector2(inv.x + Dimensions.x / 2, portalType.screen.transform.localScale.x);
+
+        if (DoorFits(door))
+        {
+            Vector3 position = pos - 0.1f * transform.forward;
+            position.y = Dimensions.y / 2;
+            Vector3 scale = Vector3.one;
+            scale.y = Dimensions.y;
+            scale.x = portalType.screen.transform.localScale.x;
+
+            preview.transform.position = position;
+            preview.transform.localScale = scale;
+            preview.transform.rotation = transform.rotation;
+
+            previewCooldown = 1;
+            preview.Unhide();
+        }
     }
 
     private void OnDrawGizmos()
