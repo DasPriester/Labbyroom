@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DoorInteractable : Interactable
 {
@@ -14,8 +15,17 @@ public class DoorInteractable : Interactable
     {
         gameObject.layer = 6;
 
-        toolTip = Instantiate(Resources.Load<ToolTip>("Prefabs/ToolTip"), transform);
-        toolTip.key = Camera.main.GetComponentInParent<PlayerController>().interactKey;
+        if (UseToolTip)
+        {
+            toolTip = GetComponentInChildren<ToolTip>();
+
+            if (toolTip)
+            {
+                toolTip.key = Camera.main.GetComponentInParent<PlayerController>().interactKey;
+                RectTransform text = toolTip.GetComponentInChildren<Text>().GetComponent<RectTransform>();
+                text.transform.localScale = new Vector3(-text.transform.localScale.x, text.transform.localScale.y, text.transform.localScale.z);
+            }
+        }
 
         other = doorAnimator.GetComponentInParent<PortalComponent>();
     }
