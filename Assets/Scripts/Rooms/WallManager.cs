@@ -131,7 +131,8 @@ public class WallManager : SurfaceManager
     {
         foreach (Transform child in transform)
         {
-            GameObject.Destroy(child.gameObject);
+            if (child.GetComponent<Wall>())
+                Destroy(child.gameObject);
         }
         walls.Clear();
         doors.Sort((p1, p2) => p1.x.CompareTo(p2.x));
