@@ -153,7 +153,7 @@ MonoBehaviour:
   UseOutline: 1
   UseParticle: 1
   UseAnimation: 1
-  UseToolTip: 0
+  UseToolTip: 1
   doorSound: {fileID: 8300000, guid: 1fc04f96bd9490e488fa28e105c66a3b, type: 3}
   doorAnimator: {fileID: 847441036097195834}
 --- !u!114 &4271375067641632284

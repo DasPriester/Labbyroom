@@ -990,8 +990,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6803233798482487079}
-        m_TargetAssemblyTypeName: PlayerCrafting, Assembly-CSharp
+      - m_Target: {fileID: 7540158568058320483}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
         m_MethodName: ToggleCraftingMenu
         m_Mode: 1
         m_Arguments:
