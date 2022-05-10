@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hidden: 1
+  openKey: 109
 --- !u!225 &2835997787952419745
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -464,7 +465,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b79ce0372f3943ac95d1bf46272092c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openKey: 109
   craftingMenu: {fileID: 7540158568058320483}
   entry: {fileID: 9200550695261171048, guid: 5898025e853f840a0804b6925288ea25, type: 3}
 --- !u!225 &4965210404045033193

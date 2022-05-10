@@ -9,7 +9,7 @@ public class Hideable : MonoBehaviour
     [SerializeField]
     bool hidden = true;
 
-    private void Awake()
+    private void Start()
     {
         canv = GetComponent<CanvasGroup>();
         if (hidden)

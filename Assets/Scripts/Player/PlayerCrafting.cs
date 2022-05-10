@@ -7,9 +7,6 @@ using UnityEngine.UI;
 public class PlayerCrafting : MonoBehaviour
 {
     [SerializeField]
-    KeyCode openKey;
-
-    [SerializeField]
     Menu craftingMenu = null;
 
     [SerializeField]
@@ -19,19 +16,14 @@ public class PlayerCrafting : MonoBehaviour
 
     PlayerInventory inv = null;
     Recipe[] recipes;
-    PlayerController pc;
-
-    float menuCooldown = 0;
 
     private void Awake()
     {
         recipes = Resources.LoadAll<Recipe>("Recipes"); ;
         content = GameObject.Find("UI/CraftingMenu/Scroll View/Viewport/Content").GetComponent<RectTransform>();
-
-        UpdateCraftMenu();
-
-        pc = Camera.main.GetComponentInParent<PlayerController>();
         inv = GetComponentInChildren<PlayerInventory>();
+
+        craftingMenu.UpdateMenu = UpdateCraftMenu;
     }
 
     private void UpdateCraftMenu()
@@ -89,38 +81,6 @@ public class PlayerCrafting : MonoBehaviour
         }
 
         return string.Join(", ", o);
-    }
-
-    private void Update()
-    {
-        if (menuCooldown > 0)
-            menuCooldown -= Time.deltaTime;
-        else
-            menuCooldown = 0;
-
-        if ((Input.GetKey(KeyCode.Menu) || Input.GetKey(openKey)) && menuCooldown == 0)
-        {
-            ToggleCraftingMenu();
-        }
-    }
-
-    public void ToggleCraftingMenu()
-    {
-        menuCooldown = 0.2f;
-        bool hidden = craftingMenu.ToggleHide();
-
-        if (hidden)
-            Cursor.lockState = CursorLockMode.Locked;
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
-            UpdateCraftMenu();
-        }
-        Cursor.visible = !hidden;
-
-        GameObject.Find("UI/CenterDot").GetComponent<Image>().color = hidden ? Color.white : Color.clear;
-
-        pc.enabled = hidden;
     }
 
 }

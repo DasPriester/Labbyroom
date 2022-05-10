@@ -7,7 +7,7 @@ public class ToolTip : Hideable
 {
     [SerializeField] public KeyCode key = default;
 
-    private void Start()
+    private void Awake()
     {
         GameObject.Find("Key").GetComponent<Text>().text = key.ToString();
     }
