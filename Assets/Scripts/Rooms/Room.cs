@@ -9,7 +9,6 @@ public class Room : MonoBehaviour
     [SerializeField] private Vector2 accessDoor = Vector2.zero;
     [SerializeField] private WallManager accessWall = null;
 
-
     public Transform AddAccessDoor()
     {
         if (hasAccessDoor)

@@ -6,7 +6,7 @@ public class PortalConnector : MonoBehaviour
 {
     static float x = 0;
 
-    protected void InsertPortal(Vector3 pos, Quaternion rot, Room roomType, PortalComponent portalType)
+    protected void InsertPortal(Vector3 pos, Quaternion rot, Room roomType, PortalComponent portalType, Material wall_material)
     {
         PortalComponent p1 = Instantiate(portalType, pos, rot);
         x += 100;
@@ -16,6 +16,17 @@ public class PortalConnector : MonoBehaviour
 
         p1.linkedPortal = p2;
         p2.linkedPortal = p1;
+
+        foreach (MeshRenderer mr in p1.GetComponentsInChildren<MeshRenderer>())
+        {
+            if (mr.gameObject.name == "_Wall")
+                mr.material = wall_material;
+        }
+        foreach (MeshRenderer mr in p1.GetComponentsInChildren<MeshRenderer>())
+        {
+            mr.material.SetFloat("_TimeAppear", Time.time);
+        }
+
         p1.GetComponentInChildren<DoorInteractable>().UpdateConnection();
         p2.GetComponentInChildren<DoorInteractable>().UpdateConnection();
     }

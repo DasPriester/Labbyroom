@@ -52,7 +52,7 @@ public class WallManager : SurfaceManager
 
             Vector3 left = transform.position - transform.right * Dimensions.x / 2;
 
-            InsertPortal(left + door.x * transform.right - transform.up * Dimensions.y / 2, transform.rotation, roomType, portalType);
+            InsertPortal(left + door.x * transform.right - transform.up * Dimensions.y / 2, transform.rotation, roomType, portalType, Wall.GetComponent<MeshRenderer>().sharedMaterial);
 
             return true;
         }
