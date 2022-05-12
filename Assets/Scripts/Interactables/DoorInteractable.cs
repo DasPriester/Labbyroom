@@ -10,12 +10,13 @@ public class DoorInteractable : Interactable
 
     private Animator door2Animator = null;
     private PortalComponent other;
+    public bool blocked = false;
 
     public override void Awake()
     {
         gameObject.layer = 6;
 
-        if (UseToolTip)
+        if (UseToolTip && !blocked)
         {
             toolTip = GetComponentInChildren<ToolTip>();
 
@@ -39,16 +40,28 @@ public class DoorInteractable : Interactable
     public override void OnInteract(Vector3 pos)
     {
 
-        if (UseAudio)
+        if (UseAudio && !blocked)
         {
             AudioSource.PlayClipAtPoint(doorSound, doorAnimator.gameObject.transform.position);
             if (door2Animator)
                 AudioSource.PlayClipAtPoint(doorSound, door2Animator.gameObject.transform.position);
         }
 
-        doorAnimator.SetTrigger("ToggleTrigger");
-        if (door2Animator)
-            door2Animator.SetTrigger("ToggleTrigger");
+        if (!blocked)
+        {
+            doorAnimator.SetTrigger("ToggleTrigger");
+            if (door2Animator)
+                door2Animator.SetTrigger("ToggleTrigger");
+        }
         
+    }
+
+    public override void OnFocus(Vector3 pos)
+    {
+        if (UseOutline && !blocked)
+            gameObject.GetComponent<Outline>().enabled = true;
+
+        if (toolTip && UseToolTip && !blocked)
+            toolTip.Unhide();
     }
 }

@@ -841,7 +841,7 @@
         "m_SerializableColors": []
     },
     "m_TextureType": 0,
-    "m_NormalMapSpace": 0
+    "m_NormalMapSpace": 1
 }
 
 {
@@ -1202,7 +1202,7 @@
     "m_ShaderOutputName": "In",
     "m_StageCapability": 3,
     "m_Value": {
-        "x": 1.0,
+        "x": 1.3300000429153443,
         "y": 1.0,
         "z": 1.0,
         "w": 1.0
@@ -1831,9 +1831,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -661.5,
-            "y": 381.5,
-            "width": 208.0,
+            "x": -625.5000610351563,
+            "y": 428.9999694824219,
+            "width": 207.99998474121095,
             "height": 314.5
         }
     },
