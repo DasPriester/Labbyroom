@@ -242,7 +242,7 @@ public class PlayerController : PortalTraveller
                     surface.OnViewedAtWithKey(hit.point, item.prefab.GetComponent<Key>().portalType);
                 }
             }
-            catch (System.NullReferenceException e) { }
+            catch (System.NullReferenceException) { }
         }
     } 
     

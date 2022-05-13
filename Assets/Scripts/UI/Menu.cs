@@ -8,8 +8,10 @@ public class Menu : Hideable
     [SerializeField]
     KeyCode openKey;
 
-    public delegate void UpdateMenuDelegate();
-    public UpdateMenuDelegate UpdateMenu;
+    public delegate void OpenMenuDelegate();
+    public delegate void CloseMenuDelegate();
+    public OpenMenuDelegate OpenMenu;
+    public CloseMenuDelegate CloseMenu;
 
     float menuCooldown = 0;
     PlayerController pc;
@@ -28,21 +30,24 @@ public class Menu : Hideable
 
         if (Input.GetKey(openKey) && menuCooldown == 0)
         {
-            ToggleCraftingMenu();
+            ToggleMenu();
         }
     }
 
-    public void ToggleCraftingMenu()
+    public void ToggleMenu()
     {
         menuCooldown = 0.2f;
         bool hidden = ToggleHide();
 
         if (hidden)
+        {
+            CloseMenu?.Invoke();
             Cursor.lockState = CursorLockMode.Locked;
+        }
         else
         {
+            OpenMenu?.Invoke();
             Cursor.lockState = CursorLockMode.None;
-            UpdateMenu();
         }
         Cursor.visible = !hidden;
 
