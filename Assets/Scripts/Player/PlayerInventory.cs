@@ -42,32 +42,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void AddItem(GameObject prefab, string name)
     {
-        int index = Array.FindIndex<Item>(invList, x => x.name == name);
-
-        if (index != -1)
-        {
-            invList[index].amount += 1;
-
-            slots[index].GetComponentInChildren<Text>().text = "" + invList[index].amount;
-        }
-        else
-        {
-            for (int i = 0; i < invList.Length; i++)
-            {
-                if (invList[i].prefab == null)
-                {
-                    invList[i] = new Item(prefab, name, 1);
-
-                    GameObject slot = slots[i];
-                    Image image = slot.GetComponentsInChildren<Image>()[1];
-                    image.enabled = true;
-                    image.sprite = Resources.Load<Sprite>("Sprites/" + name);
-                    slot.GetComponentInChildren<Text>().enabled = true;
-                    slot.GetComponentInChildren<Text>().text = "" + 1;
-                    break;
-                }
-            }
-        }
+        AddItem(new Item(prefab, name, 1));
     }
 
     public void AddItem(Item item)
@@ -91,7 +66,8 @@ public class PlayerInventory : MonoBehaviour
                     GameObject slot = slots[i];
                     Image image = slot.GetComponentsInChildren<Image>()[1];
                     image.enabled = true;
-                    image.sprite = Resources.Load<Sprite>("Sprites/" + item.name);
+                    
+                    image.sprite = Utility.GetIconFor(item);
                     slot.GetComponentInChildren<Text>().enabled = true;
                     slot.GetComponentInChildren<Text>().text = "" + item.amount;
 

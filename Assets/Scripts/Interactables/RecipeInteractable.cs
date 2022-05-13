@@ -11,13 +11,14 @@ public class RecipeInteractable : Interactable
     private void Start()
     {
         GameObject.Find("Canvas/Text").GetComponent<Text>().text = recipe.name;
-        string nameOfResult = "";
+        Item item = new Item();
         foreach (PickUpInteractable p in recipe.Yield.Keys)
         {
-            nameOfResult = p.name;
+            item.name = p.name;
+            item.prefab = p.gameObject;
             break;
         }
-        GameObject.Find("Canvas/Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + nameOfResult);
+        GameObject.Find("Canvas/Image").GetComponent<Image>().sprite = Utility.GetIconFor(item);
     }
 
     public override void OnInteract(Vector3 pos)

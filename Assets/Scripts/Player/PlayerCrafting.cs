@@ -45,13 +45,14 @@ public class PlayerCrafting : MonoBehaviour
                 nen.Find("Name").GetComponent<Text>().text = rec.name;
                 nen.Find("Cost").GetComponent<Text>().text = "Cost: " + DictToString(rec.Cost);
                 nen.Find("Yield").GetComponent<Text>().text = "Yield: " + DictToString(rec.Yield);
-                string nameOfResult = "";
+                Item item = new Item();
                 foreach (PickUpInteractable p in rec.Yield.Keys)
                 {
-                    nameOfResult = p.name;
+                    item.name= p.name;
+                    item.prefab = p.gameObject;
                     break;
                 }
-                nen.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + nameOfResult);
+                nen.Find("Image").GetComponent<Image>().sprite = Utility.GetIconFor(item);
                 Button button = nen.Find("CraftButton").GetComponent<Button>();
                 button.onClick.AddListener(() => { inv.CraftRecipe(rec); UpdateCraftMenu(); });
                 bool craftable = inv.IsCraftable(rec);

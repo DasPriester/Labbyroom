@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: StoneToKey
   m_EditorClassIdentifier: 
   name: Stone to Key
-  unlocked: 0
+  unlocked: 1
   Cost:
     keys:
     - {fileID: -3312713435364818256, guid: 3dc0032bda0a3a24f848db19061df8c0, type: 3}
     values: 02000000
   Yield:
     keys:
-    - {fileID: 8696993802869622923, guid: 6ce383862c5cb9b44acca66b567ef6af, type: 3}
+    - {fileID: 8696993802869622923, guid: 0b03c9bc1e3e04e6ba27999abaa9eb96, type: 3}
     values: 01000000
