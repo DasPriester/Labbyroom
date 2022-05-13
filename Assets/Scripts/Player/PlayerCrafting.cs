@@ -23,7 +23,7 @@ public class PlayerCrafting : MonoBehaviour
         content = GameObject.Find("UI/CraftingMenu/Scroll View/Viewport/Content").GetComponent<RectTransform>();
         inv = GetComponentInChildren<PlayerInventory>();
 
-        craftingMenu.UpdateMenu = UpdateCraftMenu;
+        craftingMenu.OpenMenu = UpdateCraftMenu;
     }
 
     private void UpdateCraftMenu()
