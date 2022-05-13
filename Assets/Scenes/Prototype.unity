@@ -451,6 +451,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 395558529240046960, guid: 26af1457050134ab7834708980f57815, type: 3}
+      propertyPath: Dimensions.y
+      value: 5.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 395558529240046963, guid: 26af1457050134ab7834708980f57815, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 440573204629368604, guid: 26af1457050134ab7834708980f57815, type: 3}
+      propertyPath: Dimensions.y
+      value: 5.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 440573204629368607, guid: 26af1457050134ab7834708980f57815, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 5518771474986691156, guid: 26af1457050134ab7834708980f57815, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -498,6 +514,22 @@ PrefabInstance:
     - target: {fileID: 5518771474986691159, guid: 26af1457050134ab7834708980f57815, type: 3}
       propertyPath: m_Name
       value: TestRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518771475098346700, guid: 26af1457050134ab7834708980f57815, type: 3}
+      propertyPath: Dimensions.y
+      value: 5.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518771475098346703, guid: 26af1457050134ab7834708980f57815, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 5929021183302699137, guid: 26af1457050134ab7834708980f57815, type: 3}
+      propertyPath: Dimensions.y
+      value: 5.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5929021183302699138, guid: 26af1457050134ab7834708980f57815, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.65
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26af1457050134ab7834708980f57815, type: 3}

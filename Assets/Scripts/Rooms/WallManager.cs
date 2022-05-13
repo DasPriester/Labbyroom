@@ -42,7 +42,7 @@ public class WallManager : SurfaceManager
     public override bool AddDoor(Vector3 pos, Room roomType, PortalComponent portalType)
     {
         Vector3 inv = transform.InverseTransformPoint(pos);
-        Vector2 door = new Vector2(inv.x + Dimensions.x / 2, portalType.screen.transform.localScale.x);
+        Vector2 door = new Vector2(inv.x + Dimensions.x / 2, portalType.width);
 
         if (DoorFits(door))
         {
@@ -82,7 +82,7 @@ public class WallManager : SurfaceManager
     public override void OnViewedAtWithKey(Vector3 pos, PortalComponent portalType)
     {
         Vector3 inv = transform.InverseTransformPoint(pos);
-        Vector2 door = new Vector2(inv.x + Dimensions.x / 2, portalType.screen.transform.localScale.x);
+        Vector2 door = new Vector2(inv.x + Dimensions.x / 2, portalType.width);
 
         if (DoorFits(door))
         {
@@ -90,7 +90,7 @@ public class WallManager : SurfaceManager
             position.y = Dimensions.y / 2;
             Vector3 scale = Vector3.one;
             scale.y = Dimensions.y;
-            scale.x = portalType.screen.transform.localScale.x;
+            scale.x = portalType.width;
 
             preview.transform.position = position;
             preview.transform.localScale = scale;

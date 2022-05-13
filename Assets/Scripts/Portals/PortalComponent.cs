@@ -7,6 +7,7 @@ public class PortalComponent : MonoBehaviour
 {
     [SerializeField] public PortalComponent linkedPortal = null;
     [SerializeField] public MeshRenderer screen = null;
+    [SerializeField] public float width = 1f;
 
     Camera playerCam;
     Camera portalCam;

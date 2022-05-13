@@ -551,6 +551,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 5518771474986691156}
     m_Modifications:
     - target: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
+      propertyPath: Dimensions.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
       propertyPath: doors.Array.data[0].x
       value: 4
       objectReference: {fileID: 0}
@@ -572,7 +576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3792920370674848359, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3792920370674848359, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -621,6 +625,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 5518771474986691156}
     m_Modifications:
     - target: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
+      propertyPath: Dimensions.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
       propertyPath: doors.Array.data[0].x
       value: 4
       objectReference: {fileID: 0}
@@ -642,7 +650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3792920370674848359, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3792920370674848359, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -691,6 +699,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 5518771474986691156}
     m_Modifications:
     - target: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
+      propertyPath: Dimensions.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
       propertyPath: doors.Array.data[0].x
       value: 4
       objectReference: {fileID: 0}
@@ -712,7 +724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3792920370674848359, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3792920370674848359, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -761,6 +773,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 5518771474986691156}
     m_Modifications:
     - target: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
+      propertyPath: Dimensions.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
       propertyPath: doors.Array.data[0].x
       value: 4
       objectReference: {fileID: 0}
@@ -782,7 +798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3792920370674848359, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3792920370674848359, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
       propertyPath: m_LocalRotation.w
