@@ -33,7 +33,7 @@ public abstract class Interactable : MonoBehaviour
 
     public void UpdateToolTip()
     {
-        toolTip.key = Camera.main.GetComponentInParent<PlayerController>().settings.interactKey;
+        toolTip.Key = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<PlayerController>().settings.interactKey;
     }
 
     public abstract void OnInteract(Vector3 pos);

@@ -9,15 +9,14 @@ public class PlayerController : PortalTraveller
     public bool ShouldJump => Input.GetKeyDown(settings.jumpKey) && characterController.isGrounded;
     public bool ShouldCrouch => Input.GetKeyDown(settings.crouchKey) && !duringCrouchAnimation && characterController.isGrounded;
 
+    public Settings settings;
+
     [Header("Funktional Options")]
     [SerializeField] public bool canSprint = true;
     [SerializeField] public bool canJump = true;
     [SerializeField] public bool canCrouch = true;
     [SerializeField] public bool canInteract = true;
     [SerializeField] public bool canPlace = true;
-
-    [Header("Controls")]
-    [SerializeField] public Settings settings = null;
 
     [Header("Movement Parameters")]
     [SerializeField] private float walkSpeed = 3.0f;
@@ -87,15 +86,6 @@ public class PlayerController : PortalTraveller
     private float pitch;
     private float yaw;
 
-    private void Start()
-    {
-        foreach (Menu menu in settings.menus)
-        {
-            if (!settings.liveMenus.ContainsKey(menu.name))
-                settings.liveMenus.Add(menu.name, Instantiate<Menu>(menu, FindObjectOfType<PlayerCrafting>().transform));
-        }
-    }
-
     void Awake()
     {
         playerCamera = GetComponentInChildren<Camera>();
@@ -103,6 +93,18 @@ public class PlayerController : PortalTraveller
         defaultYPos = playerCamera.transform.localPosition.y;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+
+        settings = Resources.Load<Settings>("Settings/Current");
+        foreach (Menu menu in settings.menus)
+        {
+            if (!settings.liveMenus.ContainsKey(menu.name))
+                settings.liveMenus.Add(menu.name, Instantiate<Menu>(menu, FindObjectOfType<PlayerCrafting>().transform));
+
+            if (settings.liveMenus.ContainsKey(menu.name) && settings.liveMenus[menu.name] == null)
+                settings.liveMenus[menu.name] = Instantiate<Menu>(menu, FindObjectOfType<PlayerCrafting>().transform);
+
+        }
     }
 
     // Update is called once per frame

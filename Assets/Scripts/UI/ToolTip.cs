@@ -5,11 +5,16 @@ using UnityEngine.UI;
 
 public class ToolTip : Hideable
 {
-    [SerializeField] public KeyCode key = default;
+    [SerializeField] private KeyCode key = default;
+
+    public KeyCode Key {
+        get { return key; }
+        set { key = value; GetComponentInChildren<Text>().text = key.ToString(); }
+    }
 
     private void Awake()
     {
-        GameObject.Find("Key").GetComponent<Text>().text = key.ToString();
+        GetComponentInChildren<Text>().text = key.ToString();
         RectTransform text = GetComponentInChildren<Text>().GetComponent<RectTransform>();
         text.transform.localScale = new Vector3(-text.transform.localScale.x, text.transform.localScale.y, text.transform.localScale.z);
     }

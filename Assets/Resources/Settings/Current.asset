@@ -10,23 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72ce7f7a8ce544982b86d3842f59ad12, type: 3}
-  m_Name: Default
+  m_Name: Current
   m_EditorClassIdentifier: 
   sprintKey: 304
   jumpKey: 32
-  crouchKey: 306
+  crouchKey: 304
   interactKey: 101
   placeKey: 113
   inventoryKeys: 31000000320000003300000034000000350000003600000037000000
   menus:
   - {fileID: 3428822235544888799, guid: b1ad98fa2a3d84aea9714053348896ab, type: 3}
   - {fileID: 2472242715302691190, guid: bcb6f88260ed14284997d7692eb491a9, type: 3}
-  liveMenus:
-    keys:
-    - PauseMenu
-    - CraftingMenu
-    values:
-    - {fileID: 0}
-    - {fileID: 0}
   useHeadbob: 1
   useFootsteps: 1
