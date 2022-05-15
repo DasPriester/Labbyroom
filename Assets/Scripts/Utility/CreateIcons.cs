@@ -21,7 +21,8 @@ public class CreateIcons : EditorWindow
     {
         foreach (PickUpInteractable pi in Resources.LoadAll<PickUpInteractable>("Prefabs"))
         {
-            Utility.CreateIconFor(new Item(pi.gameObject, pi.name, 0));
+            if (pi.gameObject)
+                Utility.CreateIconFor(new Item(pi.gameObject, pi.name, 0));
         }
 
         Debug.Log("Icons created");
