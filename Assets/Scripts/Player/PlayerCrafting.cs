@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerCrafting : MonoBehaviour
 {
-    [SerializeField]
     Menu craftingMenu = null;
 
     [SerializeField]
@@ -19,9 +18,8 @@ public class PlayerCrafting : MonoBehaviour
 
     private void Awake()
     {
-        recipes = Resources.LoadAll<Recipe>("Recipes"); ;
-        content = GameObject.Find("UI/CraftingMenu/Scroll View/Viewport/Content").GetComponent<RectTransform>();
-        inv = GetComponentInChildren<PlayerInventory>();
+        craftingMenu = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<PlayerController>().settings.GetMenu("CraftingMenu");
+        recipes = Resources.LoadAll<Recipe>("Recipes");
 
         craftingMenu.OpenMenu = UpdateCraftMenu;
     }
@@ -30,6 +28,9 @@ public class PlayerCrafting : MonoBehaviour
     {
         if (!inv)
             inv = GetComponentInChildren<PlayerInventory>();
+
+        if (!content)
+            content = GameObject.Find("UI/CraftingMenu(Clone)/Scroll View/Viewport/Content").GetComponent<RectTransform>();
 
         foreach (RectTransform g in content.GetComponentsInChildren<RectTransform>())
             if (g != content)

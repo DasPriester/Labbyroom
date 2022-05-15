@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerController : PortalTraveller
 {
     public bool CanMove { get; private set; } = true;
-    public bool IsSprinting => canSprint && Input.GetKey(sprintKey);
-    public bool ShouldJump => Input.GetKeyDown(jumpKey) && characterController.isGrounded;
-    public bool ShouldCrouch => Input.GetKeyDown(crouchKey) && !duringCrouchAnimation && characterController.isGrounded;
+    public bool IsSprinting => canSprint && Input.GetKey(settings.sprintKey);
+    public bool ShouldJump => Input.GetKeyDown(settings.jumpKey) && characterController.isGrounded;
+    public bool ShouldCrouch => Input.GetKeyDown(settings.crouchKey) && !duringCrouchAnimation && characterController.isGrounded;
 
     [Header("Funktional Options")]
     [SerializeField] public bool canSprint = true;
@@ -16,15 +16,8 @@ public class PlayerController : PortalTraveller
     [SerializeField] public bool canInteract = true;
     [SerializeField] public bool canPlace = true;
 
-    [SerializeField] public bool useHeadbob = true;
-    [SerializeField] public bool useFootsteps = true;
-
     [Header("Controls")]
-    [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
-    [SerializeField] private KeyCode jumpKey = KeyCode.Space;
-    [SerializeField] private KeyCode crouchKey = KeyCode.LeftControl;
-    [SerializeField] public KeyCode interactKey = KeyCode.E;
-    [SerializeField] private KeyCode placeKey = KeyCode.Q;
+    [SerializeField] public Settings settings = null;
 
     [Header("Movement Parameters")]
     [SerializeField] private float walkSpeed = 3.0f;
@@ -94,6 +87,15 @@ public class PlayerController : PortalTraveller
     private float pitch;
     private float yaw;
 
+    private void Start()
+    {
+        foreach (Menu menu in settings.menus)
+        {
+            if (!settings.liveMenus.ContainsKey(menu.name))
+                settings.liveMenus.Add(menu.name, Instantiate<Menu>(menu, FindObjectOfType<PlayerCrafting>().transform));
+        }
+    }
+
     void Awake()
     {
         playerCamera = GetComponentInChildren<Camera>();
@@ -127,10 +129,10 @@ public class PlayerController : PortalTraveller
             if(canPlace)
                 HandlePlace();
 
-            if (useHeadbob)
+            if (settings.useHeadbob)
                 HandleHeadbob();
 
-            if (useFootsteps)
+            if (settings.useFootsteps)
                 HandleFootsteps();
 
             ApplyFinalMovements();
@@ -248,7 +250,7 @@ public class PlayerController : PortalTraveller
     
     private void HandleInteractionInput()
     {
-        if(Input.GetKeyDown(interactKey) && currentInteractable != null && 
+        if(Input.GetKeyDown(settings.interactKey) && currentInteractable != null && 
             Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
         {
             currentInteractable.OnInteract(hit.point);
@@ -257,7 +259,7 @@ public class PlayerController : PortalTraveller
 
     private void HandlePlace()
     {
-        if(Input.GetKeyDown(placeKey) &&
+        if(Input.GetKeyDown(settings.placeKey) &&
             Physics.Raycast(playerCamera.ViewportPointToRay(placementRayPoint), out RaycastHit hit, placementDistance, ~playerLayer))
         {
 

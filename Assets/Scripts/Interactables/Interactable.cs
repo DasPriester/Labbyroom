@@ -20,14 +20,20 @@ public abstract class Interactable : MonoBehaviour
         if (UseToolTip)
         {
             toolTip = GetComponentInChildren<ToolTip>();
-
-            if (toolTip)
-            {
-                toolTip.key = Camera.main.GetComponentInParent<PlayerController>().interactKey;
-                RectTransform text = toolTip.GetComponentInChildren<Text>().GetComponent<RectTransform>();
-                text.transform.localScale = new Vector3(-text.transform.localScale.x, text.transform.localScale.y, text.transform.localScale.z);
-            }
         }
+    }
+
+    private void Update()
+    {
+        if (toolTip)
+        {
+            UpdateToolTip();
+        }
+    }
+
+    public void UpdateToolTip()
+    {
+        toolTip.key = Camera.main.GetComponentInParent<PlayerController>().settings.interactKey;
     }
 
     public abstract void OnInteract(Vector3 pos);

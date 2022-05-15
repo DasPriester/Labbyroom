@@ -12,6 +12,7 @@ public class PlayerInventory : MonoBehaviour
     private GameObject[] slots = new GameObject[7];
     private Item[] invList = new Item[7];
     private int current = 0;
+    private PlayerController playerController;
 
     public void Awake()
     {
@@ -22,6 +23,8 @@ public class PlayerInventory : MonoBehaviour
             i++;
         }
         slots[current].GetComponent<Image>().color = Color.white;
+
+        playerController = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<PlayerController>();
     }
 
 
@@ -29,7 +32,7 @@ public class PlayerInventory : MonoBehaviour
     {
         for (int i = 1; i < 8; i++)
         {
-            if (Input.GetKeyDown((KeyCode)(48 + i)))
+            if (Input.GetKeyDown(playerController.settings.inventoryKeys[i - 1]))
             {
                 slots[current].GetComponent<Image>().color = halfWhite;
                 current = i-1;

@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class PauseGame : MonoBehaviour
 {
-
-    [SerializeField]
-    Menu pauseMenu = null;
+    Menu pauseMenu;
     private string startScene = "Start";
 
     private void Awake()
     {
+        pauseMenu = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<PlayerController>().settings.GetMenu("PauseMenu");
+        
         pauseMenu.OpenMenu = PauseTime;
         pauseMenu.CloseMenu = ResumeTime;
+
+        GameObject.Find("UI/PauseMenu(Clone)/MenuButton").GetComponent<Button>().onClick.AddListener(() => {
+            LoadMenu();
+        });
     }
 
     private void PauseTime() { Time.timeScale = 0.0f; }

@@ -19,13 +19,6 @@ public class DoorInteractable : Interactable
         if (UseToolTip && !blocked)
         {
             toolTip = GetComponentInChildren<ToolTip>();
-
-            if (toolTip)
-            {
-                toolTip.key = Camera.main.GetComponentInParent<PlayerController>().interactKey;
-                RectTransform text = toolTip.GetComponentInChildren<Text>().GetComponent<RectTransform>();
-                text.transform.localScale = new Vector3(-text.transform.localScale.x, text.transform.localScale.y, text.transform.localScale.z);
-            }
         }
 
         other = doorAnimator.GetComponentInParent<PortalComponent>();

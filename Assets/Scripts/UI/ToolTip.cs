@@ -10,6 +10,8 @@ public class ToolTip : Hideable
     private void Awake()
     {
         GameObject.Find("Key").GetComponent<Text>().text = key.ToString();
+        RectTransform text = GetComponentInChildren<Text>().GetComponent<RectTransform>();
+        text.transform.localScale = new Vector3(-text.transform.localScale.x, text.transform.localScale.y, text.transform.localScale.z);
     }
 
     private void Update()

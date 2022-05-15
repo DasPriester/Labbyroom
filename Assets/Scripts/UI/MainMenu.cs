@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField]
     private string mainScene = "Main";
+
     public void PlayGame()
     {
         SceneManager.LoadScene(mainScene);

@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: -5998591363586792682}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,13 +154,7 @@ MonoBehaviour:
   canCrouch: 1
   canInteract: 1
   canPlace: 1
-  useHeadbob: 1
-  useFootsteps: 1
-  sprintKey: 304
-  jumpKey: 32
-  crouchKey: 306
-  interactKey: 101
-  placeKey: 113
+  settings: {fileID: 11400000, guid: 84d5b2e9440d54f098b8edfaf7e1f1ce, type: 2}
   walkSpeed: 3
   sprintSpeed: 6
   crouchSpeed: 1.5
@@ -397,11 +391,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b79ce0372f3943ac95d1bf46272092c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyMap:
-    keys: 00000000
-    values:
-    - {fileID: 11400000, guid: a049a27bc3cb54225a0471f7e6f844da, type: 2}
-  inv: {fileID: 0}
+  craftingMenu: {fileID: 0}
+  entry: {fileID: 0}
 --- !u!1 &8460410004057096659
 GameObject:
   m_ObjectHideFlags: 0

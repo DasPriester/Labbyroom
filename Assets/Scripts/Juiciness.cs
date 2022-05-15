@@ -62,8 +62,8 @@ public class Juiciness : MonoBehaviour
 
             if (level == levels.None)
             {
-                player.useHeadbob = false;
-                player.useFootsteps = false;
+                player.settings.useHeadbob = false;
+                player.settings.useFootsteps = false;
 
                 atmos.Stop();
 
@@ -94,8 +94,8 @@ public class Juiciness : MonoBehaviour
             }
             else if (level == levels.Basic)
             {
-                player.useHeadbob = true;
-                player.useFootsteps = true;
+                player.settings.useHeadbob = true;
+                player.settings.useFootsteps = true;
 
                 atmos.Play();
 
@@ -127,8 +127,8 @@ public class Juiciness : MonoBehaviour
             }
             else if (level == levels.Full)
             {
-                player.useHeadbob = true;
-                player.useFootsteps = true;
+                player.settings.useHeadbob = true;
+                player.settings.useFootsteps = true;
 
                 atmos.Play();
 

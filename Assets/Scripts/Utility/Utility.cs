@@ -1,14 +1,17 @@
 using UnityEngine;
 
+using System;
+using System.Collections.Generic;
+
 public class Utility : MonoBehaviour
 {
 
     public static Sprite GetIconFor(Item item)
     {
-        Sprite sprite = Resources.Load<Sprite>("Sprites/" + item.name);
+        Sprite sprite = Resources.Load<Sprite>("Sprites/Icons/" + item.name);
         if (!sprite)
         {
-            Texture2D saved = Resources.Load<Texture2D>("Sprites/" + item.name + "_tmp");
+            Texture2D saved = Resources.Load<Texture2D>("Sprites/Icons/" + item.name + "_tmp");
 
             if (saved)
                 sprite = Sprite.Create(saved, new Rect(0.0f, 0.0f, saved.width, saved.height), new Vector2(0.5f, 0.5f), 100.0f, 0, SpriteMeshType.Tight);
@@ -36,7 +39,7 @@ public class Utility : MonoBehaviour
         }
         tex.SetPixels(colors);
         byte[] bytes = tex.EncodeToPNG();
-        System.IO.File.WriteAllBytes("Assets/Resources/Sprites/" + item.name + "_tmp.PNG", bytes);
+        System.IO.File.WriteAllBytes("Assets/Resources/Sprites/Icons/" + item.name + "_tmp.PNG", bytes);
     }
 
     public static bool FastApproximately(float a, float b, float threshold)
@@ -49,5 +52,49 @@ public class Utility : MonoBehaviour
         {
             return Mathf.Approximately(a, b);
         }
+    }
+}
+
+[Serializable]
+public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
+{
+    private int size = 0;
+
+    [SerializeField]
+    private List<TKey> keys = new List<TKey>();
+
+    [SerializeField]
+    private List<TValue> values = new List<TValue>();
+
+    // save the dictionary to lists
+    public void OnBeforeSerialize()
+    {
+        keys.Clear();
+        values.Clear();
+        foreach (KeyValuePair<TKey, TValue> pair in this)
+        {
+            keys.Add(pair.Key);
+            values.Add(pair.Value);
+        }
+    }
+
+    // load dictionary from lists
+    public void OnAfterDeserialize()
+    {
+        this.Clear();
+        if (keys.Count > size)
+            size = keys.Count;
+
+        while (keys.Count < size)
+            size = keys.Count;
+
+        while (values.Count > size)
+            values.RemoveAt(values.Count - 1);
+
+        while (values.Count < size)
+            values.Add(default);
+
+        for (int i = 0; i < keys.Count; i++)
+            this.Add(keys[i], values[i]);
     }
 }
