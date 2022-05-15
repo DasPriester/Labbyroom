@@ -1210,6 +1210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputSetterButton: {fileID: 6159511974520370601, guid: f3f2a9bcc6a284b4ba7b18c560cd6cfc, type: 3}
+  inputBooleanButton: {fileID: 6159511974520370601, guid: 5c50ce494107e4fa28914081d6ba5548, type: 3}
 --- !u!1 &1177195188
 GameObject:
   m_ObjectHideFlags: 0
@@ -1875,7 +1876,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 600}
+  m_SizeDelta: {x: 0, y: 650}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1767574010
 GameObject:

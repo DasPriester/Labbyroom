@@ -179,4 +179,30 @@ public class Settings : ScriptableObject
 
         return new KeyCode();
     }
+
+    public void SetValue(string id, bool value)
+    {
+        switch (id)
+        {
+            case "Footsteps":
+                useFootsteps = value;
+                break;
+            case "Headbob":
+                useHeadbob = value;
+                break;
+        }
+    }
+
+    public bool GetValue(string id)
+    {
+        switch (id)
+        {
+            case "Footsteps":
+                return useFootsteps;
+            case "Headbob":
+                return useHeadbob;
+        }
+
+        return false;
+    }
 }

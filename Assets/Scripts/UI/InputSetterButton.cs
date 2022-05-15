@@ -10,7 +10,7 @@ public class InputSetterButton : Button
     public string Sets
     {
         get { return sets; }
-        set { sets = value; text.text = currentSettings.GetKey(sets).ToString(); description.text = sets; }
+        set { sets = value; description.text = sets; }
     }
     private string sets;
 
@@ -27,6 +27,10 @@ public class InputSetterButton : Button
                 description = t;
         }
         currentSettings = Resources.Load<Settings>("Settings/Current");
+    }
+
+    private void Update()
+    {
         text.text = currentSettings.GetKey(sets).ToString();
     }
 

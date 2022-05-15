@@ -9,9 +9,31 @@ public class Hideable : MonoBehaviour
     [SerializeField]
     bool hidden = true;
 
+    public bool isHidden()
+    {
+        return hidden;
+    }
+
+    public void SetHide(bool _hidden)
+    {
+        if (!canv)
+            canv = GetComponent<CanvasGroup>();
+
+        hidden = _hidden;
+        if (hidden)
+        {
+            Hide();
+        }
+        else
+        {
+            Unhide();
+        }
+    }
+
     private void Start()
     {
-        canv = GetComponent<CanvasGroup>();
+        if (!canv)
+            canv = GetComponent<CanvasGroup>();
         if (hidden)
         {
             Hide();
