@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InputBooleanButton : Button
+public class InputSlider : MonoBehaviour
 {
     Settings currentSettings;
 
@@ -19,11 +19,11 @@ public class InputBooleanButton : Button
     private string sets;
 
     private Text description;
-    private Hideable tick;
+    private Slider slider;
 
     private void Awake()
     {
-        tick = GetComponentInChildren<Hideable>();
+        slider = GetComponentInChildren<Slider>();
         description = GetComponentInChildren<Text>();
 
         currentSettings = Resources.Load<Settings>("Settings/Current");
@@ -31,12 +31,11 @@ public class InputBooleanButton : Button
 
     private void Update()
     {
-        tick.SetHide(!currentSettings.GetBool(sets));
+        slider.value = currentSettings.GetValue(sets);
     }
 
-    public void ToggleBoolean()
+    public void ChangeValue()
     {
-        tick.ToggleHide();
-        currentSettings.SetBool(sets, !tick.isHidden());
+        currentSettings.SetValue(sets, slider.value);
     }
 }

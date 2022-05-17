@@ -23,6 +23,7 @@ public class Settings : ScriptableObject
     public bool useHeadbob = true;
 
     //Audio
+    public float masterVolume = 1f;
     public bool useFootsteps = true;
 
     private void OnEnable()
@@ -180,7 +181,7 @@ public class Settings : ScriptableObject
         return new KeyCode();
     }
 
-    public void SetValue(string id, bool value)
+    public void SetBool(string id, bool value)
     {
         switch (id)
         {
@@ -193,7 +194,7 @@ public class Settings : ScriptableObject
         }
     }
 
-    public bool GetValue(string id)
+    public bool GetBool(string id)
     {
         switch (id)
         {
@@ -204,5 +205,26 @@ public class Settings : ScriptableObject
         }
 
         return false;
+    }
+
+    public void SetValue(string id, float value)
+    {
+        switch (id)
+        {
+            case "Volume":
+                masterVolume = value;
+                break;
+        }
+    }
+
+    public float GetValue(string id)
+    {
+        switch (id)
+        {
+            case "Volume":
+                return masterVolume;
+        }
+
+        return 0f;
     }
 }
