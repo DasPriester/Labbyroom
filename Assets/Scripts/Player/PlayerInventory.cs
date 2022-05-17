@@ -32,7 +32,7 @@ public class PlayerInventory : MonoBehaviour
     {
         for (int i = 1; i < 8; i++)
         {
-            if (Input.GetKeyDown(playerController.settings.inventoryKeys[i - 1]))
+            if (Input.GetKeyDown(Settings.inventoryKeys[i - 1]))
             {
                 slots[current].GetComponent<Image>().color = halfWhite;
                 current = i-1;

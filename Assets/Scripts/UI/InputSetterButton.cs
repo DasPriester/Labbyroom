@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class InputSetterButton : Button
 {
-    Settings currentSettings;
-
     public string Sets
     {
         get { return sets; }
@@ -26,12 +24,11 @@ public class InputSetterButton : Button
             if (t.name == "Description")
                 description = t;
         }
-        currentSettings = Resources.Load<Settings>("Settings/Current");
     }
 
     private void Update()
     {
-        text.text = currentSettings.GetKey(sets).ToString();
+        text.text = Settings.GetKey(sets).ToString();
     }
 
     public void SetKey()
@@ -55,6 +52,6 @@ public class InputSetterButton : Button
             }
         }
 
-        currentSettings.SetKey(sets, key);
+        Settings.SetKey(sets, key);
     }
 }

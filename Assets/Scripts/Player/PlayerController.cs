@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerController : PortalTraveller
 {
     public bool CanMove { get; private set; } = true;
-    public bool IsSprinting => canSprint && Input.GetKey(settings.sprintKey);
-    public bool ShouldJump => Input.GetKeyDown(settings.jumpKey) && characterController.isGrounded;
-    public bool ShouldCrouch => Input.GetKeyDown(settings.crouchKey) && !duringCrouchAnimation && characterController.isGrounded;
+    public bool IsSprinting => canSprint && Input.GetKey(Settings.sprintKey);
+    public bool ShouldJump => Input.GetKeyDown(Settings.jumpKey) && characterController.isGrounded;
+    public bool ShouldCrouch => Input.GetKeyDown(Settings.crouchKey) && !duringCrouchAnimation && characterController.isGrounded;
 
     public Settings settings;
 
@@ -96,7 +96,7 @@ public class PlayerController : PortalTraveller
 
 
         settings = Resources.Load<Settings>("Settings/Current");
-        foreach (Menu menu in settings.menus)
+        foreach (Menu menu in Settings.menus)
         {
             if (!settings.liveMenus.ContainsKey(menu.name))
                 settings.liveMenus.Add(menu.name, Instantiate<Menu>(menu, FindObjectOfType<PlayerCrafting>().transform));
@@ -131,10 +131,10 @@ public class PlayerController : PortalTraveller
             if(canPlace)
                 HandlePlace();
 
-            if (settings.useHeadbob)
+            if (Settings.useHeadbob)
                 HandleHeadbob();
 
-            if (settings.useFootsteps)
+            if (Settings.useFootsteps)
                 HandleFootsteps();
 
             ApplyFinalMovements();
@@ -252,7 +252,7 @@ public class PlayerController : PortalTraveller
     
     private void HandleInteractionInput()
     {
-        if(Input.GetKeyDown(settings.interactKey) && currentInteractable != null && 
+        if(Input.GetKeyDown(Settings.interactKey) && currentInteractable != null && 
             Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
         {
             currentInteractable.OnInteract(hit.point);
@@ -261,7 +261,7 @@ public class PlayerController : PortalTraveller
 
     private void HandlePlace()
     {
-        if(Input.GetKeyDown(settings.placeKey) &&
+        if(Input.GetKeyDown(Settings.placeKey) &&
             Physics.Raycast(playerCamera.ViewportPointToRay(placementRayPoint), out RaycastHit hit, placementDistance, ~playerLayer))
         {
 
@@ -297,16 +297,16 @@ public class PlayerController : PortalTraveller
                 switch (hit.collider.tag)
                 {
                     case "Footsteps/Wood":
-                        footstepAudioSource.PlayOneShot(woodClips[Random.Range(0, woodClips.Length)], Mathf.Min(settings.masterVolume, settings.effectsVolume));
+                        footstepAudioSource.PlayOneShot(woodClips[Random.Range(0, woodClips.Length)], Mathf.Min(Settings.masterVolume, Settings.effectsVolume));
                         break;
                     case "Footsteps/Grass":
-                        footstepAudioSource.PlayOneShot(grassClips[Random.Range(0, grassClips.Length)], Mathf.Min(settings.masterVolume, settings.effectsVolume));
+                        footstepAudioSource.PlayOneShot(grassClips[Random.Range(0, grassClips.Length)], Mathf.Min(Settings.masterVolume, Settings.effectsVolume));
                         break;
                     case "Footsteps/Sand":
-                        footstepAudioSource.PlayOneShot(sandClips[Random.Range(0, sandClips.Length)], Mathf.Min(settings.masterVolume, settings.effectsVolume));
+                        footstepAudioSource.PlayOneShot(sandClips[Random.Range(0, sandClips.Length)], Mathf.Min(Settings.masterVolume, Settings.effectsVolume));
                         break;
                     default:
-                        footstepAudioSource.PlayOneShot(defaultClips[Random.Range(0, defaultClips.Length)], Mathf.Min(settings.masterVolume, settings.effectsVolume));
+                        footstepAudioSource.PlayOneShot(defaultClips[Random.Range(0, defaultClips.Length)], Mathf.Min(Settings.masterVolume, Settings.effectsVolume));
                         break;
                 }
             }

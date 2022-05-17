@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class InputSlider : MonoBehaviour
 {
-    Settings currentSettings;
-
     public string Sets
     {
         get { return sets; }
@@ -25,17 +23,15 @@ public class InputSlider : MonoBehaviour
     {
         slider = GetComponentInChildren<Slider>();
         description = GetComponentInChildren<Text>();
-
-        currentSettings = Resources.Load<Settings>("Settings/Current");
     }
 
     private void Update()
     {
-        slider.value = currentSettings.GetValue(sets);
+        slider.value = Settings.GetValue(sets);
     }
 
     public void ChangeValue()
     {
-        currentSettings.SetValue(sets, slider.value);
+        Settings.SetValue(sets, slider.value);
     }
 }

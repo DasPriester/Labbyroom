@@ -6,29 +6,29 @@ public class Settings : ScriptableObject
 {
     //Controlls
         //Movement
-        public KeyCode sprintKey = KeyCode.LeftShift;
-        public KeyCode jumpKey = KeyCode.Space;
-        public KeyCode crouchKey = KeyCode.LeftControl;
-        public KeyCode interactKey = KeyCode.E;
-        public KeyCode placeKey = KeyCode.Q;
+        public static KeyCode sprintKey = KeyCode.LeftShift;
+        public static KeyCode jumpKey = KeyCode.Space;
+        public static KeyCode crouchKey = KeyCode.LeftControl;
+        public static KeyCode interactKey = KeyCode.E;
+        public static KeyCode placeKey = KeyCode.Q;
 
         //Inventory
-        public KeyCode[] inventoryKeys = new KeyCode[] { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7 };
+        public static KeyCode[] inventoryKeys = new KeyCode[] { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7 };
 
         //Menus
-        public Menu[] menus = { };
+        public static Menu[] menus = { };
         public Dictionary<string ,Menu> liveMenus = new Dictionary<string, Menu>();
 
     //Video
-    public bool useHeadbob = true;
-    public bool particlesActivated = true;
+    public static bool useHeadbob = true;
+    public static bool particlesActivated = true;
 
     //Audio
-    public float masterVolume = 1f;
-    public float effectsVolume = 1f;
-    public float musicVolume = 1f;
+    public static float masterVolume = 1f;
+    public static float effectsVolume = 1f;
+    public static float musicVolume = 1f;
 
-    public bool useFootsteps = true;
+    public static bool useFootsteps = true;
 
     private void OnEnable()
     {
@@ -37,7 +37,6 @@ public class Settings : ScriptableObject
 
         liveMenus = new Dictionary<string, Menu>();
     }
-
 
     public Menu GetMenu(string name)
     {
@@ -72,8 +71,7 @@ public class Settings : ScriptableObject
         }
     }
 
-
-    public void SetKey(string id, KeyCode key)
+    public static void SetKey(string id, KeyCode key)
     {
         switch (id)
         {
@@ -134,7 +132,7 @@ public class Settings : ScriptableObject
         }
     }
 
-    public KeyCode GetKey(string id)
+    public static KeyCode GetKey(string id)
     {
         switch (id)
         {
@@ -185,7 +183,7 @@ public class Settings : ScriptableObject
         return new KeyCode();
     }
 
-    public void SetBool(string id, bool value)
+    public static void SetBool(string id, bool value)
     {
         switch (id)
         {
@@ -201,7 +199,7 @@ public class Settings : ScriptableObject
         }
     }
 
-    public bool GetBool(string id)
+    public static bool GetBool(string id)
     {
         switch (id)
         {
@@ -216,7 +214,7 @@ public class Settings : ScriptableObject
         return false;
     }
 
-    public void SetValue(string id, float value)
+    public static void SetValue(string id, float value)
     {
         switch (id)
         {
@@ -232,7 +230,7 @@ public class Settings : ScriptableObject
         }
     }
 
-    public float GetValue(string id)
+    public static float GetValue(string id)
     {
         switch (id)
         {

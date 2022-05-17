@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class InputBooleanButton : Button
 {
-    Settings currentSettings;
-
     public string Sets
     {
         get { return sets; }
@@ -25,18 +23,16 @@ public class InputBooleanButton : Button
     {
         tick = GetComponentInChildren<Hideable>();
         description = GetComponentInChildren<Text>();
-
-        currentSettings = Resources.Load<Settings>("Settings/Current");
     }
 
     private void Update()
     {
-        tick.SetHide(!currentSettings.GetBool(sets));
+        tick.SetHide(!Settings.GetBool(sets));
     }
 
     public void ToggleBoolean()
     {
         tick.ToggleHide();
-        currentSettings.SetBool(sets, !tick.isHidden());
+        Settings.SetBool(sets, !tick.isHidden());
     }
 }

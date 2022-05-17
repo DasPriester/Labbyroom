@@ -13,8 +13,6 @@ public abstract class Interactable : MonoBehaviour
     [SerializeField] public bool UseToolTip = true;
     protected ToolTip toolTip;
 
-    protected PlayerController pc;
-
     public virtual void Awake()
     {
         gameObject.layer = 6;
@@ -23,8 +21,6 @@ public abstract class Interactable : MonoBehaviour
         {
             toolTip = GetComponentInChildren<ToolTip>();
         }
-
-        pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -37,7 +33,7 @@ public abstract class Interactable : MonoBehaviour
 
     public void UpdateToolTip()
     {
-        toolTip.Key = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<PlayerController>().settings.interactKey;
+        toolTip.Key = Settings.interactKey;
     }
 
     public abstract void OnInteract(Vector3 pos);

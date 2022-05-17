@@ -22,7 +22,6 @@ public class DoorInteractable : Interactable
         }
 
         other = doorAnimator.GetComponentInParent<PortalComponent>();
-        pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     public void UpdateConnection()
@@ -36,9 +35,9 @@ public class DoorInteractable : Interactable
 
         if (UseAudio && !blocked)
         {
-            AudioSource.PlayClipAtPoint(doorSound, doorAnimator.gameObject.transform.position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
+            AudioSource.PlayClipAtPoint(doorSound, doorAnimator.gameObject.transform.position, Mathf.Min(Settings.masterVolume, Settings.effectsVolume));
             if (door2Animator)
-                AudioSource.PlayClipAtPoint(doorSound, door2Animator.gameObject.transform.position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
+                AudioSource.PlayClipAtPoint(doorSound, door2Animator.gameObject.transform.position, Mathf.Min(Settings.masterVolume, Settings.effectsVolume));
         }
 
         if (!blocked)

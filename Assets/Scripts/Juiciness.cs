@@ -7,7 +7,6 @@ public class Juiciness : MonoBehaviour
 {
     private enum levels { None, Basic, Full };
     private levels level = levels.Full;
-    PlayerController player;
     ParticleSystem atmos;
     List<Light> spots = new List<Light>();
     List<MeshRenderer> dimSplits = new List<MeshRenderer>();
@@ -15,7 +14,6 @@ public class Juiciness : MonoBehaviour
 
     private void Start()
     {
-        player = FindObjectOfType<PlayerController>();
         ParticleSystem[] particles = FindObjectsOfType<ParticleSystem>();
         Light[] lights = FindObjectsOfType<Light>();
         MeshRenderer[] meshes = FindObjectsOfType<MeshRenderer>();
@@ -62,8 +60,8 @@ public class Juiciness : MonoBehaviour
 
             if (level == levels.None)
             {
-                player.settings.useHeadbob = false;
-                player.settings.useFootsteps = false;
+                Settings.useHeadbob = false;
+                Settings.useFootsteps = false;
 
                 atmos.Stop();
 
@@ -94,8 +92,8 @@ public class Juiciness : MonoBehaviour
             }
             else if (level == levels.Basic)
             {
-                player.settings.useHeadbob = true;
-                player.settings.useFootsteps = true;
+                Settings.useHeadbob = true;
+                Settings.useFootsteps = true;
 
                 atmos.Play();
 
@@ -127,8 +125,8 @@ public class Juiciness : MonoBehaviour
             }
             else if (level == levels.Full)
             {
-                player.settings.useHeadbob = true;
-                player.settings.useFootsteps = true;
+                Settings.useHeadbob = true;
+                Settings.useFootsteps = true;
 
                 atmos.Play();
 
