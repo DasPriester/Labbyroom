@@ -22,5 +22,8 @@ MonoBehaviour:
   - {fileID: 3428822235544888799, guid: b1ad98fa2a3d84aea9714053348896ab, type: 3}
   - {fileID: 2472242715302691190, guid: bcb6f88260ed14284997d7692eb491a9, type: 3}
   useHeadbob: 1
-  masterVolume: 0.1
+  particlesActivated: 1
+  masterVolume: 1
+  effectsVolume: 1
+  musicVolume: 1
   useFootsteps: 1

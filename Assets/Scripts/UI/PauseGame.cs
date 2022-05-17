@@ -18,6 +18,15 @@ public class PauseGame : MonoBehaviour
         GameObject.Find("UI/PauseMenu(Clone)/MenuButton").GetComponent<Button>().onClick.AddListener(() => {
             LoadMenu();
         });
+        GameObject.Find("UI/PauseMenu(Clone)/SaveInput").GetComponent<InputField>().onEndEdit.AddListener((string value) => {
+            if (value != "")
+            {
+                SaveGame(value);
+            }
+        });
+        GameObject.Find("UI/PauseMenu(Clone)/QuitButton").GetComponent<Button>().onClick.AddListener(() => {
+            QuitGame();
+        });
     }
 
     private void PauseTime() { Time.timeScale = 0.0f; }
@@ -27,6 +36,11 @@ public class PauseGame : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         SceneManager.LoadScene(startScene);
+    }
+
+    public void SaveGame(string name)
+    {
+        Debug.Log("saving: " + name);
     }
 
     public void QuitGame()
