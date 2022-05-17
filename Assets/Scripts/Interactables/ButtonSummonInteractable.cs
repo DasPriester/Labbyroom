@@ -14,7 +14,7 @@ public class ButtonSummonInteractable : Interactable
     public override void OnInteract(Vector3 pos)
     {
         if (UseAudio)
-            AudioSource.PlayClipAtPoint(buttonSound, transform.position);
+            AudioSource.PlayClipAtPoint(buttonSound, transform.position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
 
         if (UseAnimation)
             buttonAnimator.SetTrigger("PressTrigger");

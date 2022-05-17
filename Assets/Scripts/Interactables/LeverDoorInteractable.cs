@@ -16,9 +16,9 @@ public class LeverDoorInteractable : Interactable
 
         if (UseAudio)
         {
-            AudioSource.PlayClipAtPoint(flipSound, transform.position);
-            AudioSource.PlayClipAtPoint(doorSound, doorAnimator.gameObject.transform.position);
-            AudioSource.PlayClipAtPoint(doorSound, door2Animator.gameObject.transform.position);
+            AudioSource.PlayClipAtPoint(flipSound, transform.position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
+            AudioSource.PlayClipAtPoint(doorSound, doorAnimator.gameObject.transform.position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
+            AudioSource.PlayClipAtPoint(doorSound, door2Animator.gameObject.transform.position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
         }
 
         if (UseParticle)

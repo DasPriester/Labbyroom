@@ -25,7 +25,7 @@ public class RecipeInteractable : Interactable
     {
         if (UseAudio)
         {
-            AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+            AudioSource.PlayClipAtPoint(pickupSound, transform.position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
         }
 
         recipe.unlocked = true;

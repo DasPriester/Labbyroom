@@ -297,16 +297,16 @@ public class PlayerController : PortalTraveller
                 switch (hit.collider.tag)
                 {
                     case "Footsteps/Wood":
-                        footstepAudioSource.PlayOneShot(woodClips[Random.Range(0, woodClips.Length)]);
+                        footstepAudioSource.PlayOneShot(woodClips[Random.Range(0, woodClips.Length)], Mathf.Min(settings.masterVolume, settings.effectsVolume));
                         break;
                     case "Footsteps/Grass":
-                        footstepAudioSource.PlayOneShot(grassClips[Random.Range(0, grassClips.Length)]);
+                        footstepAudioSource.PlayOneShot(grassClips[Random.Range(0, grassClips.Length)], Mathf.Min(settings.masterVolume, settings.effectsVolume));
                         break;
                     case "Footsteps/Sand":
-                        footstepAudioSource.PlayOneShot(sandClips[Random.Range(0, sandClips.Length)]);
+                        footstepAudioSource.PlayOneShot(sandClips[Random.Range(0, sandClips.Length)], Mathf.Min(settings.masterVolume, settings.effectsVolume));
                         break;
                     default:
-                        footstepAudioSource.PlayOneShot(defaultClips[Random.Range(0, defaultClips.Length)]);
+                        footstepAudioSource.PlayOneShot(defaultClips[Random.Range(0, defaultClips.Length)], Mathf.Min(settings.masterVolume, settings.effectsVolume));
                         break;
                 }
             }

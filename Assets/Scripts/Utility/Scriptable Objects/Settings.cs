@@ -21,9 +21,13 @@ public class Settings : ScriptableObject
 
     //Video
     public bool useHeadbob = true;
+    public bool particlesActivated = true;
 
     //Audio
     public float masterVolume = 1f;
+    public float effectsVolume = 1f;
+    public float musicVolume = 1f;
+
     public bool useFootsteps = true;
 
     private void OnEnable()
@@ -191,6 +195,9 @@ public class Settings : ScriptableObject
             case "Headbob":
                 useHeadbob = value;
                 break;
+            case "Particles":
+                particlesActivated = value;
+                break;
         }
     }
 
@@ -202,6 +209,8 @@ public class Settings : ScriptableObject
                 return useFootsteps;
             case "Headbob":
                 return useHeadbob;
+            case "Particles":
+                return particlesActivated;
         }
 
         return false;
@@ -214,6 +223,12 @@ public class Settings : ScriptableObject
             case "Volume":
                 masterVolume = value;
                 break;
+            case "Effects Volume":
+                effectsVolume = value;
+                break;
+            case "Music Volume":
+                musicVolume = value;
+                break;
         }
     }
 
@@ -223,6 +238,10 @@ public class Settings : ScriptableObject
         {
             case "Volume":
                 return masterVolume;
+            case "Effects Volume":
+                return effectsVolume;
+            case "Music Volume":
+                return musicVolume;
         }
 
         return 0f;

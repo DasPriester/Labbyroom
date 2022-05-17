@@ -19,15 +19,15 @@ public class PickUpInteractable : Interactable
 
     public void OnPlace(Vector3 position)
     {
-        AudioSource.PlayClipAtPoint(placeSound, position);
+        AudioSource.PlayClipAtPoint(placeSound, position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
     }
 
     public override void OnInteract(Vector3 pos)
     {
         if (UseAudio)
-            AudioSource.PlayClipAtPoint(pickUpSound, transform.position);
+            AudioSource.PlayClipAtPoint(pickUpSound, transform.position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
 
-        if (UseParticle)
+        if (UseParticle && pc.settings.particlesActivated)
             Instantiate(pickUpParticle, transform.position, Quaternion.identity).Play();
 
         var inv = GameObject.Find("UI/Inventory").GetComponent<PlayerInventory>();

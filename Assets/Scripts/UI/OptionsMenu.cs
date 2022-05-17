@@ -42,11 +42,15 @@ public class OptionsMenu : MonoBehaviour
     };
 
     Dictionary<string, ButtonType> audio = new Dictionary<string, ButtonType> {
+        {"Volume", ButtonType.SLIDER},
+        {"Effects Volume", ButtonType.SLIDER},
+        {"Music Volume", ButtonType.SLIDER},
         {"Footsteps", ButtonType.BOOL},
     };
 
     Dictionary<string, ButtonType> video = new Dictionary<string, ButtonType> {
         {"Headbob", ButtonType.BOOL},
+        {"Particles", ButtonType.BOOL},
     };
 
     private void Start()
