@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class PickUpInteractable : Interactable
 {
-    [SerializeField] private string prefabName = "";
+    [SerializeField] protected string prefabName = "";
 
-    [SerializeField] private AudioClip placeSound = default;
-    [SerializeField] private AudioClip pickUpSound = default;
-    [SerializeField] private ParticleSystem pickUpParticle = default;
+    [SerializeField] protected AudioClip placeSound = default;
+    [SerializeField] protected AudioClip pickUpSound = default;
+    [SerializeField] protected ParticleSystem pickUpParticle = default;
 
-    private GameObject prefab;
+    protected GameObject prefab;
 
-    public void Start()
+    public string PrefabName { get => prefabName; set => prefabName = value; }
+
+    public virtual void Start()
     {
         prefab = (GameObject)Resources.Load("Prefabs/"+prefabName);
     }

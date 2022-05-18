@@ -61,13 +61,19 @@ public class Hideable : MonoBehaviour
 
     public void Hide()
     {
-        canv.alpha = 0f;
-        canv.blocksRaycasts = false;
+        if (canv)
+        {
+            canv.alpha = 0f;
+            canv.blocksRaycasts = false;
+        }
     }
 
     public void Unhide()
     {
-        canv.alpha = 1f;
-        canv.blocksRaycasts = true;
+        if (canv)
+        {
+            canv.alpha = 1f;
+            canv.blocksRaycasts = true;
+        }
     }
 }

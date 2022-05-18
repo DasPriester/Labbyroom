@@ -539,6 +539,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5910781459884920113, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
+      propertyPath: recipe
+      value: 
+      objectReference: {fileID: 11400000, guid: a049a27bc3cb54225a0471f7e6f844da, type: 2}
+    - target: {fileID: 5910781459884920113, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: ToolTipOffset.z
       value: -0.2
       objectReference: {fileID: 0}

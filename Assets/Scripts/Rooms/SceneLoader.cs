@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -34,6 +35,21 @@ public class SceneLoader : MonoBehaviour
         //Rooms and doors
 
         //Objects
+        gd.objectData = new List<ObjectData>();
+        foreach (PickUpInteractable go in FindObjectsOfType<PickUpInteractable>())
+        {
+            ObjectData od = new ObjectData();
+            od.name = go.PrefabName;
+            od.position = go.transform.position;
+            od.rotation = go.transform.rotation;
+
+            if (go is RecipeInteractable)
+            {
+                od.recipe = (go as RecipeInteractable).Recipe;
+            }
+
+            gd.objectData.Add(od);
+        }
 
         //Settings
 
@@ -44,11 +60,16 @@ public class SceneLoader : MonoBehaviour
 
     public static void DeserializeGameData(string data)
     {
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Moveable"))
+        {
+            Destroy(go);
+        }
+
         GameData gd = JsonUtility.FromJson<GameData>(data);
 
         //Variables
         PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        PlayerInventory inv = GameObject.FindObjectOfType<PlayerInventory>();
+        PlayerInventory inv = FindObjectOfType<PlayerInventory>();
 
         //Load
 
@@ -64,10 +85,22 @@ public class SceneLoader : MonoBehaviour
         //Rooms and doors
 
         //Objects
+        foreach (ObjectData od in gd.objectData)
+        {
+            if (!od.recipe)
+                Instantiate(Resources.Load("Prefabs/" + od.name), od.position, od.rotation);
+            else
+            {
+                RecipeInteractable rec = Instantiate(Resources.Load<RecipeInteractable>("Prefabs/" + od.name), od.position, od.rotation);
+                rec.Recipe = od.recipe;
+            }
+        }
 
         //Settings
 
         //Recipies
+
+        Physics.SyncTransforms();
     }
 
     [Serializable]
@@ -80,5 +113,24 @@ public class SceneLoader : MonoBehaviour
         //Player Inventory
         public Item[] inventory;
         public int currentSlot;
+
+        //Rooms and doors
+
+        //Objects
+        public List<ObjectData> objectData;
+
+        //Settings
+
+        //Recipies
+    }
+
+    [Serializable]
+    private struct ObjectData
+    {
+        public string name;
+        public Vector3 position;
+        public Quaternion rotation;
+
+        public Recipe recipe;
     }
 }
