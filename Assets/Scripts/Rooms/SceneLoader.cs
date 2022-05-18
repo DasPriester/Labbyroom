@@ -11,6 +11,12 @@ public class SceneLoader : MonoBehaviour
         if (loadedFile)
         {
             DeserializeGameData(loadedFile.data);
+        } else
+        {
+            foreach (Recipe rec in Resources.LoadAll<Recipe>("Recipes"))
+            {
+                rec.unlocked = false;
+            }
         }
     }
 
@@ -51,9 +57,13 @@ public class SceneLoader : MonoBehaviour
             gd.objectData.Add(od);
         }
 
-        //Settings
-
         //Recipies
+        gd.unlockedRecipies = new List<string>();
+        foreach(Recipe rec in Resources.LoadAll<Recipe>("Recipes"))
+        {
+            if (rec.unlocked)
+                gd.unlockedRecipies.Add(rec.name);
+        }
 
         return JsonUtility.ToJson(gd);
     }
@@ -96,9 +106,11 @@ public class SceneLoader : MonoBehaviour
             }
         }
 
-        //Settings
-
         //Recipies
+        foreach (Recipe rec in Resources.LoadAll<Recipe>("Recipes"))
+        {
+            rec.unlocked = gd.unlockedRecipies.Contains(rec.name);
+        }
 
         Physics.SyncTransforms();
     }
@@ -119,9 +131,8 @@ public class SceneLoader : MonoBehaviour
         //Objects
         public List<ObjectData> objectData;
 
-        //Settings
-
         //Recipies
+        public List<string> unlockedRecipies;
     }
 
     [Serializable]
