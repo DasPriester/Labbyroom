@@ -13,8 +13,6 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-
-
     public static string SeriaizeGameData()
     {
         GameData gd = new GameData();
@@ -32,6 +30,14 @@ public class SceneLoader : MonoBehaviour
         //Player Inventory
         gd.inventory = inv.Inventory;
         gd.currentSlot = inv.CurrentSlot;
+
+        //Rooms and doors
+
+        //Objects
+
+        //Settings
+
+        //Recipies
 
         return JsonUtility.ToJson(gd);
     }
@@ -54,6 +60,14 @@ public class SceneLoader : MonoBehaviour
         //Player Inventory
         inv.Inventory = gd.inventory;
         inv.CurrentSlot = gd.currentSlot;
+
+        //Rooms and doors
+
+        //Objects
+
+        //Settings
+
+        //Recipies
     }
 
     [Serializable]
