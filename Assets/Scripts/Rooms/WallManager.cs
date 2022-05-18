@@ -7,6 +7,7 @@ public class WallManager : SurfaceManager
     [SerializeField] private Wall Wall = null;
     [SerializeField] private Vector3 Dimensions = Vector3.one;
     [SerializeField] private Hideable Preview = null;
+    [SerializeField] private int roomWMID = 0;
     private Hideable preview = null;
     private float previewCooldown = 0;
 
@@ -14,6 +15,8 @@ public class WallManager : SurfaceManager
     [SerializeField] public List<Vector2> doors = new List<Vector2>();
 
     private Camera playerCamera;
+
+    public int RoomWMID { get => roomWMID; set => roomWMID = value; }
 
     void Start()
     {

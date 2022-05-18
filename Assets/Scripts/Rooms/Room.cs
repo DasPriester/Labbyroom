@@ -8,6 +8,9 @@ public class Room : MonoBehaviour
     [SerializeField] private bool hasAccessDoor = false;
     [SerializeField] private Vector2 accessDoor = Vector2.zero;
     [SerializeField] private WallManager accessWall = null;
+    [SerializeField] private string prefabName = null;
+
+    public string PrefabName { get => prefabName; set => prefabName = value; }
 
     public Transform AddAccessDoor()
     {

@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 1255976478663795016}
   m_Layer: 0
   m_Name: TestRoom
-  m_TagString: Untagged
+  m_TagString: Moveable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -232,6 +232,7 @@ MonoBehaviour:
   hasAccessDoor: 1
   accessDoor: {x: 5, y: 2}
   accessWall: {fileID: 5518771475098346700}
+  prefabName: TestRoom
 --- !u!1 &5518771476128126092
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,6 +552,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 5518771474986691156}
     m_Modifications:
     - target: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
+      propertyPath: roomWMID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
       propertyPath: Dimensions.y
       value: 5.25
       objectReference: {fileID: 0}
@@ -625,6 +630,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 5518771474986691156}
     m_Modifications:
     - target: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
+      propertyPath: roomWMID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
       propertyPath: Dimensions.y
       value: 5.25
       objectReference: {fileID: 0}
@@ -698,6 +707,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5518771474986691156}
     m_Modifications:
+    - target: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
+      propertyPath: roomWMID
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
       propertyPath: Dimensions.y
       value: 5.25

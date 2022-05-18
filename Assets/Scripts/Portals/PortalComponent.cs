@@ -8,6 +8,7 @@ public class PortalComponent : MonoBehaviour
     [SerializeField] public PortalComponent linkedPortal = null;
     [SerializeField] public MeshRenderer screen = null;
     [SerializeField] public float width = 1f;
+    [SerializeField] private string prefabName = null;
 
     Camera playerCam;
     Camera portalCam;
@@ -20,6 +21,8 @@ public class PortalComponent : MonoBehaviour
     public float nearClipOffset = 0.05f;
     public float nearClipLimit = 0.2f;
     public int recursionLimit = 5;
+
+    public string PrefabName { get => prefabName; set => prefabName = value; }
 
     private void Awake()
     {

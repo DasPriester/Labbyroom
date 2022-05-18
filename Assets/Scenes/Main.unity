@@ -607,5 +607,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestRoom
       objectReference: {fileID: 0}
+    - target: {fileID: 5518771474986691159, guid: 26af1457050134ab7834708980f57815, type: 3}
+      propertyPath: m_TagString
+      value: Moveable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26af1457050134ab7834708980f57815, type: 3}
