@@ -13,6 +13,12 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(mainScene);
     }
 
+    public void NewGame()
+    {
+        SceneLoader.loadedFile = null;
+        SceneManager.LoadScene(mainScene);
+    }
+
     public void QuitGame()
     {
         Application.Quit();

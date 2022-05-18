@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor;
+
 public class PauseGame : MonoBehaviour
 {
     Menu pauseMenu;
@@ -35,12 +37,29 @@ public class PauseGame : MonoBehaviour
     public void LoadMenu()
     {
         Time.timeScale = 1.0f;
+        if(SceneLoader.loadedFile)
+            SceneLoader.loadedFile.data = SceneLoader.SeriaizeGameData();
+        else
+        {
+            SaveFile sf = SceneLoader.loadedFile = new SaveFile();
+            sf.name = "Quicksave";
+            sf.data = SceneLoader.SeriaizeGameData();
+        }
         SceneManager.LoadScene(startScene);
     }
 
     public void SaveGame(string name)
     {
         Debug.Log("saving: " + name);
+
+        SaveFile save = ScriptableObject.CreateInstance<SaveFile>();
+        save.name = name;
+        save.data = SceneLoader.SeriaizeGameData();
+
+        string path = "Assets/Resources/Saves/" + name + ".asset";
+        AssetDatabase.CreateAsset(save, path);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
     }
 
     public void QuitGame()

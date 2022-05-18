@@ -11,7 +11,16 @@ public class PlayerInventory : MonoBehaviour
 
     private GameObject[] slots = new GameObject[7];
     private Item[] invList = new Item[7];
+    public Item[] Inventory {
+        get { return invList; }
+        set { invList = value; UpdateUI(); }
+    }
     private int current = 0;
+    public int CurrentSlot
+    {
+        get { return current; }
+        set { current = value; }
+    }
     private PlayerController playerController;
 
     public void Awake()
@@ -69,13 +78,30 @@ public class PlayerInventory : MonoBehaviour
                     GameObject slot = slots[i];
                     Image image = slot.GetComponentsInChildren<Image>()[1];
                     image.enabled = true;
-                    
+
                     image.sprite = Utility.GetIconFor(item);
                     slot.GetComponentInChildren<Text>().enabled = true;
                     slot.GetComponentInChildren<Text>().text = "" + item.amount;
 
                     break;
                 }
+            }
+        }
+    }
+
+    private void UpdateUI()
+    {
+        for (int i = 0; i < invList.Length; i++)
+        {
+            if (invList[i].prefab != null)
+            {
+                GameObject slot = slots[i];
+                Image image = slot.GetComponentsInChildren<Image>()[1];
+                image.enabled = true;
+
+                image.sprite = Utility.GetIconFor(invList[i]);
+                slot.GetComponentInChildren<Text>().enabled = true;
+                slot.GetComponentInChildren<Text>().text = "" + invList[i].amount;
             }
         }
     }

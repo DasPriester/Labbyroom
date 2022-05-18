@@ -75,7 +75,8 @@ public class PlayerController : PortalTraveller
     private float footstepTimer = 0;
     private float GetCurrentOffset => isCrouching ? baseStepSpeed * crouchStepMultiplier : IsSprinting ? baseStepSpeed * sprintStepMultiplier : baseStepSpeed;
 
-
+    public float Pitch { get => pitch; set => pitch = value; }
+    public float Yaw { get => yaw; set => yaw = value; }
 
     private Camera playerCamera;
     private CharacterController characterController;

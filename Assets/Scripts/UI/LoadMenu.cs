@@ -25,7 +25,7 @@ public class LoadMenu : MonoBehaviour
         foreach (SaveFile sf in Resources.LoadAll<SaveFile>("Saves/"))
         {
             var slot = Instantiate(saveSlot, content);
-            slot.transform.position = new Vector3(content.position.x + content.rect.width / 2, -(i + 1) * 40, 0);
+            slot.transform.position = new Vector3(content.position.x + content.rect.width / 2, content.position.y - i * 40 - 25, 0);
             slot.saveFile = sf;
             slot.title.text = sf.name;
 
