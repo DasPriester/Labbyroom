@@ -5,42 +5,48 @@ using System.Collections.Generic;
 
 public class Utility : MonoBehaviour
 {
-
     public static Sprite GetIconFor(Item item)
     {
         Sprite sprite = Resources.Load<Sprite>("Sprites/Icons/" + item.name);
+
         if (!sprite)
         {
             Texture2D saved = Resources.Load<Texture2D>("Sprites/Icons/" + item.name + "_tmp");
 
-            if (saved)
-                sprite = Sprite.Create(saved, new Rect(0.0f, 0.0f, saved.width, saved.height), new Vector2(0.5f, 0.5f), 100.0f, 0, SpriteMeshType.Tight);
-            else
-            {
-                CreateIconFor(item);
-            }
+            #if (UNITY_EDITOR)
+
+                if (saved)
+                        sprite = Sprite.Create(saved, new Rect(0.0f, 0.0f, saved.width, saved.height), new Vector2(0.5f, 0.5f), 100.0f, 0, SpriteMeshType.Tight);
+                else
+                {
+                    CreateIconFor(item);
+                }
+            #endif
         }
+
 
         return sprite;
     }
 
-    public static void CreateIconFor(Item item)
-    {
-        Texture2D tex = UnityEditor.AssetPreview.GetAssetPreview(item.prefab);
-        Color[] colors = tex.GetPixels();
-        int i = 0;
-        Color alpha = colors[i];
-        for (; i < colors.Length; i++)
+    #if (UNITY_EDITOR)
+        public static void CreateIconFor(Item item)
         {
-            if (colors[i] == alpha)
+            Texture2D tex = UnityEditor.AssetPreview.GetAssetPreview(item.prefab);
+            Color[] colors = tex.GetPixels();
+            int i = 0;
+            Color alpha = colors[i];
+            for (; i < colors.Length; i++)
             {
-                colors[i].a = 0;
+                if (colors[i] == alpha)
+                {
+                    colors[i].a = 0;
+                }
             }
+            tex.SetPixels(colors);
+            byte[] bytes = tex.EncodeToPNG();
+            System.IO.File.WriteAllBytes("Assets/Resources/Sprites/Icons/" + item.name + "_tmp.PNG", bytes);
         }
-        tex.SetPixels(colors);
-        byte[] bytes = tex.EncodeToPNG();
-        System.IO.File.WriteAllBytes("Assets/Resources/Sprites/Icons/" + item.name + "_tmp.PNG", bytes);
-    }
+    #endif
 
     public static bool FastApproximately(float a, float b, float threshold)
     {

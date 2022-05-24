@@ -216,7 +216,9 @@ public class SceneLoader : MonoBehaviour
         foreach (ObjectData od in gd.objectData)
         {
             if (!od.recipe)
+            {
                 Instantiate(Resources.Load("Prefabs/" + od.name), od.position, od.rotation);
+            }
             else
             {
                 RecipeInteractable rec = Instantiate(Resources.Load<RecipeInteractable>("Prefabs/" + od.name), od.position, od.rotation);

@@ -206,47 +206,49 @@ public class PortalComponent : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        if (linkedPortal)
+    #if (UNITY_EDITOR)
+        private void OnDrawGizmosSelected()
         {
-            Gizmos.color = Color.green;
-            Vector3 a = screen.transform.position;
-            Vector3 b = linkedPortal.screen.transform.position;
+            if (linkedPortal)
+            {
+                Gizmos.color = Color.green;
+                Vector3 a = screen.transform.position;
+                Vector3 b = linkedPortal.screen.transform.position;
 
-            Vector3 am = a;
-            Vector3 bi = b;
-            am.Scale(Vector3.one * 0.9f);
-            bi.Scale(Vector3.one * 0.1f);
-            am = am + bi;
+                Vector3 am = a;
+                Vector3 bi = b;
+                am.Scale(Vector3.one * 0.9f);
+                bi.Scale(Vector3.one * 0.1f);
+                am = am + bi;
 
-            Vector3 ai = a;
-            Vector3 bm = b;
-            ai.Scale(Vector3.one * 0.1f);
-            bm.Scale(Vector3.one * 0.9f);
-            bm = bm + ai;
+                Vector3 ai = a;
+                Vector3 bm = b;
+                ai.Scale(Vector3.one * 0.1f);
+                bm.Scale(Vector3.one * 0.9f);
+                bm = bm + ai;
 
-            DrawArrow(am, bm);
+                DrawArrow(am, bm);
 
-            Gizmos.color = Color.blue;
-            DrawArrow(a - transform.forward, a);
-            DrawArrow(b, b + linkedPortal.screen.transform.forward);
+                Gizmos.color = Color.blue;
+                DrawArrow(a - transform.forward, a);
+                DrawArrow(b, b + linkedPortal.screen.transform.forward);
 
 
-            Gizmos.color = Color.red;
-            DrawArrow(a + transform.forward, a);
-            DrawArrow(b, b - linkedPortal.screen.transform.forward);
+                Gizmos.color = Color.red;
+                DrawArrow(a + transform.forward, a);
+                DrawArrow(b, b - linkedPortal.screen.transform.forward);
+            }
         }
-    }
 
-    static void DrawArrow(Vector3 a, Vector3 b)
-    {
-        Gizmos.DrawLine(a, b);
-        Vector3 dir = (a - b).normalized;
-        Vector3 n = Vector3.Cross(dir, (SceneView.lastActiveSceneView.camera.transform.position - b).normalized);
-        n.Scale(Vector3.one * 0.5f);
-        Gizmos.DrawLine(b + dir + n, b);
-        Gizmos.DrawLine(b + dir - n, b);
-        Gizmos.DrawLine(a, b);
-    }
+        static void DrawArrow(Vector3 a, Vector3 b)
+        {
+            Gizmos.DrawLine(a, b);
+            Vector3 dir = (a - b).normalized;
+            Vector3 n = Vector3.Cross(dir, (SceneView.lastActiveSceneView.camera.transform.position - b).normalized);
+            n.Scale(Vector3.one * 0.5f);
+            Gizmos.DrawLine(b + dir + n, b);
+            Gizmos.DrawLine(b + dir - n, b);
+            Gizmos.DrawLine(a, b);
+        }
+#endif
 }

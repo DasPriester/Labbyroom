@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class PauseGame : MonoBehaviour
 {
@@ -52,14 +54,29 @@ public class PauseGame : MonoBehaviour
     {
         Debug.Log("saving: " + name);
 
-        SaveFile save = ScriptableObject.CreateInstance<SaveFile>();
-        save.name = name;
-        save.data = SceneLoader.SeriaizeGameData();
+        #if (UNITY_EDITOR)
+            SaveFile save = ScriptableObject.CreateInstance<SaveFile>();
+            save.name = name;
+            save.data = SceneLoader.SeriaizeGameData();
 
-        string path = "Assets/Resources/Saves/" + name + ".asset";
-        AssetDatabase.CreateAsset(save, path);
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
+            string path = "Assets/Resources/Saves/" + name + ".asset";
+            AssetDatabase.CreateAsset(save, path);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        #else
+            string data = SceneLoader.SeriaizeGameData();
+
+            string destination = Application.persistentDataPath + "/" + name + ".save";
+            FileStream file;
+
+            if (File.Exists(destination)) file = File.OpenWrite(destination);
+            else file = File.Create(destination);
+
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(file, data);
+            file.Close();
+
+        #endif
     }
 
     public void QuitGame()
