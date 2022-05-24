@@ -95,6 +95,8 @@ public class SceneLoader : MonoBehaviour
             }
         }
 
+        gd.z = PortalConnector.Z;
+
         //Objects
         gd.objectData = new List<ObjectData>();
         foreach (PickUpInteractable go in FindObjectsOfType<PickUpInteractable>())
@@ -208,6 +210,8 @@ public class SceneLoader : MonoBehaviour
 
         }
 
+        PortalConnector.Z = gd.z;
+
         //Objects
         foreach (ObjectData od in gd.objectData)
         {
@@ -243,6 +247,7 @@ public class SceneLoader : MonoBehaviour
         //Rooms and doors
         public List<RoomData> roomData;
         public List<PortalPairData> ppData;
+        public int z;
 
         //Objects
         public List<ObjectData> objectData;

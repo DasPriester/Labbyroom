@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class PortalConnector : MonoBehaviour
 {
-    static float z = 0;
+    static int z = 0;
+
+    public static int Z { get => z; set => z = value; }
 
     protected void InsertPortal(Vector3 pos, Quaternion rot, Room roomType, PortalComponent portalType, Material wall_material)
     {
         PortalComponent p1 = Instantiate(portalType, pos, rot);
         p1.GetComponentInChildren<DoorInteractable>().blocked = true;
         p1.GetComponentInChildren<DoorInteractable>().enabled = false;
-        z += 100;
-        Room room = Instantiate(roomType, Vector3.forward * z, new Quaternion());
+        z += 1;
+        Room room = Instantiate(roomType, Vector3.forward * z * 100, new Quaternion());
         Transform coords = room.AddAccessDoor();
         PortalComponent p2 = Instantiate(portalType, coords);
 
