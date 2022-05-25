@@ -99,16 +99,16 @@ public class SceneLoader : MonoBehaviour
 
         //Objects
         gd.objectData = new List<ObjectData>();
-        foreach (PickUpInteractable go in FindObjectsOfType<PickUpInteractable>())
+        foreach (Moveable go in FindObjectsOfType<Moveable>())
         {
             ObjectData od = new ObjectData();
             od.name = go.PrefabName;
             od.position = go.transform.position;
             od.rotation = go.transform.rotation;
 
-            if (go is RecipeInteractable)
+            if (go.GetComponent<RecipeInteractable>())
             {
-                od.recipe = (go as RecipeInteractable).Recipe;
+                od.recipe = (go.GetComponent<RecipeInteractable>()).Recipe;
             }
 
             gd.objectData.Add(od);
@@ -127,9 +127,14 @@ public class SceneLoader : MonoBehaviour
 
     public static void DeserializeGameData(string data)
     {
-        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Moveable"))
+        foreach (Moveable go in GameObject.FindObjectsOfType<Moveable>())
         {
-            Destroy(go);
+            Destroy(go.gameObject);
+        }
+
+        foreach (Room room in GameObject.FindObjectsOfType<Room>())
+        {
+            Destroy(room.gameObject);
         }
 
         GameData gd = JsonUtility.FromJson<GameData>(data);
@@ -154,9 +159,9 @@ public class SceneLoader : MonoBehaviour
         {
             Room room = Instantiate(Resources.Load<Room>("Rooms/" + rd.name), rd.position, new Quaternion());
 
-            foreach (PickUpInteractable pi in room.GetComponentsInChildren<PickUpInteractable>())
+            foreach (Moveable mo in room.GetComponentsInChildren<Moveable>())
             {
-                Destroy(pi.gameObject);
+                Destroy(mo.gameObject);
             }
 
             foreach (WallManagerData wmd in rd.wmData)

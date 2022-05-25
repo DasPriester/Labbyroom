@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Moveable))]
 public class InconsitencyObject : MonoBehaviour
 {
     Camera cam;

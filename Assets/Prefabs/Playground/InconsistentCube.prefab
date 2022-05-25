@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2661448506564906667}
   - component: {fileID: 2661448506564906666}
   - component: {fileID: 2661448506564906678}
+  - component: {fileID: 3434010722080231957}
   m_Layer: 0
   m_Name: InconsistentCube
   m_TagString: Untagged
@@ -119,4 +120,16 @@ MonoBehaviour:
   chageColor: 1
   keepAspect: 1
   colorInconsistency: {x: 0.05, y: 0.01, z: 0.01}
-  escalate: 0
+--- !u!114 &3434010722080231957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661448506564906669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f409828965acd4b21af69df5384fcc95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabName: InconsistencyCube

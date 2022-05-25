@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Moveable))]
 public class PickUpInteractable : Interactable
 {
-    [SerializeField] protected string prefabName = "";
 
     [SerializeField] protected AudioClip placeSound = default;
     [SerializeField] protected AudioClip pickUpSound = default;
     [SerializeField] protected ParticleSystem pickUpParticle = default;
 
+    protected string prefabName = "";
     protected GameObject prefab;
-
-    public string PrefabName { get => prefabName; set => prefabName = value; }
 
     public virtual void Start()
     {
-        prefab = (GameObject)Resources.Load("Prefabs/"+prefabName);
+        prefabName = GetComponent<Moveable>().PrefabName;
+        prefab = (GameObject)Resources.Load("Prefabs/" + prefabName);
     }
 
     public void OnPlace(Vector3 position)

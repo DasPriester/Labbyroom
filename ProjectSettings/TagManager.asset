@@ -7,7 +7,6 @@ TagManager:
   - Footsteps/Grass
   - Footsteps/Wood
   - Footsteps/Sand
-  - Moveable
   layers:
   - Default
   - TransparentFX

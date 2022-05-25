@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ce7f7a8ce544982b86d3842f59ad12, type: 3}
   m_Name: Current
   m_EditorClassIdentifier: 
-  sprintKey: 304
+  sprintKey: 310
   jumpKey: 32
   crouchKey: 304
   interactKey: 101

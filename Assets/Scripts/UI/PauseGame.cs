@@ -81,6 +81,6 @@ public class PauseGame : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        Utility.QuitGame();
     }
 }

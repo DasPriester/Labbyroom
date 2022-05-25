@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Moveable))]
 public class RecipeInteractable : PickUpInteractable
 {
     [SerializeField] private Recipe recipe = null;

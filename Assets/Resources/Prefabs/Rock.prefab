@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 718597873605787419}
   - component: {fileID: -3312713435364818256}
   - component: {fileID: 6360081744531502788}
+  - component: {fileID: 7255654328563765883}
   m_Layer: 0
   m_Name: Rock
-  m_TagString: Moveable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,7 +134,6 @@ MonoBehaviour:
   UseParticle: 1
   UseAnimation: 1
   UseToolTip: 1
-  prefabName: Rock
   placeSound: {fileID: 8300000, guid: b52f420b56a2ca24a912fac149691eb7, type: 3}
   pickUpSound: {fileID: 8300000, guid: 3b759c6d04c9145459fb9d8ef8264889, type: 3}
   pickUpParticle: {fileID: 7034904094744888385, guid: 9ecc2c82f0942184283e3fd40a2aff72, type: 3}
@@ -190,6 +190,19 @@ MonoBehaviour:
     - {x: -0.86391443, y: -0.50062567, z: 0.055006966}
     - {x: 0.44442388, y: -0.34533787, z: 0.82657677}
     - {x: -0.61132276, y: -0.37505385, z: 0.6968637}
+--- !u!114 &7255654328563765883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8742471451781248404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f409828965acd4b21af69df5384fcc95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabName: Rock
 --- !u!1001 &3428708720309783845
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,10 +13,10 @@ public class Utility : MonoBehaviour
         {
             Texture2D saved = Resources.Load<Texture2D>("Sprites/Icons/" + item.name + "_tmp");
 
-            #if (UNITY_EDITOR)
+            if (saved)
+                sprite = Sprite.Create(saved, new Rect(0.0f, 0.0f, saved.width, saved.height), new Vector2(0.5f, 0.5f), 100.0f, 0, SpriteMeshType.Tight);
 
-                if (saved)
-                        sprite = Sprite.Create(saved, new Rect(0.0f, 0.0f, saved.width, saved.height), new Vector2(0.5f, 0.5f), 100.0f, 0, SpriteMeshType.Tight);
+            #if (UNITY_EDITOR)
                 else
                 {
                     CreateIconFor(item);
@@ -58,6 +58,14 @@ public class Utility : MonoBehaviour
         {
             return Mathf.Approximately(a, b);
         }
+    }
+
+    public static void QuitGame()
+    {
+        #if (UNITY_EDITOR)
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+        Application.Quit();
     }
 }
 

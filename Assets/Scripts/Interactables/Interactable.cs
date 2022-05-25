@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Outline))]
 public abstract class Interactable : MonoBehaviour
 {
     [Header("Juiciness")]

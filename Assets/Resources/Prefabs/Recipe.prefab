@@ -93,9 +93,10 @@ GameObject:
   - component: {fileID: 5910781459884920113}
   - component: {fileID: 1428377365005982976}
   - component: {fileID: 529664724533341213}
+  - component: {fileID: 1805468729710905559}
   m_Layer: 6
   m_Name: Recipe
-  m_TagString: Moveable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -182,7 +183,6 @@ MonoBehaviour:
   UseParticle: 1
   UseAnimation: 1
   UseToolTip: 1
-  prefabName: Recipe
   placeSound: {fileID: 0}
   pickUpSound: {fileID: 8300000, guid: 3b759c6d04c9145459fb9d8ef8264889, type: 3}
   pickUpParticle: {fileID: 0}
@@ -219,6 +219,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1805468729710905559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6432907728722272025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f409828965acd4b21af69df5384fcc95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabName: Recipe
 --- !u!1 &7030324898013917980
 GameObject:
   m_ObjectHideFlags: 0
