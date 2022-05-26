@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Wall = SurfaceInteractable;
 
 public class WallManager : SurfaceManager
 {
@@ -11,10 +12,9 @@ public class WallManager : SurfaceManager
     private Hideable preview = null;
     private float previewCooldown = 0;
 
-    private List<Wall> walls = new List<Wall>();
-    [SerializeField] public List<Vector2> doors = new List<Vector2>();
+    private readonly List<Wall> walls = new List<Wall>();
+    public List<Vector2> doors = new List<Vector2>();
 
-    private Camera playerCamera;
 
     public int RoomWMID { get => roomWMID; set => roomWMID = value; }
 

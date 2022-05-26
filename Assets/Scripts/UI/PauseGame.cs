@@ -10,7 +10,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class PauseGame : MonoBehaviour
 {
     Menu pauseMenu;
-    private string startScene = "Start";
+    private readonly string startScene = "Start";
 
     private void Awake()
     {
@@ -43,7 +43,7 @@ public class PauseGame : MonoBehaviour
             SceneLoader.loadedFile.data = SceneLoader.SeriaizeGameData();
         else
         {
-            SaveFile sf = SceneLoader.loadedFile = new SaveFile();
+            SaveFile sf = SceneLoader.loadedFile = ScriptableObject.CreateInstance<SaveFile>();
             sf.name = "Quicksave";
             sf.data = SceneLoader.SeriaizeGameData();
         }

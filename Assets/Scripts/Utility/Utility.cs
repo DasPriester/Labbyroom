@@ -32,7 +32,7 @@ public class Utility : MonoBehaviour
         public static void CreateIconFor(Item item)
         {
             Texture2D tex = UnityEditor.AssetPreview.GetAssetPreview(item.prefab);
-            Color[] colors = tex.GetPixels();
+            Color32[] colors = tex.GetPixels32();
             int i = 0;
             Color alpha = colors[i];
             for (; i < colors.Length; i++)
@@ -42,7 +42,7 @@ public class Utility : MonoBehaviour
                     colors[i].a = 0;
                 }
             }
-            tex.SetPixels(colors);
+            tex.SetPixels32(colors);
             byte[] bytes = tex.EncodeToPNG();
             System.IO.File.WriteAllBytes("Assets/Resources/Sprites/Icons/" + item.name + "_tmp.PNG", bytes);
         }

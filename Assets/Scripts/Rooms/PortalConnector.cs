@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class to 
+/// </summary>
 public class PortalConnector : MonoBehaviour
 {
     static int z = 0;
@@ -14,7 +17,7 @@ public class PortalConnector : MonoBehaviour
         p1.GetComponentInChildren<DoorInteractable>().blocked = true;
         p1.GetComponentInChildren<DoorInteractable>().enabled = false;
         z += 1;
-        Room room = Instantiate(roomType, Vector3.forward * z * 100, new Quaternion());
+        Room room = Instantiate(roomType, 100 * z * Vector3.forward, new Quaternion());
         Transform coords = room.AddAccessDoor();
         PortalComponent p2 = Instantiate(portalType, coords);
 

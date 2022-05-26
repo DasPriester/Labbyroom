@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Menu : Hideable
 {
-    [SerializeField]
     public KeyCode openKey;
 
     public delegate void OpenMenuDelegate();

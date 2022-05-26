@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class PlayerCrafting : MonoBehaviour
+/// <summary>
+/// crafting UI
+/// </summary>
+public class CraftingUI : MonoBehaviour
 {
     Menu craftingMenu = null;
 
@@ -13,7 +16,7 @@ public class PlayerCrafting : MonoBehaviour
 
     RectTransform content;
 
-    PlayerInventory inv = null;
+    Inventory inv = null;
     Recipe[] recipes;
 
     private void Awake()
@@ -27,7 +30,7 @@ public class PlayerCrafting : MonoBehaviour
     private void UpdateCraftMenu()
     {
         if (!inv)
-            inv = GetComponentInChildren<PlayerInventory>();
+            inv = GetComponentInChildren<Inventory>();
 
         if (!content)
             content = GameObject.Find("UI/CraftingMenu(Clone)/Scroll View/Viewport/Content").GetComponent<RectTransform>();
@@ -60,7 +63,7 @@ public class PlayerCrafting : MonoBehaviour
                 button.GetComponent<Image>().color = craftable ? Color.green : Color.gray;
                 button.interactable = craftable;
 
-                nen.transform.position += Vector3.down * 70 * i;
+                nen.transform.position += 70 * i * Vector3.down;
                 i++;
             }
         }

@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+/// <summary>
+/// Portal to teleport a traveller
+/// </summary>
 public class PortalComponent : MonoBehaviour
 {
-    [SerializeField] public PortalComponent linkedPortal = null;
-    [SerializeField] public MeshRenderer screen = null;
-    [SerializeField] public float width = 1f;
     [SerializeField] private string prefabName = null;
+
+    public PortalComponent linkedPortal = null;
+    public MeshRenderer screen = null;
+    public float width = 1f;
 
     Camera playerCam;
     Camera portalCam;
@@ -16,7 +20,7 @@ public class PortalComponent : MonoBehaviour
     RenderTexture viewTexture;
     MeshFilter screenMeshFilter;
 
-    List<PortalTraveller> trackedTravellers;
+    List<PlayerController> trackedTravellers;
 
     public float nearClipOffset = 0.05f;
     public float nearClipLimit = 0.2f;
@@ -29,7 +33,7 @@ public class PortalComponent : MonoBehaviour
         playerCam = Camera.main;
         portalCam = GetComponentInChildren<Camera>();
         portalCam.enabled = false;
-        trackedTravellers = new List<PortalTraveller>();
+        trackedTravellers = new List<PlayerController>();
         screenMeshFilter = screen.GetComponent<MeshFilter>();
         screen.material.SetInt("displayMask", 1);
     }
@@ -41,13 +45,13 @@ public class PortalComponent : MonoBehaviour
             linkedPortal.ProtectScreenFromClipping(playerCam.transform.position);
             for (int i = 0; i < trackedTravellers.Count; i++)
             {
-                PortalTraveller traveller = trackedTravellers[i];
+                PlayerController traveller = trackedTravellers[i];
                 Transform travellerT = traveller.transform;
                 var m = linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * travellerT.localToWorldMatrix;
 
                 Vector3 offsetFromPortal = travellerT.position - transform.position;
                 int portalSide = System.Math.Sign(Vector3.Dot(offsetFromPortal, transform.forward));
-                int portalSideOld = System.Math.Sign(Vector3.Dot(traveller.previousOffsetFromPortal, transform.forward));
+                int portalSideOld = System.Math.Sign(Vector3.Dot(traveller.PreviousOffsetFromPortal, transform.forward));
 
                 if (portalSide != portalSideOld)
                 {
@@ -59,7 +63,7 @@ public class PortalComponent : MonoBehaviour
                 }
                 else
                 {
-                    traveller.previousOffsetFromPortal = offsetFromPortal;
+                    traveller.PreviousOffsetFromPortal = offsetFromPortal;
                 }
             }
         }
@@ -136,12 +140,12 @@ public class PortalComponent : MonoBehaviour
     }
     
 
-    void OnTravellerEnterPortal(PortalTraveller traveller)
+    void OnTravellerEnterPortal(PlayerController traveller)
     {
         if (!trackedTravellers.Contains(traveller))
         {
             traveller.EnterPortalThreshold();
-            traveller.previousOffsetFromPortal = traveller.transform.position - transform.position;
+            traveller.PreviousOffsetFromPortal = traveller.transform.position - transform.position;
             trackedTravellers.Add(traveller);
         }
     }
@@ -159,7 +163,7 @@ public class PortalComponent : MonoBehaviour
         bool camFacingSameDirAsPortal = Vector3.Dot(transform.forward, transform.position - viewPoint) > 0;
         screenThickness = inFrontOfPortal ? screenThickness : screenT.localScale.y / 2;
         screenT.localScale = new Vector3(screenT.localScale.x, screenT.localScale.y, screenThickness);
-        screenT.localPosition = Vector3.forward * screenThickness * ((camFacingSameDirAsPortal) ? 0.5f : -0.5f);
+        screenT.localPosition = ((camFacingSameDirAsPortal) ? 0.5f : -0.5f) * screenThickness * Vector3.forward;
         return screenThickness;
     }
 
@@ -189,7 +193,7 @@ public class PortalComponent : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        var traveller = other.GetComponent<PortalTraveller>();
+        var traveller = other.GetComponent<PlayerController>();
         if (traveller)
         {
             OnTravellerEnterPortal(traveller);
@@ -198,7 +202,7 @@ public class PortalComponent : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        var traveller = other.GetComponent<PortalTraveller>();
+        var traveller = other.GetComponent<PlayerController>();
         if (traveller && trackedTravellers.Contains(traveller))
         {
             traveller.ExitPortalThreshold();
@@ -219,13 +223,13 @@ public class PortalComponent : MonoBehaviour
                 Vector3 bi = b;
                 am.Scale(Vector3.one * 0.9f);
                 bi.Scale(Vector3.one * 0.1f);
-                am = am + bi;
+                am += bi;
 
                 Vector3 ai = a;
                 Vector3 bm = b;
                 ai.Scale(Vector3.one * 0.1f);
                 bm.Scale(Vector3.one * 0.9f);
-                bm = bm + ai;
+                bm += ai;
 
                 DrawArrow(am, bm);
 

@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : PortalTraveller
-{
+/// <summary>
+/// Controller class for the player
+/// </summary>
+public class PlayerController : MonoBehaviour { 
+    public Vector3 PreviousOffsetFromPortal { get; set; }
+
     public bool CanMove { get; private set; } = true;
     public bool IsSprinting => canSprint && Input.GetKey(settings.sprintKey);
     public bool ShouldJump => Input.GetKeyDown(settings.jumpKey) && characterController.isGrounded;
@@ -12,11 +16,11 @@ public class PlayerController : PortalTraveller
     public Settings settings;
 
     [Header("Funktional Options")]
-    [SerializeField] public bool canSprint = true;
-    [SerializeField] public bool canJump = true;
-    [SerializeField] public bool canCrouch = true;
-    [SerializeField] public bool canInteract = true;
-    [SerializeField] public bool canPlace = true;
+    [SerializeField] private bool canSprint = true;
+    [SerializeField] private bool canJump = true;
+    [SerializeField] private bool canCrouch = true;
+    [SerializeField] private bool canInteract = true;
+    [SerializeField] private bool canPlace = true;
 
     [Header("Movement Parameters")]
     [SerializeField] private float walkSpeed = 3.0f;
@@ -56,12 +60,12 @@ public class PlayerController : PortalTraveller
     [SerializeField] private Vector3 interactionRayPoint = new Vector3(0.5f, 0.5f, 0);
     [SerializeField] private float interactionDistance = 4;
     [SerializeField] private LayerMask interactionLayer = default;
+    [SerializeField] private LayerMask wallLayer = default;
     private Interactable currentInteractable;
 
     [Header("Placement")]
     [SerializeField] private Vector3 placementRayPoint = new Vector3(0.5f, 0.5f, 0);
     [SerializeField] private float placementDistance = 4;
-    [SerializeField] private LayerMask playerLayer = default;
 
     [Header("Footstep Parameters")]
     [SerializeField] private float baseStepSpeed = 0.5f;
@@ -87,8 +91,12 @@ public class PlayerController : PortalTraveller
     private float pitch;
     private float yaw;
 
+    /// <summary>
+    /// Initiate variables, load settings and load menus
+    /// </summary>
     void Awake()
     {
+        PreviousOffsetFromPortal = new Vector3();
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponent<CharacterController>();
         defaultYPos = playerCamera.transform.localPosition.y;
@@ -100,15 +108,17 @@ public class PlayerController : PortalTraveller
         foreach (Menu menu in settings.menus)
         {
             if (!settings.liveMenus.ContainsKey(menu.name))
-                settings.liveMenus.Add(menu.name, Instantiate<Menu>(menu, FindObjectOfType<PlayerCrafting>().transform));
+                settings.liveMenus.Add(menu.name, Instantiate<Menu>(menu, FindObjectOfType<CraftingUI>().transform));
 
             if (settings.liveMenus.ContainsKey(menu.name) && settings.liveMenus[menu.name] == null)
-                settings.liveMenus[menu.name] = Instantiate<Menu>(menu, FindObjectOfType<PlayerCrafting>().transform);
+                settings.liveMenus[menu.name] = Instantiate<Menu>(menu, FindObjectOfType<CraftingUI>().transform);
 
         }
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Handle each action the player can take
+    /// </summary>
     void Update()
     {
         if (CanMove)
@@ -142,6 +152,9 @@ public class PlayerController : PortalTraveller
         }
     }
 
+    /// <summary>
+    /// Convert input to horizontal/vertical movement
+    /// </summary>
     private void HandleMovementInput()
     {
         currentInput = new Vector2((isCrouching ? crouchSpeed : IsSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Vertical"),
@@ -157,6 +170,9 @@ public class PlayerController : PortalTraveller
 
     }
     
+    /// <summary>
+    /// Turn camera with mouse
+    /// </summary>
     private void HandleMouseInput()
     {
         float mX = Input.GetAxis("Mouse X");
@@ -182,18 +198,27 @@ public class PlayerController : PortalTraveller
 
     }
 
+    /// <summary>
+    /// Apply jump force
+    /// </summary>
     private void HandleJump()
     {
         if (ShouldJump)
             moveDirection.y = jumpForce;
     }
 
+    /// <summary>
+    /// Start crouch corutine
+    /// </summary>
     private void HandleCrouch()
     {
         if (ShouldCrouch)
             StartCoroutine(CrouchStand());
     }
 
+    /// <summary>
+    /// Do headbobing
+    /// </summary>
     private void HandleHeadbob()
     {
         if (!characterController.isGrounded) return;
@@ -210,9 +235,12 @@ public class PlayerController : PortalTraveller
 
     }
 
+    /// <summary>
+    /// Send raycast and call the focus method for currently targeted object
+    /// </summary>
     private void HandleInteractionCheck()
     {
-        if (Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance) && hit.collider.gameObject.layer == 6)
+        if (Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
         {
             if (currentInteractable == null || hit.collider.gameObject.GetInstanceID() != currentInteractable.gameObject.GetInstanceID())
             {
@@ -224,7 +252,7 @@ public class PlayerController : PortalTraveller
                 hit.collider.TryGetComponent(out currentInteractable);
 
                 if (currentInteractable)
-                    currentInteractable.OnFocus(hit.point);
+                    currentInteractable.OnFocus();
                 
             }
         }
@@ -235,39 +263,45 @@ public class PlayerController : PortalTraveller
         }
 
 
-        if (Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit wall, interactionDistance) && hit.collider.gameObject.layer == 6)
+        if (Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit wall, interactionDistance, wallLayer))
         {
-            PortalSurface surface = wall.collider.gameObject.GetComponent<PortalSurface>();
-            Item item = GameObject.Find("UI/Inventory").GetComponent<PlayerInventory>().CurrentItem();
+            SurfaceInteractable surface = wall.collider.gameObject.GetComponent<SurfaceInteractable>();
+            Item item = GameObject.Find("UI/Inventory").GetComponent<Inventory>().CurrentItem();
 
             try
             {
-                if (surface && item.prefab.GetComponent<Key>())
+                if (surface && item.prefab.GetComponent<KeyInteractable>())
                 {
-                    surface.OnViewedAtWithKey(hit.point, item.prefab.GetComponent<Key>().portalType);
+                    surface.OnViewedAtWithKey(wall.point, item.prefab.GetComponent<KeyInteractable>().portalType);
                 }
             }
             catch (System.NullReferenceException) { }
         }
     } 
     
+    /// <summary>
+    /// Call interact mothod on currently focused interactable
+    /// </summary>
     private void HandleInteractionInput()
     {
-        if(Input.GetKeyDown(settings.interactKey) && currentInteractable != null && 
+        if (Input.GetKeyDown(settings.interactKey) && currentInteractable != null && 
             Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
         {
             currentInteractable.OnInteract(hit.point);
         }
     }
 
+    /// <summary>
+    /// Place currently selected inventory-item
+    /// </summary>
     private void HandlePlace()
     {
         if(Input.GetKeyDown(settings.placeKey) &&
-            Physics.Raycast(playerCamera.ViewportPointToRay(placementRayPoint), out RaycastHit hit, placementDistance, ~playerLayer))
+            Physics.Raycast(playerCamera.ViewportPointToRay(placementRayPoint), out RaycastHit hit, placementDistance))
         {
 
 
-            PlayerInventory inv = GameObject.Find("UI/Inventory").GetComponent<PlayerInventory>();
+            Inventory inv = GameObject.Find("UI/Inventory").GetComponent<Inventory>();
             var item = inv.CurrentItem();
             if (item.prefab != null)
             {
@@ -283,6 +317,9 @@ public class PlayerController : PortalTraveller
         
     }
 
+    /// <summary>
+    /// Play footsteps
+    /// </summary>
     private void HandleFootsteps()
     {
         if (!characterController.isGrounded) return;
@@ -316,6 +353,9 @@ public class PlayerController : PortalTraveller
         }
     }
 
+    /// <summary>
+    /// Apply gravity and movement to controller
+    /// </summary>
     private void ApplyFinalMovements()
     {
         if (!characterController.isGrounded)
@@ -325,6 +365,9 @@ public class PlayerController : PortalTraveller
         characterController.Move(moveDirection * Time.deltaTime);
     }
 
+    /// <summary>
+    /// Crouch animation
+    /// </summary>
     private IEnumerator CrouchStand()
     {
         if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f))
@@ -354,7 +397,14 @@ public class PlayerController : PortalTraveller
         duringCrouchAnimation = false;
     }
 
-    public override void Teleport(Transform fromPortal, Transform toPortal, Vector3 pos, Quaternion rot)
+    /// <summary>
+    /// Teleport the player with a portal
+    /// </summary>
+    /// <param name="fromPortal">Start portal</param>
+    /// <param name="toPortal">End portal</param>
+    /// <param name="pos">Goal position</param>
+    /// <param name="rot">Goal rotation</param>
+    public void Teleport(Transform fromPortal, Transform toPortal, Vector3 pos, Quaternion rot)
     {
         transform.position = pos;
         Vector3 eulerRot = rot.eulerAngles;
@@ -364,4 +414,7 @@ public class PlayerController : PortalTraveller
         moveDirection = toPortal.TransformVector(fromPortal.InverseTransformVector(moveDirection));
         Physics.SyncTransforms();
     }
+
+    public void EnterPortalThreshold() { }
+    public void ExitPortalThreshold() { }
 }

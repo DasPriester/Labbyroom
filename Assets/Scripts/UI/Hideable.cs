@@ -10,7 +10,21 @@ public class Hideable : MonoBehaviour
     [SerializeField]
     bool hidden = true;
 
-    public bool isHidden()
+    private void Start()
+    {
+        if (!canv)
+            canv = GetComponent<CanvasGroup>();
+        if (hidden)
+        {
+            Hide();
+        }
+        else
+        {
+            Unhide();
+        }
+    }
+
+    public bool IsHidden()
     {
         return hidden;
     }
@@ -31,20 +45,7 @@ public class Hideable : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        if (!canv)
-            canv = GetComponent<CanvasGroup>();
-        if (hidden)
-        {
-            Hide();
-        }
-        else
-        {
-            Unhide();
-        }
-    }
-
+  
     public bool ToggleHide()
     {
         hidden = !hidden;

@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Moveable))]
+/// <summary>
+/// object that can be picked up
+/// </summary>
 public class PickUpInteractable : Interactable
 {
 
@@ -10,29 +12,40 @@ public class PickUpInteractable : Interactable
     [SerializeField] protected AudioClip pickUpSound = default;
     [SerializeField] protected ParticleSystem pickUpParticle = default;
 
-    protected string prefabName = "";
-    protected GameObject prefab;
 
+    protected AudioSource audioSource;
+    public string prefabName = "";
+
+    /// <summary>
+    /// Loading the prefab by its name
+    /// </summary>
     public virtual void Start()
     {
-        prefabName = GetComponent<Moveable>().PrefabName;
+        audioSource = GetComponent<AudioSource>();
         prefab = (GameObject)Resources.Load("Prefabs/" + prefabName);
     }
 
+    protected GameObject prefab;
+    /// <summary>
+    /// Play placing sound
+    /// </summary>
+    /// <param name="position">Potition to play the sound at</param>
     public void OnPlace(Vector3 position)
     {
-        AudioSource.PlayClipAtPoint(placeSound, position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
+        AudioSource.PlayClipAtPoint(placeSound, position);
     }
 
-    public override void OnInteract(Vector3 pos)
+    /// <summary>
+    /// Play pickup sound and add item to inventory
+    /// </summary>
+    public override void OnInteract(Vector3 hit)
     {
-        if (UseAudio)
-            AudioSource.PlayClipAtPoint(pickUpSound, transform.position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
+        AudioSource.PlayClipAtPoint(pickUpSound, transform.position);
 
-        if (UseParticle && pc.settings.particlesActivated)
+        if (pc.settings.particlesActivated)
             Instantiate(pickUpParticle, transform.position, Quaternion.identity).Play();
 
-        var inv = GameObject.Find("UI/Inventory").GetComponent<PlayerInventory>();
+        var inv = GameObject.Find("UI/Inventory").GetComponent<Inventory>();
         inv.AddItem(prefab, prefabName);
 
         Destroy(gameObject);

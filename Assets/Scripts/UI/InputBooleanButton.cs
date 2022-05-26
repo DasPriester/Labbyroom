@@ -21,7 +21,7 @@ public class InputBooleanButton : Button
     private Text description;
     private Hideable tick;
 
-    private void Awake()
+    protected override void Awake()
     {
         tick = GetComponentInChildren<Hideable>();
         description = GetComponentInChildren<Text>();
@@ -37,6 +37,6 @@ public class InputBooleanButton : Button
     public void ToggleBoolean()
     {
         tick.ToggleHide();
-        currentSettings.SetBool(sets, !tick.isHidden());
+        currentSettings.SetBool(sets, !tick.IsHidden());
     }
 }

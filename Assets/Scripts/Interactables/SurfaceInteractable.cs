@@ -2,20 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PortalSurface : Interactable
+public class SurfaceInteractable : Interactable
 {
     public SurfaceManager manager;
 
+    public override void Awake()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Wall");
+
+    }
+
+    /// <summary>
+    /// Add Door if possible
+    /// </summary>
+    /// <param name="pos">Position of raycast-hit to place door at</param>
     override public void OnInteract(Vector3 pos)
     {
-        PlayerInventory inv = GameObject.Find("UI/Inventory").GetComponent<PlayerInventory>();
+        Inventory inv = GameObject.Find("UI/Inventory").GetComponent<Inventory>();
         var item = inv.CurrentItem();
 
-        Key key;
+        KeyInteractable key;
 
         if (item.prefab != null)
         {
-            key = item.prefab.GetComponent<Key>();
+            key = item.prefab.GetComponent<KeyInteractable>();
         }else
         {
             return;
@@ -31,12 +41,17 @@ public class PortalSurface : Interactable
         }
     }
 
+    /// <summary>
+    /// Show outline if viewed at with key
+    /// </summary>
+    /// <param name="pos">Raycast-hit position</param>
+    /// <param name="portalType">Type of Portal outline</param>
     public void OnViewedAtWithKey(Vector3 pos, PortalComponent portalType)
     {
         manager.OnViewedAtWithKey(pos, portalType);
     }
 
-    override public void OnFocus(Vector3 pos)
+    override public void OnFocus()
     {
         return;
     }

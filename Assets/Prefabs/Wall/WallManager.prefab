@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3792920370674848359}
   - component: {fileID: 3792920370674848356}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WallManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,4 +46,5 @@ MonoBehaviour:
   Wall: {fileID: 1819586498260209660, guid: 925170e0a15fb42329a05c0ce752c48a, type: 3}
   Dimensions: {x: 9.6, y: 4, z: 0.2}
   Preview: {fileID: 868616243610886772, guid: 5bb6cdf64c73643bdbb08a64a0a5bd61, type: 3}
+  roomWMID: 0
   doors: []

@@ -26,7 +26,7 @@ public class SceneLoader : MonoBehaviour
 
         //Variables
         PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        PlayerInventory inv = GameObject.FindObjectOfType<PlayerInventory>();
+        Inventory inv = GameObject.FindObjectOfType<Inventory>();
 
         //Save
 
@@ -35,23 +35,27 @@ public class SceneLoader : MonoBehaviour
         gd.playerRotation = new Vector2(player.Pitch, player.Yaw);
 
         //Player Inventory
-        gd.inventory = inv.Inventory;
+        gd.inventory = inv.Items;
         gd.currentSlot = inv.CurrentSlot;
 
         //Rooms and doors
         gd.roomData = new List<RoomData>();
         foreach (Room room in FindObjectsOfType<Room>())
         {
-            RoomData rd = new RoomData();
-            rd.name = room.PrefabName;
-            rd.position = room.transform.position;
+            RoomData rd = new RoomData
+            {
+                name = room.PrefabName,
+                position = room.transform.position,
 
-            rd.wmData = new List<WallManagerData>();
+                wmData = new List<WallManagerData>()
+            };
             foreach (WallManager wm in room.GetComponentsInChildren<WallManager>())
             {
-                WallManagerData wmd = new WallManagerData();
-                wmd.doors = wm.doors;
-                wmd.wmid = wm.RoomWMID;
+                WallManagerData wmd = new WallManagerData
+                {
+                    doors = wm.doors,
+                    wmid = wm.RoomWMID
+                };
 
                 rd.wmData.Add(wmd);
             }
@@ -65,12 +69,14 @@ public class SceneLoader : MonoBehaviour
         {
             if (!connected.Contains(portal))
             {
-                PortalPairData ppd = new PortalPairData();
-                ppd.name = portal.PrefabName;
-                ppd.position1 = portal.transform.position;
-                ppd.rotation1 = portal.transform.rotation;
-                ppd.position2 = portal.linkedPortal.transform.position;
-                ppd.rotation2 = portal.linkedPortal.transform.rotation;
+                PortalPairData ppd = new PortalPairData
+                {
+                    name = portal.PrefabName,
+                    position1 = portal.transform.position,
+                    rotation1 = portal.transform.rotation,
+                    position2 = portal.linkedPortal.transform.position,
+                    rotation2 = portal.linkedPortal.transform.rotation
+                };
 
                 foreach (MeshRenderer mr in portal.GetComponentsInChildren<MeshRenderer>())
                 {
@@ -99,12 +105,14 @@ public class SceneLoader : MonoBehaviour
 
         //Objects
         gd.objectData = new List<ObjectData>();
-        foreach (Moveable go in FindObjectsOfType<Moveable>())
+        foreach (PickUpInteractable go in FindObjectsOfType<PickUpInteractable>())
         {
-            ObjectData od = new ObjectData();
-            od.name = go.PrefabName;
-            od.position = go.transform.position;
-            od.rotation = go.transform.rotation;
+            ObjectData od = new ObjectData
+            {
+                name = go.prefabName,
+                position = go.transform.position,
+                rotation = go.transform.rotation
+            };
 
             if (go.GetComponent<RecipeInteractable>())
             {
@@ -127,7 +135,7 @@ public class SceneLoader : MonoBehaviour
 
     public static void DeserializeGameData(string data)
     {
-        foreach (Moveable go in GameObject.FindObjectsOfType<Moveable>())
+        foreach (PickUpInteractable go in GameObject.FindObjectsOfType<PickUpInteractable>())
         {
             Destroy(go.gameObject);
         }
@@ -141,7 +149,7 @@ public class SceneLoader : MonoBehaviour
 
         //Variables
         PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        PlayerInventory inv = FindObjectOfType<PlayerInventory>();
+        Inventory inv = FindObjectOfType<Inventory>();
 
         //Load
 
@@ -151,7 +159,7 @@ public class SceneLoader : MonoBehaviour
         player.Yaw = gd.playerRotation.y;
 
         //Player Inventory
-        inv.Inventory = gd.inventory;
+        inv.Items = gd.inventory;
         inv.CurrentSlot = gd.currentSlot;
 
         //Rooms and doors
@@ -159,9 +167,9 @@ public class SceneLoader : MonoBehaviour
         {
             Room room = Instantiate(Resources.Load<Room>("Rooms/" + rd.name), rd.position, new Quaternion());
 
-            foreach (Moveable mo in room.GetComponentsInChildren<Moveable>())
+            foreach (PickUpInteractable pi in room.GetComponentsInChildren<PickUpInteractable>())
             {
-                Destroy(mo.gameObject);
+                Destroy(pi.gameObject);
             }
 
             foreach (WallManagerData wmd in rd.wmData)

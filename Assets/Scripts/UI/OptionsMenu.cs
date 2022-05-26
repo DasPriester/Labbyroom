@@ -24,7 +24,7 @@ public class OptionsMenu : MonoBehaviour
 
     Category currentCategory = Category.CONTROLLS;
 
-    Dictionary<string, ButtonType> controlls = new Dictionary<string, ButtonType> {
+    readonly Dictionary<string, ButtonType> controlls = new Dictionary<string, ButtonType> {
         {"Sprint", ButtonType.KEY},
         {"Jump", ButtonType.KEY},
         {"Crouch", ButtonType.KEY},
@@ -41,14 +41,14 @@ public class OptionsMenu : MonoBehaviour
         { "Menu",  ButtonType.KEY},
     };
 
-    Dictionary<string, ButtonType> audio = new Dictionary<string, ButtonType> {
-        {"Volume", ButtonType.SLIDER},
+    new readonly Dictionary<string, ButtonType> audio = new Dictionary<string, ButtonType> {
+        {"Master Volume", ButtonType.SLIDER},
         {"Effects Volume", ButtonType.SLIDER},
         {"Music Volume", ButtonType.SLIDER},
         {"Footsteps", ButtonType.BOOL},
     };
 
-    Dictionary<string, ButtonType> video = new Dictionary<string, ButtonType> {
+    readonly Dictionary<string, ButtonType> video = new Dictionary<string, ButtonType> {
         {"Headbob", ButtonType.BOOL},
         {"Particles", ButtonType.BOOL},
     };

@@ -24,7 +24,6 @@ public class CameraUtility
     {
         MinMax3D minMax = new MinMax3D(float.MaxValue, float.MinValue);
 
-        Vector3[] screenBoundsExtents = new Vector3[8];
         var localBounds = renderer.sharedMesh.bounds;
         bool anyPointIsInFrontOfCamera = false;
 

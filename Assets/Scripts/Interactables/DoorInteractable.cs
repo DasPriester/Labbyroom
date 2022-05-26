@@ -3,42 +3,55 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// interactable portal door 
+/// </summary>
 public class DoorInteractable : Interactable
 {
     [SerializeField] private AudioClip doorSound = default;
     [SerializeField] private Animator doorAnimator = default;
 
     private Animator door2Animator = null;
-    private PortalComponent other;
+    private PortalComponent portal;
+    private AudioSource audioSource;
+    private AudioSource audioSource2;
     public bool blocked = false;
 
-    public override void Awake()
+    /// <summary>
+    /// Fetch portal from animator 
+    /// </summary>
+    public void Start()
     {
-        gameObject.layer = 6;
-
-        if (UseToolTip && !blocked)
-        {
-            toolTip = GetComponentInChildren<ToolTip>();
-        }
-
-        other = doorAnimator.GetComponentInParent<PortalComponent>();
-        pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = doorSound;
+        portal = doorAnimator.GetComponentInParent<PortalComponent>();
     }
 
+    /// <summary>
+    /// Update portal connection after summoning a new one
+    /// </summary>
     public void UpdateConnection()
     {
-        other = doorAnimator.GetComponentInParent<PortalComponent>();
-        door2Animator = other.linkedPortal.GetComponentInChildren<Animator>();
+        portal = doorAnimator.GetComponentInParent<PortalComponent>();
+        door2Animator = portal.linkedPortal.GetComponentInChildren<Animator>();
+        audioSource2 = portal.linkedPortal.GetComponentInChildren<AudioSource>();
+        audioSource2.clip = doorSound;
     }
 
-    public override void OnInteract(Vector3 pos)
+    /// <summary>
+    /// Play sounds and start open/close animaton
+    /// </summary>
+    public override void OnInteract(Vector3 hit)
     {
 
-        if (UseAudio && !blocked)
+        if (!blocked)
         {
-            AudioSource.PlayClipAtPoint(doorSound, doorAnimator.gameObject.transform.position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
-            if (door2Animator)
-                AudioSource.PlayClipAtPoint(doorSound, door2Animator.gameObject.transform.position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
+            if (UseAudio)
+            {
+                audioSource.Play();
+                if (door2Animator)
+                    audioSource2.Play();
+            }
         }
 
         if (!blocked)
@@ -50,12 +63,15 @@ public class DoorInteractable : Interactable
         
     }
 
-    public override void OnFocus(Vector3 pos)
+    /// <summary>
+    /// Enable outline if not blocked
+    /// </summary>
+    public override void OnFocus()
     {
         if (UseOutline && !blocked)
             gameObject.GetComponent<Outline>().enabled = true;
 
-        if (toolTip && UseToolTip && !blocked)
+        if (UseToolTip && toolTip && !blocked)
             toolTip.Unhide();
     }
 }

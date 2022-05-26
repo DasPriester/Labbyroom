@@ -48,7 +48,7 @@ public class Settings : ScriptableObject
                 {
                     if (menu.name == name)
                     {
-                        liveMenus[name] = Instantiate<Menu>(menu, FindObjectOfType<PlayerCrafting>().transform);
+                        liveMenus[name] = Instantiate<Menu>(menu, FindObjectOfType<CraftingUI>().transform);
                         return liveMenus[name];
                     }
                 }
@@ -63,7 +63,7 @@ public class Settings : ScriptableObject
             {
                 if (menu.name == name)
                 {
-                    liveMenus.Add(menu.name, Instantiate<Menu>(menu, FindObjectOfType<PlayerCrafting>().transform));
+                    liveMenus.Add(menu.name, Instantiate<Menu>(menu, FindObjectOfType<CraftingUI>().transform));
                     return liveMenus[name];
                 }
             }

@@ -17,7 +17,7 @@ public class InputSetterButton : Button
     private Text description;
     private Text text;
 
-    private void Awake()
+    protected override void Awake()
     {
         foreach (Text t in GetComponentsInChildren<Text>())
         {

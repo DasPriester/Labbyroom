@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ce7f7a8ce544982b86d3842f59ad12, type: 3}
   m_Name: Current
   m_EditorClassIdentifier: 
-  sprintKey: 310
+  sprintKey: 304
   jumpKey: 32
-  crouchKey: 304
+  crouchKey: 306
   interactKey: 101
   placeKey: 113
   inventoryKeys: 31000000320000003300000034000000350000003600000037000000

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311915, g: 0.3807396, b: 0.35872662, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &110505489 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3381066665192927770, guid: e6db18a228c2941508318f3277c57b1a, type: 3}
-  m_PrefabInstance: {fileID: 844045688}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a55ad3c9d9a8c5448cc109ec085e1f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &242113897
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +198,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8696993802869622922, guid: 0b03c9bc1e3e04e6ba27999abaa9eb96, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8696993802869622922, guid: 0b03c9bc1e3e04e6ba27999abaa9eb96, type: 3}
       propertyPath: m_LocalPosition.x
@@ -264,14 +253,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -5998591363586792682, guid: 666954af78a82424d8c846561a9dffbd, type: 3}
-      propertyPath: inv
-      value: 
-      objectReference: {fileID: 110505489}
-    - target: {fileID: -5998591363586792682, guid: 666954af78a82424d8c846561a9dffbd, type: 3}
-      propertyPath: keyMap.keys.Array.data[0]
-      value: 114
-      objectReference: {fileID: 0}
     - target: {fileID: 8460410003938108309, guid: 666954af78a82424d8c846561a9dffbd, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -320,8 +301,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -5998591363586792682, guid: 666954af78a82424d8c846561a9dffbd, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 666954af78a82424d8c846561a9dffbd, type: 3}
 --- !u!1001 &844045688
 PrefabInstance:
@@ -348,7 +328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3381066663661327935, guid: e6db18a228c2941508318f3277c57b1a, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3381066663661327935, guid: e6db18a228c2941508318f3277c57b1a, type: 3}
       propertyPath: m_AnchorMax.x
@@ -496,7 +476,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -561,7 +541,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5518771474986691156, guid: 26af1457050134ab7834708980f57815, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5518771474986691156, guid: 26af1457050134ab7834708980f57815, type: 3}
       propertyPath: m_LocalPosition.x
@@ -609,7 +589,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5518771474986691159, guid: 26af1457050134ab7834708980f57815, type: 3}
       propertyPath: m_TagString
-      value: Moveable
+      value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 5929021183302699137, guid: 26af1457050134ab7834708980f57815, type: 3}
+      propertyPath: Wall
+      value: 
+      objectReference: {fileID: 1819586498260209660, guid: 925170e0a15fb42329a05c0ce752c48a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26af1457050134ab7834708980f57815, type: 3}

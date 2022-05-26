@@ -1,10 +1,8 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Moveable))]
 public class InconsitencyObject : MonoBehaviour
 {
     Camera cam;
-    Transform originalTransform;
     bool moved;
     MeshRenderer self;
 
@@ -32,7 +30,6 @@ public class InconsitencyObject : MonoBehaviour
     void Awake()
     {
         cam = Camera.main;
-        originalTransform = transform;
         moved = false;
         self = GetComponentInChildren<MeshRenderer>();
     }
@@ -58,8 +55,8 @@ public class InconsitencyObject : MonoBehaviour
             Vector3 oriPos = transform.position;
             do
             {
-                transform.position = oriPos + Vector3.back * Random.Range(-1f, 1f) * moveInconsistency;
-                transform.position = oriPos + Vector3.right * Random.Range(-1f, 1f) * moveInconsistency;
+                transform.position = oriPos + moveInconsistency * Random.Range(-1f, 1f) * Vector3.back;
+                transform.position = oriPos + moveInconsistency * Random.Range(-1f, 1f) * Vector3.right;
             } while (CameraUtility.VisibleFromCamera(self, cam));
         }
 
@@ -68,7 +65,7 @@ public class InconsitencyObject : MonoBehaviour
             Vector3 oriPos = transform.position;
             do
             {
-                transform.position = oriPos + Vector3.up * Random.Range(-1f, 1f) * moveInconsistency;
+                transform.position = oriPos + moveInconsistency * Random.Range(-1f, 1f) * Vector3.up;
             } while (CameraUtility.VisibleFromCamera(self, cam));
         }
 

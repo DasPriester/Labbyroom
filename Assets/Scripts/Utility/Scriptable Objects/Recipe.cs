@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "Scriptable Object/Recipe", order = 1)]
 public class Recipe : ScriptableObject
 {
-    public string name;
+    new public string name;
     public bool unlocked = false;
 
     public SerializableDictionary<PickUpInteractable, int> Cost;

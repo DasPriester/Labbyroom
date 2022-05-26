@@ -3,60 +3,62 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Outline))]
+/// <summary>
+/// base class from which each Interactable Object derives from.
+/// </summary>
 public abstract class Interactable : MonoBehaviour
 {
     [Header("Juiciness")]
-    [SerializeField] public bool UseAudio = true;
-    [SerializeField] public bool UseOutline = true;
-    [SerializeField] public bool UseParticle = true;
-    [SerializeField] public bool UseAnimation = true;
-    [SerializeField] public bool UseToolTip = true;
-    protected ToolTip toolTip;
+    public bool UseAudio = true;
+    public bool UseOutline = true;
+    public bool UseParticle = true;
+    public bool UseAnimation = true;
+    public bool UseToolTip = true;
 
+    protected ToolTip toolTip;
     protected PlayerController pc;
 
     public virtual void Awake()
     {
-        gameObject.layer = 6;
-
-        if (UseToolTip)
-        {
-            toolTip = GetComponentInChildren<ToolTip>();
-        }
-
+        gameObject.layer = LayerMask.NameToLayer("Interactable");
         pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+        if(UseToolTip)
+            toolTip = GetComponentInChildren<ToolTip>();
     }
 
     private void Update()
     {
         if (toolTip)
-        {
-            UpdateToolTip();
-        }
+            toolTip.Key = pc.settings.interactKey;
     }
 
-    public void UpdateToolTip()
-    {
-        toolTip.Key = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<PlayerController>().settings.interactKey;
-    }
-
+    /// <summary>
+    /// Called if the player uses the interact key while targeting the object.
+    /// </summary>
+    /// <param name="pos">Location at which the hit occured</param>
     public abstract void OnInteract(Vector3 pos);
 
-    public virtual void OnFocus(Vector3 pos)
+   
+    /// <summary>
+    /// Called once if the player starts focusing the object.
+    /// </summary>
+    public virtual void OnFocus()
     {
-        if (UseOutline)
+        if(UseOutline)
             gameObject.GetComponent<Outline>().enabled = true;
-
-        if (toolTip && UseToolTip)
+        if(UseToolTip)
             toolTip.Unhide();
     }
+
+    /// <summary>
+    /// Called once if the player stops focusing the object.
+    /// </summary>
     public virtual void OnLoseFcous()
     {
         if (UseOutline)
             gameObject.GetComponent<Outline>().enabled = false;
-
-        if (toolTip && UseToolTip)
+        if (UseToolTip)
             toolTip.Hide();
     }
 }

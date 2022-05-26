@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Moveable))]
+/// <summary>
+/// Recipe that can be picked up
+/// </summary>
 public class RecipeInteractable : PickUpInteractable
 {
     [SerializeField] private Recipe recipe = null;
@@ -16,21 +18,15 @@ public class RecipeInteractable : PickUpInteractable
         set { recipe = value; }
     }
 
+    /// <summary>
+    /// Set text and image after loading the recipe
+    /// </summary>
     public override void Start()
     {
         prefab = (GameObject)Resources.Load("Prefabs/" + prefabName);
         text = GameObject.Find("Canvas/Text").GetComponent<Text>();
         image = GameObject.Find("Canvas/Image").GetComponent<Image>();
-    }
-
-    private void Update()
-    {
-        if (!image)
-            image = GameObject.Find("Canvas/Image").GetComponent<Image>();
-
-        if (!text)
-            text = GameObject.Find("Canvas/Text").GetComponent<Text>();
-
+        
         text.text = recipe.name;
         Item item = new Item();
         foreach (PickUpInteractable p in recipe.Yield.Keys)
@@ -41,14 +37,14 @@ public class RecipeInteractable : PickUpInteractable
         }
         image.sprite = Utility.GetIconFor(item);
     }
-
-    public override void OnInteract(Vector3 pos)
+   
+    /// <summary>
+    /// Play sound and unlock recipe
+    /// </summary>
+    public override void OnInteract(Vector3 hit)
     {
-        if (UseAudio)
-        {
-            AudioSource.PlayClipAtPoint(pickUpSound, transform.position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
-        }
-
+        AudioSource.PlayClipAtPoint(pickUpSound, transform.position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
+        
         recipe.unlocked = true;
         Destroy(gameObject);
         
