@@ -53,30 +53,11 @@ public class PauseGame : MonoBehaviour
     public void SaveGame(string name)
     {
         Debug.Log("saving: " + name);
+        string data = SceneLoader.SeriaizeGameData();
 
-        #if (UNITY_EDITOR)
-            SaveFile save = ScriptableObject.CreateInstance<SaveFile>();
-            save.name = name;
-            save.data = SceneLoader.SeriaizeGameData();
+        string destination = Application.persistentDataPath + "/" + name + ".save";
 
-            string path = "Assets/Resources/Saves/" + name + ".asset";
-            AssetDatabase.CreateAsset(save, path);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-        #else
-            string data = SceneLoader.SeriaizeGameData();
-
-            string destination = Application.persistentDataPath + "/" + name + ".save";
-            FileStream file;
-
-            if (File.Exists(destination)) file = File.OpenWrite(destination);
-            else file = File.Create(destination);
-
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(file, data);
-            file.Close();
-
-        #endif
+        File.WriteAllText(destination, data);
     }
 
     public void QuitGame()

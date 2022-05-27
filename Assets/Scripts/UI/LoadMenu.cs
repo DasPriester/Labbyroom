@@ -39,33 +39,27 @@ public class LoadMenu : MonoBehaviour
 
     SaveFile[] GetSaveFiles()
     {
-        #if (UNITY_EDITOR)
-            return  Resources.LoadAll<SaveFile>("Saves/");
-        #else
-            List<SaveFile> o = new List<SaveFile>();
+        List<SaveFile> o = new List<SaveFile>();
 
-            foreach (string name in System.IO.Directory.GetFiles(Application.persistentDataPath))
+        foreach (string name in System.IO.Directory.GetFiles(Application.persistentDataPath))
+        {
+            if (name.Replace(Application.persistentDataPath + "/", "").Replace(".save", "") == ".DS_Store") continue;
+            FileStream file;
+
+            if (File.Exists(name)) file = File.OpenRead(name);
+            else
             {
-                string destination = Application.persistentDataPath + "/" + name + ".save";
-                FileStream file;
-
-                if (File.Exists(destination)) file = File.OpenRead(destination);
-                else
-                {
-                    Debug.LogError("File not found");
-                    continue;
-                }
-
-                BinaryFormatter bf = new BinaryFormatter();
-                string data = (string)bf.Deserialize(file);
-                SaveFile sf = new SaveFile();
-                sf.data = data;
-                sf.name = name;
-
-                o.Add(sf);
-                file.Close();
+                Debug.LogError("File not found");
+                continue;
             }
+
+            SaveFile sf = new SaveFile();
+            sf.data = File.ReadAllText(name);
+            sf.name = name.Replace(Application.persistentDataPath + "/", "").Replace(".save", "");
+
+            o.Add(sf);
+            file.Close();
+        }
         return o.ToArray();
-        #endif
     }
 }
