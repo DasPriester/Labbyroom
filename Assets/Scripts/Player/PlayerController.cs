@@ -91,9 +91,6 @@ public class PlayerController : MonoBehaviour {
     private float pitch;
     private float yaw;
 
-    /// <summary>
-    /// Initiate variables, load settings and load menus
-    /// </summary>
     void Awake()
     {
         PreviousOffsetFromPortal = new Vector3();
@@ -116,9 +113,6 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Handle each action the player can take
-    /// </summary>
     void Update()
     {
         if (CanMove)
@@ -244,9 +238,10 @@ public class PlayerController : MonoBehaviour {
         {
             if (currentInteractable == null || hit.collider.gameObject.GetInstanceID() != currentInteractable.gameObject.GetInstanceID())
             {
-
                 if (currentInteractable != null)
+                {
                     currentInteractable.OnLoseFcous();
+                }
 
 
                 hit.collider.TryGetComponent(out currentInteractable);
@@ -255,7 +250,7 @@ public class PlayerController : MonoBehaviour {
                     currentInteractable.OnFocus();
                 
             }
-        }
+        }                                       
         else if (currentInteractable)
         {
             currentInteractable.OnLoseFcous();

@@ -2,6 +2,9 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// Manage the loading of a scene from a save file
+/// </summary>
 public class SceneLoader : MonoBehaviour
 {
     public static SaveFile loadedFile;

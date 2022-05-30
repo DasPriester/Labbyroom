@@ -105,7 +105,6 @@ MonoBehaviour:
   UseToolTip: 1
   doorSound: {fileID: 8300000, guid: 1fc04f96bd9490e488fa28e105c66a3b, type: 3}
   doorAnimator: {fileID: 3840976072580582445}
-  blocked: 0
 --- !u!114 &8807976177840939430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,7 +400,7 @@ Transform:
   m_GameObject: {fileID: 3297108128557417778}
   m_LocalRotation: {x: -0.38268346, y: 0, z: -0, w: 0.9238795}
   m_LocalPosition: {x: 0.6666667, y: 1.2829999, z: -0.13000011}
-  m_LocalScale: {x: 1, y: 0.99999994, z: 0.99999994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1518755581647818320}
   m_RootOrder: 6
@@ -502,10 +501,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68fa5eaa09b64c6c9f65913ec5d72e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabName: PermanentPortal
   linkedPortal: {fileID: 0}
   screen: {fileID: 8667655765013072742}
   width: 2.4
-  prefabName: PermanentPortal
   nearClipOffset: 0.05
   nearClipLimit: 0.2
   recursionLimit: 1
@@ -645,7 +644,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4697298777789822199}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.036787517, y: 1, z: 0}
+  m_LocalPosition: {x: 0.036787517, y: 1, z: 0.047}
   m_LocalScale: {x: 0.050000012, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 1518755581647818320}

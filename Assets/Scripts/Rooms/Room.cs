@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class to manage a Room
+/// </summary>
 public class Room : MonoBehaviour
 {
     [SerializeField] private Transform access = null;

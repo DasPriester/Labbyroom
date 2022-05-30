@@ -211,6 +211,8 @@ public class Settings : ScriptableObject
                 return useHeadbob;
             case "Particles":
                 return particlesActivated;
+            default:
+                break;
         }
 
         return false;
@@ -242,6 +244,8 @@ public class Settings : ScriptableObject
                 return effectsVolume;
             case "Music Volume":
                 return musicVolume;
+            default:
+                break;
         }
 
         return 0f;

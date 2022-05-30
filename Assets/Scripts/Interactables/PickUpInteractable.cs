@@ -14,25 +14,23 @@ public class PickUpInteractable : Interactable
 
 
     protected AudioSource audioSource;
+    protected GameObject prefab;
     public string prefabName = "";
 
-    /// <summary>
-    /// Loading the prefab by its name
-    /// </summary>
     public virtual void Start()
     {
         audioSource = GetComponent<AudioSource>();
         prefab = (GameObject)Resources.Load("Prefabs/" + prefabName);
     }
 
-    protected GameObject prefab;
     /// <summary>
     /// Play placing sound
     /// </summary>
     /// <param name="position">Potition to play the sound at</param>
     public void OnPlace(Vector3 position)
     {
-        AudioSource.PlayClipAtPoint(placeSound, position);
+        if(UseAudio)
+            AudioSource.PlayClipAtPoint(placeSound, position);
     }
 
     /// <summary>
@@ -40,9 +38,10 @@ public class PickUpInteractable : Interactable
     /// </summary>
     public override void OnInteract(Vector3 hit)
     {
-        AudioSource.PlayClipAtPoint(pickUpSound, transform.position);
+        if(UseAudio)
+            AudioSource.PlayClipAtPoint(pickUpSound, transform.position);
 
-        if (pc.settings.particlesActivated)
+        if (UseParticle)
             Instantiate(pickUpParticle, transform.position, Quaternion.identity).Play();
 
         var inv = GameObject.Find("UI/Inventory").GetComponent<Inventory>();

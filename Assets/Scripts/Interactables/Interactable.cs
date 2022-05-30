@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Outline))]
 /// <summary>
 /// base class from which each Interactable Object derives from.
 /// </summary>

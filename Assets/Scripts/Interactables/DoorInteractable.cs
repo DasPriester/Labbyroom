@@ -15,16 +15,35 @@ public class DoorInteractable : Interactable
     private PortalComponent portal;
     private AudioSource audioSource;
     private AudioSource audioSource2;
-    public bool blocked = false;
+    private bool blocked = false;
+    private bool focused = false;
 
-    /// <summary>
-    /// Fetch portal from animator 
-    /// </summary>
     public void Start()
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = doorSound;
         portal = doorAnimator.GetComponentInParent<PortalComponent>();
+    }
+
+    public void Update()
+    {
+        blocked = (doorAnimator.GetCurrentAnimatorStateInfo(0).IsName("Opening") || doorAnimator.GetCurrentAnimatorStateInfo(0).IsName("Closing"));
+        if (!blocked && focused)
+        {
+            if (UseOutline && !blocked)
+                gameObject.GetComponent<Outline>().enabled = true;
+
+            if (UseToolTip && toolTip && !blocked)
+                toolTip.Unhide();
+        }
+        else
+        {
+            if (UseOutline)
+                gameObject.GetComponent<Outline>().enabled = false;
+            if (UseToolTip)
+                toolTip.Hide();
+        }
+        
     }
 
     /// <summary>
@@ -43,24 +62,17 @@ public class DoorInteractable : Interactable
     /// </summary>
     public override void OnInteract(Vector3 hit)
     {
-
         if (!blocked)
         {
             if (UseAudio)
             {
                 audioSource.Play();
-                if (door2Animator)
-                    audioSource2.Play();
+                audioSource2.Play();
             }
-        }
 
-        if (!blocked)
-        {
             doorAnimator.SetTrigger("ToggleTrigger");
-            if (door2Animator)
-                door2Animator.SetTrigger("ToggleTrigger");
-        }
-        
+            door2Animator.SetTrigger("ToggleTrigger");
+        } 
     }
 
     /// <summary>
@@ -68,10 +80,23 @@ public class DoorInteractable : Interactable
     /// </summary>
     public override void OnFocus()
     {
+        focused = true;
         if (UseOutline && !blocked)
             gameObject.GetComponent<Outline>().enabled = true;
 
         if (UseToolTip && toolTip && !blocked)
             toolTip.Unhide();
+    }
+
+    /// <summary>
+    /// Enable outline if not blocked
+    /// </summary>
+    public override void OnLoseFcous()
+    {
+        focused = false;
+        if (UseOutline)
+            gameObject.GetComponent<Outline>().enabled = false;
+        if (UseToolTip)
+            toolTip.Hide();
     }
 }

@@ -18,9 +18,6 @@ public class RecipeInteractable : PickUpInteractable
         set { recipe = value; }
     }
 
-    /// <summary>
-    /// Set text and image after loading the recipe
-    /// </summary>
     public override void Start()
     {
         prefab = (GameObject)Resources.Load("Prefabs/" + prefabName);
@@ -43,7 +40,8 @@ public class RecipeInteractable : PickUpInteractable
     /// </summary>
     public override void OnInteract(Vector3 hit)
     {
-        AudioSource.PlayClipAtPoint(pickUpSound, transform.position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
+        if(UseAudio)
+            AudioSource.PlayClipAtPoint(pickUpSound, transform.position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
         
         recipe.unlocked = true;
         Destroy(gameObject);

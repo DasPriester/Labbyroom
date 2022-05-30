@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Wall = SurfaceInteractable;
 
+/// <summary>
+/// Implementation of a surface manager for a flat wall
+/// </summary>
 public class WallManager : SurfaceManager
 {
-    [SerializeField] private Wall Wall = null;
+    [SerializeField] private WallInteractable Wall = null;
     [SerializeField] private Vector3 Dimensions = Vector3.one;
     [SerializeField] private Hideable Preview = null;
     [SerializeField] private int roomWMID = 0;
     private Hideable preview = null;
     private float previewCooldown = 0;
 
-    private readonly List<Wall> walls = new List<Wall>();
+    private readonly List<WallInteractable> walls = new List<WallInteractable>();
     public List<Vector2> doors = new List<Vector2>();
 
 
@@ -42,6 +44,13 @@ public class WallManager : SurfaceManager
         }
     }
 
+    /// <summary>
+    /// Adds the portal to the wall 
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="roomType"></param>
+    /// <param name="portalType"></param>
+    /// <returns></returns>
     public override bool AddDoor(Vector3 pos, Room roomType, PortalComponent portalType)
     {
         Vector3 inv = transform.InverseTransformPoint(pos);
@@ -134,7 +143,7 @@ public class WallManager : SurfaceManager
     {
         foreach (Transform child in transform)
         {
-            if (child.GetComponent<Wall>())
+            if (child.GetComponent<WallInteractable>())
                 Destroy(child.gameObject);
         }
         walls.Clear();
@@ -146,7 +155,7 @@ public class WallManager : SurfaceManager
         float at = 0f;
 
         Vector3 leftPoint, rightPoint, center, dimensions;
-        Wall w;
+        WallInteractable w;
 
         foreach (Vector2 door in doors)
         {

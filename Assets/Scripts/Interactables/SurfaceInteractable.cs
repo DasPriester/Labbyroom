@@ -2,15 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SurfaceInteractable : Interactable
+/// <summary>
+/// Base class of surfaces that portals can be placed on
+/// </summary>
+public abstract class SurfaceInteractable : Interactable
 {
     public SurfaceManager manager;
-
-    public override void Awake()
-    {
-        gameObject.layer = LayerMask.NameToLayer("Wall");
-
-    }
 
     /// <summary>
     /// Add Door if possible

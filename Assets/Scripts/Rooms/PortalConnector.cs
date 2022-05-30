@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Class to 
+/// Class to manage new Room and Portals connection
 /// </summary>
 public class PortalConnector : MonoBehaviour
 {
@@ -11,10 +11,17 @@ public class PortalConnector : MonoBehaviour
 
     public static int Z { get => z; set => z = value; }
 
+    /// <summary>
+    /// Insert portal into a wall
+    /// </summary>
+    /// <param name="pos">Postion where to spawn the portal</param>
+    /// <param name="rot">rotation of the portal</param>
+    /// <param name="roomType">Type of Room to spawn</param>
+    /// <param name="portalType">Type of portal to summon</param>
+    /// <param name="wall_material">Material of the Wall above the portal</param>
     protected void InsertPortal(Vector3 pos, Quaternion rot, Room roomType, PortalComponent portalType, Material wall_material)
     {
         PortalComponent p1 = Instantiate(portalType, pos, rot);
-        p1.GetComponentInChildren<DoorInteractable>().blocked = true;
         p1.GetComponentInChildren<DoorInteractable>().enabled = false;
         z += 1;
         Room room = Instantiate(roomType, 100 * z * Vector3.forward, new Quaternion());
@@ -46,11 +53,14 @@ public class PortalConnector : MonoBehaviour
         StartCoroutine(GrantAccess(p1));
     }
 
+    /// <summary>
+    /// DIsable portal for a second so the animation can play
+    /// </summary>
+    /// <param name="p1">Portal to disable</param>
     IEnumerator GrantAccess(PortalComponent p1)
     {
         yield return new WaitForSeconds(1);
 
-        p1.GetComponentInChildren<DoorInteractable>().blocked = false;
         p1.GetComponentInChildren<DoorInteractable>().enabled = true;
 
         foreach (MeshRenderer mr in p1.GetComponentsInChildren<MeshRenderer>())
