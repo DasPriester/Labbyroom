@@ -49,7 +49,7 @@ public abstract class Interactable : MonoBehaviour
         if(UseOutline)
             gameObject.GetComponent<Outline>().enabled = true;
         if(UseToolTip)
-            toolTip.Unhide();
+            toolTip.Show();
     }
 
     /// <summary>

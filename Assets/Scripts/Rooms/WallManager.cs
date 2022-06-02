@@ -50,7 +50,7 @@ public class WallManager : SurfaceManager
     /// <param name="pos"></param>
     /// <param name="roomType"></param>
     /// <param name="portalType"></param>
-    /// <returns></returns>
+    /// <returns>Returns true if the door fitted else false</returns>
     public override bool AddDoor(Vector3 pos, Room roomType, PortalComponent portalType)
     {
         Vector3 inv = transform.InverseTransformPoint(pos);
@@ -72,6 +72,11 @@ public class WallManager : SurfaceManager
         return false;
     }
 
+    /// <summary>
+    /// Check wether a door would fit at a given position
+    /// </summary>
+    /// <param name="door">Poition of the door</param>
+    /// <returns>True if the door would fit else false</returns>
     private bool DoorFits(Vector2 door)
     {
         if (door.x - door.y / 2 < 0 || door.x + door.y / 2 > Dimensions.x)
@@ -91,6 +96,11 @@ public class WallManager : SurfaceManager
         return true;
     }
 
+    /// <summary>
+    /// Update and enable preview of the door to be added 
+    /// </summary>
+    /// <param name="pos">Position of hit detection</param>
+    /// <param name="portalType">Type of portal to preview</param>
     public override void OnViewedAtWithKey(Vector3 pos, PortalComponent portalType)
     {
         Vector3 inv = transform.InverseTransformPoint(pos);
@@ -109,10 +119,13 @@ public class WallManager : SurfaceManager
             preview.transform.rotation = transform.rotation;
 
             previewCooldown = 1;
-            preview.Unhide();
+            preview.Show();
         }
     }
 
+    /// <summary>
+    /// Unity gizmos of wall location preview
+    /// </summary>
     private void OnDrawGizmos()
     {
         Matrix4x4 rotationMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale);
@@ -139,6 +152,9 @@ public class WallManager : SurfaceManager
         }
     }
 
+    /// <summary>
+    /// Split and update the wall for each portal
+    /// </summary>
     public void UpdateWall()
     {
         foreach (Transform child in transform)

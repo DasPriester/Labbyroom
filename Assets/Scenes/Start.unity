@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311915, g: 0.3807396, b: 0.35872662, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1176,7 +1176,7 @@ RectTransform:
   m_Father: {fileID: 1109698115}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.6923077}
+  m_AnchorMin: {x: 0, y: 0.38461536}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -1692,8 +1692,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -9}
-  m_SizeDelta: {x: -200, y: 200}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -1400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &741859838
 MonoBehaviour:
@@ -2313,6 +2313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputSetterButton: {fileID: 6159511974520370601, guid: f3f2a9bcc6a284b4ba7b18c560cd6cfc, type: 3}
   inputBooleanButton: {fileID: 6159511974520370601, guid: 5c50ce494107e4fa28914081d6ba5548, type: 3}
+  inputVolumeSlider: {fileID: 7087229753815192830, guid: 516511e15f579e348989bcf01740b566, type: 3}
   inputSlider: {fileID: 9086869205420504933, guid: bcded6d43cddd4559987c3d737475a3a, type: 3}
 --- !u!1 &1177195188
 GameObject:
@@ -2758,7 +2759,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 558035678}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.30769232
+  m_Size: 0.61538464
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

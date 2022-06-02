@@ -121,8 +121,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2472242715302691190}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+      - m_Target: {fileID: -1519762587764670316}
+        m_TargetAssemblyTypeName: InGameMenu, Assembly-CSharp
         m_MethodName: ToggleMenu
         m_Mode: 1
         m_Arguments:
@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 8562362871174062027}
   - component: {fileID: 2946623396806394699}
   - component: {fileID: 8531005351570920347}
-  - component: {fileID: 2472242715302691190}
+  - component: {fileID: -1519762587764670316}
   - component: {fileID: 8083667831243008016}
   m_Layer: 5
   m_Name: PauseMenu
@@ -657,7 +657,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2472242715302691190
+--- !u!114 &-1519762587764670316
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -666,7 +666,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6561897668993306438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00102d2075e1848ba881c445c7217312, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a231c46a0640ad48b82f2b3b6d493ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hidden: 1

@@ -3,23 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class for all UI slider inputs
+/// </summary>
 public class InputSlider : MonoBehaviour
 {
-    Settings currentSettings;
+    protected Settings currentSettings;
 
     public string Sets
     {
         get { return sets; }
         set {
             sets = value;
-
             description.text = sets;
         }
     }
-    private string sets;
+    protected string sets;
 
-    private Text description;
-    private Slider slider;
+    protected Text description;
+    protected Slider slider;
 
     private void Awake()
     {
@@ -34,7 +36,7 @@ public class InputSlider : MonoBehaviour
         slider.value = currentSettings.GetValue(sets);
     }
 
-    public void ChangeValue()
+    public virtual void ChangeValue()
     {
         currentSettings.SetValue(sets, slider.value);
     }

@@ -5,11 +5,11 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 /// <summary>
-/// crafting UI
+/// In game crafting menu
 /// </summary>
-public class CraftingUI : MonoBehaviour
+public class CraftingMenu : MonoBehaviour
 {
-    Menu craftingMenu = null;
+    InGameMenu craftingMenu = null;
 
     [SerializeField]
     RectTransform entry = null;
@@ -27,6 +27,9 @@ public class CraftingUI : MonoBehaviour
         craftingMenu.OpenMenu = UpdateCraftMenu;
     }
 
+    /// <summary>
+    /// Updates visuals for menu and each recipe
+    /// </summary>
     private void UpdateCraftMenu()
     {
         if (!inv)
@@ -57,8 +60,10 @@ public class CraftingUI : MonoBehaviour
                     break;
                 }
                 nen.Find("Image").GetComponent<Image>().sprite = Utility.GetIconFor(item);
+
                 Button button = nen.Find("CraftButton").GetComponent<Button>();
                 button.onClick.AddListener(() => { inv.CraftRecipe(rec); UpdateCraftMenu(); });
+
                 bool craftable = inv.IsCraftable(rec);
                 button.GetComponent<Image>().color = craftable ? Color.green : Color.gray;
                 button.interactable = craftable;
@@ -74,6 +79,11 @@ public class CraftingUI : MonoBehaviour
             craftingMenu.transform.Find("Scroll View/NoContent").GetComponent<Text>().text = "You have to discover a recipe first...";
     }
 
+    /// <summary>
+    /// Convert an inventory-dict to string
+    /// </summary>
+    /// <param name="dict">Dictionary to convert</param>
+    /// <returns>String representation of dict</returns>
     private string DictToString(Dictionary<PickUpInteractable, int> dict)
     {
         string[] o = new string[dict.Count];

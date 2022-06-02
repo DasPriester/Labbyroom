@@ -23,6 +23,7 @@ public class PortalConnector : MonoBehaviour
     {
         PortalComponent p1 = Instantiate(portalType, pos, rot);
         p1.GetComponentInChildren<DoorInteractable>().enabled = false;
+        p1.GetComponentInChildren<DoorInteractable>().gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         z += 1;
         Room room = Instantiate(roomType, 100 * z * Vector3.forward, new Quaternion());
         Transform coords = room.AddAccessDoor();
@@ -62,6 +63,7 @@ public class PortalConnector : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         p1.GetComponentInChildren<DoorInteractable>().enabled = true;
+        p1.GetComponentInChildren<DoorInteractable>().gameObject.layer = LayerMask.NameToLayer("Interactable");
 
         foreach (MeshRenderer mr in p1.GetComponentsInChildren<MeshRenderer>())
         {

@@ -5,6 +5,7 @@ using UnityEngine;
 /// <summary>
 /// object that can be picked up
 /// </summary>
+[RequireComponent(typeof(Moveable))]
 public class PickUpInteractable : Interactable
 {
 
@@ -15,11 +16,12 @@ public class PickUpInteractable : Interactable
 
     protected AudioSource audioSource;
     protected GameObject prefab;
-    public string prefabName = "";
+    protected string prefabName = "";
 
     public virtual void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        prefabName = GetComponent<Moveable>().PrefabName;
         prefab = (GameObject)Resources.Load("Prefabs/" + prefabName);
     }
 

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// ToopTip for all interactables 
+/// </summary>
 public class ToolTip : Hideable
 {
     [SerializeField] private KeyCode key = default;

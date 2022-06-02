@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class for all UI button inputs 
+/// </summary>
 public class InputBooleanButton : Button
 {
     Settings currentSettings;
@@ -12,7 +15,6 @@ public class InputBooleanButton : Button
         get { return sets; }
         set {
             sets = value;
-
             description.text = sets;
         }
     }
@@ -31,12 +33,12 @@ public class InputBooleanButton : Button
 
     private void Update()
     {
-        tick.SetHide(!currentSettings.GetBool(sets));
+        tick.Hidden = !currentSettings.GetBool(sets);
     }
 
     public void ToggleBoolean()
     {
-        tick.ToggleHide();
-        currentSettings.SetBool(sets, !tick.IsHidden());
+        tick.Hidden = !tick.Hidden;
+        currentSettings.SetBool(sets, !tick.Hidden);
     }
 }

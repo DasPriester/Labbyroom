@@ -1,23 +1,26 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// Scriptable object to save settings of a player
+/// </summary>
 [CreateAssetMenu(fileName = "Settings", menuName = "Scriptable Object/Settings", order = 1)]
 public class Settings : ScriptableObject
 {
     //Controlls
-        //Movement
-        public KeyCode sprintKey = KeyCode.LeftShift;
-        public KeyCode jumpKey = KeyCode.Space;
-        public KeyCode crouchKey = KeyCode.LeftControl;
-        public KeyCode interactKey = KeyCode.E;
-        public KeyCode placeKey = KeyCode.Q;
+    //Movement
+    public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode crouchKey = KeyCode.LeftControl;
+    public KeyCode interactKey = KeyCode.E;
+    public KeyCode placeKey = KeyCode.Q;
 
-        //Inventory
-        public KeyCode[] inventoryKeys = new KeyCode[] { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7 };
+    //Inventory
+    public KeyCode[] inventoryKeys = new KeyCode[] { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7 };
 
-        //Menus
-        public Menu[] menus = { };
-        public Dictionary<string ,Menu> liveMenus = new Dictionary<string, Menu>();
+    //Menus
+    public InGameMenu[] menus = { };
+    public Dictionary<string ,InGameMenu> liveMenus = new Dictionary<string, InGameMenu>();
 
     //Video
     public bool useHeadbob = true;
@@ -33,22 +36,22 @@ public class Settings : ScriptableObject
     private void OnEnable()
     {
         if (menus.Length < 1)
-            menus = Resources.LoadAll<Menu>("Menus");
+            menus = Resources.LoadAll<InGameMenu>("Menus");
 
-        liveMenus = new Dictionary<string, Menu>();
+        liveMenus = new Dictionary<string, InGameMenu>();
     }
 
 
-    public Menu GetMenu(string name)
+    public InGameMenu GetMenu(string name)
     {
         if (liveMenus.ContainsKey(name))
             if (liveMenus[name] == null)
             {
-                foreach (Menu menu in menus)
+                foreach (InGameMenu menu in menus)
                 {
                     if (menu.name == name)
                     {
-                        liveMenus[name] = Instantiate<Menu>(menu, FindObjectOfType<CraftingUI>().transform);
+                        liveMenus[name] = Instantiate(menu, FindObjectOfType<CraftingMenu>().transform);
                         return liveMenus[name];
                     }
                 }
@@ -59,11 +62,11 @@ public class Settings : ScriptableObject
                 return liveMenus[name];
         else
         {
-            foreach (Menu menu in menus)
+            foreach (InGameMenu menu in menus)
             {
                 if (menu.name == name)
                 {
-                    liveMenus.Add(menu.name, Instantiate<Menu>(menu, FindObjectOfType<CraftingUI>().transform));
+                    liveMenus.Add(menu.name, Instantiate(menu, FindObjectOfType<CraftingMenu>().transform));
                     return liveMenus[name];
                 }
             }
@@ -114,7 +117,7 @@ public class Settings : ScriptableObject
                 inventoryKeys[6] = key;
                 break;
             case "Crafting":
-                foreach (Menu menu in menus)
+                foreach (InGameMenu menu in menus)
                 {
                     if (menu.name == "CraftingMenu")
                     {
@@ -123,7 +126,7 @@ public class Settings : ScriptableObject
                 }
                 break;
             case "Menu":
-                foreach (Menu menu in menus)
+                foreach (InGameMenu menu in menus)
                 {
                     if (menu.name == "PauseMenu")
                     {
@@ -163,7 +166,7 @@ public class Settings : ScriptableObject
             case "Inventory 7":
                 return inventoryKeys[6];
             case "Crafting":
-                foreach (Menu menu in menus)
+                foreach (InGameMenu menu in menus)
                 {
                     if (menu.name == "CraftingMenu")
                     {
@@ -172,7 +175,7 @@ public class Settings : ScriptableObject
                 }
                 break;
             case "Menu":
-                foreach (Menu menu in menus)
+                foreach (InGameMenu menu in menus)
                 {
                     if (menu.name == "PauseMenu")
                     {
@@ -222,7 +225,7 @@ public class Settings : ScriptableObject
     {
         switch (id)
         {
-            case "Volume":
+            case "Master Volume":
                 masterVolume = value;
                 break;
             case "Effects Volume":
@@ -238,7 +241,7 @@ public class Settings : ScriptableObject
     {
         switch (id)
         {
-            case "Volume":
+            case "Master Volume":
                 return masterVolume;
             case "Effects Volume":
                 return effectsVolume;

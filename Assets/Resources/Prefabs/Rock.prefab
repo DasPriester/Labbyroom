@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -3312713435364818256}
   - component: {fileID: 6360081744531502788}
   - component: {fileID: 7051082775928456621}
+  - component: {fileID: 7255654328563765883}
   m_Layer: 6
   m_Name: Rock
   m_TagString: Untagged
@@ -137,7 +138,6 @@ MonoBehaviour:
   placeSound: {fileID: 8300000, guid: b52f420b56a2ca24a912fac149691eb7, type: 3}
   pickUpSound: {fileID: 8300000, guid: 3b759c6d04c9145459fb9d8ef8264889, type: 3}
   pickUpParticle: {fileID: 7034904094744888385, guid: 9ecc2c82f0942184283e3fd40a2aff72, type: 3}
-  prefabName: Rock
 --- !u!114 &6360081744531502788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +287,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7255654328563765883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8742471451781248404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936f3985fae63e34087bc0798b6b46c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabName: Rock
 --- !u!1001 &3428708720309783845
 PrefabInstance:
   m_ObjectHideFlags: 0

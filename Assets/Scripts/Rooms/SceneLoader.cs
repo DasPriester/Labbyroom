@@ -23,13 +23,17 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Serialize current game state into json format
+    /// </summary>
+    /// <returns>Json representation of current game state</returns>
     public static string SeriaizeGameData()
     {
         GameData gd = new GameData();
 
         //Variables
         PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        Inventory inv = GameObject.FindObjectOfType<Inventory>();
+        Inventory inv = FindObjectOfType<Inventory>();
 
         //Save
 
@@ -108,18 +112,19 @@ public class SceneLoader : MonoBehaviour
 
         //Objects
         gd.objectData = new List<ObjectData>();
-        foreach (PickUpInteractable go in FindObjectsOfType<PickUpInteractable>())
+        foreach (Moveable go in FindObjectsOfType<Moveable>())
         {
             ObjectData od = new ObjectData
             {
-                name = go.prefabName,
+                name = go.PrefabName,
                 position = go.transform.position,
                 rotation = go.transform.rotation
             };
 
-            if (go.GetComponent<RecipeInteractable>())
+            RecipeInteractable ri = go.GetComponent<RecipeInteractable>();
+            if (ri)
             {
-                od.recipe = (go.GetComponent<RecipeInteractable>()).Recipe;
+                od.recipe = ri.Recipe;
             }
 
             gd.objectData.Add(od);
@@ -136,14 +141,18 @@ public class SceneLoader : MonoBehaviour
         return JsonUtility.ToJson(gd);
     }
 
+    /// <summary>
+    /// Clear scene and create world from saved file
+    /// </summary>
+    /// <param name="data">Json representation of game state</param>
     public static void DeserializeGameData(string data)
     {
-        foreach (PickUpInteractable go in GameObject.FindObjectsOfType<PickUpInteractable>())
+        foreach (Moveable mo in FindObjectsOfType<Moveable>())
         {
-            Destroy(go.gameObject);
+            Destroy(mo.gameObject);
         }
 
-        foreach (Room room in GameObject.FindObjectsOfType<Room>())
+        foreach (Room room in FindObjectsOfType<Room>())
         {
             Destroy(room.gameObject);
         }
@@ -170,9 +179,9 @@ public class SceneLoader : MonoBehaviour
         {
             Room room = Instantiate(Resources.Load<Room>("Rooms/" + rd.name), rd.position, new Quaternion());
 
-            foreach (PickUpInteractable pi in room.GetComponentsInChildren<PickUpInteractable>())
+            foreach (Moveable mo in room.GetComponentsInChildren<Moveable>())
             {
-                Destroy(pi.gameObject);
+                Destroy(mo.gameObject);
             }
 
             foreach (WallManagerData wmd in rd.wmData)
@@ -251,6 +260,9 @@ public class SceneLoader : MonoBehaviour
         Physics.SyncTransforms();
     }
 
+    /// <summary>
+    /// Collection of all data of a save file
+    /// </summary>
     [Serializable]
     private struct GameData
     {
@@ -274,6 +286,9 @@ public class SceneLoader : MonoBehaviour
         public List<string> unlockedRecipies;
     }
 
+    /// <summary>
+    /// Data about each object that can be picked up
+    /// </summary>
     [Serializable]
     private struct ObjectData
     {
@@ -284,6 +299,9 @@ public class SceneLoader : MonoBehaviour
         public Recipe recipe;
     }
 
+    /// <summary>
+    /// Data about each room that has been created
+    /// </summary>
     [Serializable]
     private struct RoomData
     {
@@ -292,6 +310,9 @@ public class SceneLoader : MonoBehaviour
         public List<WallManagerData> wmData;
     }
 
+    /// <summary>
+    /// Data about a single wall of a room
+    /// </summary>
     [Serializable]
     private struct WallManagerData
     {
@@ -299,6 +320,9 @@ public class SceneLoader : MonoBehaviour
         public int wmid;
     }
 
+    /// <summary>
+    /// Data about each pair of portals
+    /// </summary>
     [Serializable]
     private struct PortalPairData
     {

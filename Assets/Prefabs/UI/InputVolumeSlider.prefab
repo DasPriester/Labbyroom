@@ -83,16 +83,28 @@ MonoBehaviour:
   m_FillRect: {fileID: 4134078678812653064}
   m_HandleRect: {fileID: 3661614415150448109}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.001
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9086869205420504933}
+      - m_Target: {fileID: 7087229753815192830}
         m_TargetAssemblyTypeName: InputSlider, Assembly-CSharp
         m_MethodName: ChangeValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7087229753815192830}
+        m_TargetAssemblyTypeName: InputVolumeSlider, Assembly-CSharp
+        m_MethodName: SetLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -515,9 +527,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8438953391832840290}
   - component: {fileID: 8438953391832840351}
-  - component: {fileID: 9086869205420504933}
+  - component: {fileID: 7087229753815192830}
   m_Layer: 5
-  m_Name: InputSlider
+  m_Name: InputVolumeSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -553,7 +565,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8438953391832840291}
   m_CullTransparentMesh: 1
---- !u!114 &9086869205420504933
+--- !u!114 &7087229753815192830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -562,9 +574,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8438953391832840291}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12f4360c61ee044f9b64c1c1d6e67680, type: 3}
+  m_Script: {fileID: 11500000, guid: 188745acd30c33c4aa541b101350051f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: a26995703664f174e8ffcfa44c67f563, type: 2}
+  audioChannel: 
 --- !u!1 &8729448962018411506
 GameObject:
   m_ObjectHideFlags: 0

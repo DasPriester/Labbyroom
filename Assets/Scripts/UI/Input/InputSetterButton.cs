@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class for all UI key inputs
+/// </summary>
 public class InputSetterButton : Button
 {
     Settings currentSettings;
@@ -10,7 +13,10 @@ public class InputSetterButton : Button
     public string Sets
     {
         get { return sets; }
-        set { sets = value; description.text = sets; }
+        set { 
+            sets = value; 
+            description.text = sets; 
+        }
     }
     private string sets;
 
@@ -34,12 +40,18 @@ public class InputSetterButton : Button
         text.text = currentSettings.GetKey(sets).ToString();
     }
 
+    /// <summary>
+    /// Stop all corutines and just listen to next input
+    /// </summary>
     public void SetKey()
     {
         StopAllCoroutines();
         StartCoroutine(SetAfterInput());
     }
 
+    /// <summary>
+    /// Wait until any input is received and change setting
+    /// </summary>
     IEnumerator SetAfterInput()
     {
         yield return new WaitUntil(() => { return Input.anyKeyDown; });

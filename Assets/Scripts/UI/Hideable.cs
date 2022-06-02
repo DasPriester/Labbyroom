@@ -2,80 +2,67 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Class for all hideable UI elements
+/// </summary>
 [RequireComponent(typeof(CanvasGroup))]
 public class Hideable : MonoBehaviour
 {
-    CanvasGroup canv;
+    [SerializeField] protected bool hidden = true;
 
-    [SerializeField]
-    bool hidden = true;
+    protected CanvasGroup canv;
+
+    public bool Hidden
+    {
+        
+        get { return hidden; }
+        set { 
+            hidden = value;
+            UpdateCanvas();
+        }
+    }
 
     private void Start()
     {
-        if (!canv)
-            canv = GetComponent<CanvasGroup>();
+        canv = GetComponent<CanvasGroup>();
+        UpdateCanvas();
+    }
+
+    /// <summary>
+    /// Update visibilty of canvas group
+    /// </summary>
+    private void UpdateCanvas()
+    {
         if (hidden)
         {
             Hide();
         }
         else
         {
-            Unhide();
+            Show();
         }
     }
-
-    public bool IsHidden()
-    {
-        return hidden;
-    }
-
-    public void SetHide(bool _hidden)
-    {
-        if (!canv)
-            canv = GetComponent<CanvasGroup>();
-
-        hidden = _hidden;
-        if (hidden)
-        {
-            Hide();
-        }
-        else
-        {
-            Unhide();
-        }
-    }
-
-  
-    public bool ToggleHide()
-    {
-        hidden = !hidden;
-        if (hidden)
-        {
-            Hide();
-        }
-        else
-        {
-            Unhide();
-        }
-
-        return hidden;
-    }
-
+    
+    /// <summary>
+    /// Hide canvas group
+    /// </summary>
     public void Hide()
-    {
-        if (canv)
-        {
-            canv.alpha = 0f;
-            canv.blocksRaycasts = false;
-        }
+    {   
+        if(!canv)
+            canv = GetComponent<CanvasGroup>();
+        canv.alpha = 0f;
+        canv.blocksRaycasts = false;   
     }
 
-    public void Unhide()
+    /// <summary>
+    /// Show canvas group
+    /// </summary>
+    public void Show()
     {
-        if (canv)
-        {
-            canv.alpha = 1f;
-            canv.blocksRaycasts = true;
-        }
+        if (!canv)
+            canv = GetComponent<CanvasGroup>();
+        canv.alpha = 1f;
+        canv.blocksRaycasts = true; 
     }
 }

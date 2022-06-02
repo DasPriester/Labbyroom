@@ -34,7 +34,7 @@ public class DoorInteractable : Interactable
                 gameObject.GetComponent<Outline>().enabled = true;
 
             if (UseToolTip && toolTip && !blocked)
-                toolTip.Unhide();
+                toolTip.Show();
         }
         else
         {
@@ -85,7 +85,7 @@ public class DoorInteractable : Interactable
             gameObject.GetComponent<Outline>().enabled = true;
 
         if (UseToolTip && toolTip && !blocked)
-            toolTip.Unhide();
+            toolTip.Show();
     }
 
     /// <summary>

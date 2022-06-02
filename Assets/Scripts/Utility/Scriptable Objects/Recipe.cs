@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Scriptable object to save cost and yield for each recipe
+/// </summary>
 [CreateAssetMenu(fileName = "Data", menuName = "Scriptable Object/Recipe", order = 1)]
 public class Recipe : ScriptableObject
 {

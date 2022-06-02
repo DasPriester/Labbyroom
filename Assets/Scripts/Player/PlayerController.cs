@@ -102,13 +102,13 @@ public class PlayerController : MonoBehaviour {
 
 
         settings = Resources.Load<Settings>("Settings/Current");
-        foreach (Menu menu in settings.menus)
+        foreach (InGameMenu menu in settings.menus)
         {
             if (!settings.liveMenus.ContainsKey(menu.name))
-                settings.liveMenus.Add(menu.name, Instantiate<Menu>(menu, FindObjectOfType<CraftingUI>().transform));
+                settings.liveMenus.Add(menu.name, Instantiate(menu, FindObjectOfType<CraftingMenu>().transform));
 
             if (settings.liveMenus.ContainsKey(menu.name) && settings.liveMenus[menu.name] == null)
-                settings.liveMenus[menu.name] = Instantiate<Menu>(menu, FindObjectOfType<CraftingUI>().transform);
+                settings.liveMenus[menu.name] = Instantiate(menu, FindObjectOfType<CraftingMenu>().transform);
 
         }
     }

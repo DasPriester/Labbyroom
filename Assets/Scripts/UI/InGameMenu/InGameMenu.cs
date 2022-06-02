@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Menu : Hideable
+/// <summary>
+/// Basic class for each ingame menu to implement
+/// </summary>
+public class InGameMenu : Hideable
 {
     public KeyCode openKey;
 
@@ -33,10 +36,14 @@ public class Menu : Hideable
         }
     }
 
+    /// <summary>
+    /// If the menu is toggled, invoke the proper method 
+    /// </summary>
     public void ToggleMenu()
     {
         menuCooldown = 0.2f;
-        bool hidden = ToggleHide();
+
+        Hidden = !Hidden;
 
         if (hidden)
         {

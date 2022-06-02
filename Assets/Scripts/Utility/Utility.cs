@@ -3,6 +3,9 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// Utility functions used throughout the game
+/// </summary>
 public class Utility : MonoBehaviour
 {
     public static Sprite GetIconFor(Item item)
