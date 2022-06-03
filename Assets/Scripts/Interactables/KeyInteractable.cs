@@ -9,4 +9,5 @@ public class KeyInteractable : PickUpInteractable
 {
     public Room roomType;
     public PortalComponent portalType;
+    public bool temporary;
 }

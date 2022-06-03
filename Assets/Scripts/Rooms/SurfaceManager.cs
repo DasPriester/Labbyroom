@@ -14,7 +14,7 @@ public abstract class SurfaceManager : PortalConnector
     /// <param name="roomType">Type of room to summon</param>
     /// <param name="portalType">Type of portal to summon</param>
     /// <returns></returns>
-    public abstract bool AddDoor(Vector3 pos, Room roomType, PortalComponent portalType);
+    public abstract bool AddDoor(Vector3 pos, Room roomType, PortalComponent portalType, bool temporary);
 
     /// <summary>
     /// Display preview of portal

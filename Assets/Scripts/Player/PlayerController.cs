@@ -408,6 +408,21 @@ public class PlayerController : MonoBehaviour {
         transform.eulerAngles = Vector3.up * yaw;
         moveDirection = toPortal.TransformVector(fromPortal.InverseTransformVector(moveDirection));
         Physics.SyncTransforms();
+
+        PortalComponent fp = fromPortal.GetComponent<PortalComponent>();
+        PortalComponent tp = toPortal.GetComponent<PortalComponent>();
+
+        if (tp.IsTemporary)
+        {
+            Destroy(fromPortal.gameObject);
+            Destroy(toPortal.gameObject);
+            Room frm = fp.Room;
+            Destroy(frm.gameObject);
+            WallManager wm = tp.WallManager;
+            wm.doors.Remove(tp.Door);
+            wm.UpdateWall();
+            PortalConnector.Z -= 1;
+        }
     }
 
     public void EnterPortalThreshold() { }

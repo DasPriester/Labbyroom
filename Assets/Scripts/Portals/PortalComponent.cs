@@ -9,8 +9,12 @@ using UnityEditor;
 public class PortalComponent : MonoBehaviour
 {
     [SerializeField] private string prefabName = null;
+    [SerializeField] private bool isTemporary = false;
 
     public PortalComponent linkedPortal = null;
+    private Room room = null;
+    private WallManager wallManager = null;
+    private Vector2 door;
     public MeshRenderer screen = null;
     public float width = 1f;
 
@@ -27,6 +31,10 @@ public class PortalComponent : MonoBehaviour
     public int recursionLimit = 5;
 
     public string PrefabName { get => prefabName; set => prefabName = value; }
+    public bool IsTemporary { get => isTemporary; set => isTemporary = value; }
+    public Room Room { get => room; set => room = value; }
+    public WallManager WallManager { get => wallManager; set => wallManager = value; }
+    public Vector2 Door { get => door; set => door = value; }
 
     private void Awake()
     {

@@ -51,7 +51,7 @@ public class WallManager : SurfaceManager
     /// <param name="roomType"></param>
     /// <param name="portalType"></param>
     /// <returns>Returns true if the door fitted else false</returns>
-    public override bool AddDoor(Vector3 pos, Room roomType, PortalComponent portalType)
+    public override bool AddDoor(Vector3 pos, Room roomType, PortalComponent portalType, bool temporary)
     {
         Vector3 inv = transform.InverseTransformPoint(pos);
         Vector2 door = new Vector2(inv.x + Dimensions.x / 2, portalType.width);
@@ -64,7 +64,7 @@ public class WallManager : SurfaceManager
 
             Vector3 left = transform.position - transform.right * Dimensions.x / 2;
 
-            InsertPortal(left + door.x * transform.right - transform.up * Dimensions.y / 2, transform.rotation, roomType, portalType, Wall.GetComponent<MeshRenderer>().sharedMaterial);
+            InsertPortal(left + door.x * transform.right - transform.up * Dimensions.y / 2, transform.rotation, roomType, portalType, Wall.GetComponent<MeshRenderer>().sharedMaterial, temporary, GetComponentInParent<Room>(), door, this);
 
             return true;
         }

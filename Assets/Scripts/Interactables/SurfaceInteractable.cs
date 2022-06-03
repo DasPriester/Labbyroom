@@ -32,7 +32,7 @@ public abstract class SurfaceInteractable : Interactable
             item.amount = 1;
             if (inv.RemoveItem(item))
             {
-                if (!manager.AddDoor(pos, key.roomType, key.portalType))
+                if (!manager.AddDoor(pos, key.roomType, key.portalType, key.temporary))
                     inv.AddItem(item);
             }
         }

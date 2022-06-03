@@ -158,6 +158,7 @@ MonoBehaviour:
   pickUpParticle: {fileID: 8452545625293292680, guid: 547fd1e2e7e6e44418ce27e79cd08083, type: 3}
   roomType: {fileID: 1255976478663795016, guid: 26af1457050134ab7834708980f57815, type: 3}
   portalType: {fileID: 3254051265726217479, guid: bda5f4d16b7ac4e628adf2c8bd4175d8, type: 3}
+  temporary: 1
 --- !u!82 &-7030817118175948506
 AudioSource:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ public class PortalConnector : MonoBehaviour
     /// <param name="roomType">Type of Room to spawn</param>
     /// <param name="portalType">Type of portal to summon</param>
     /// <param name="wall_material">Material of the Wall above the portal</param>
-    protected void InsertPortal(Vector3 pos, Quaternion rot, Room roomType, PortalComponent portalType, Material wall_material)
+    protected void InsertPortal(Vector3 pos, Quaternion rot, Room roomType, PortalComponent portalType, Material wall_material, bool temporary, Room currentRoom, Vector2 door, WallManager wallManager)
     {
         PortalComponent p1 = Instantiate(portalType, pos, rot);
         p1.GetComponentInChildren<DoorInteractable>().enabled = false;
@@ -31,6 +31,12 @@ public class PortalConnector : MonoBehaviour
 
         p1.linkedPortal = p2;
         p2.linkedPortal = p1;
+        p1.IsTemporary = temporary;
+
+        p1.Room = currentRoom;
+        p2.Room = room;
+        p1.WallManager = wallManager;
+        p1.Door = door;
 
         foreach (MeshRenderer mr in p1.GetComponentsInChildren<MeshRenderer>())
         {
