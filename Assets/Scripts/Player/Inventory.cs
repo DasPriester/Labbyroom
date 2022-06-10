@@ -12,7 +12,7 @@ public class Inventory : MonoBehaviour
     private Color halfWhite = new Color(1, 1, 1, 0.4f);
 
     private readonly GameObject[] slots = new GameObject[7];
-    private Item[] invList = new Item[7];
+    [SerializeField] private Item[] invList = new Item[7];
     private int current = 0;
     private PlayerController playerController;
 

@@ -421,7 +421,7 @@ public class PlayerController : MonoBehaviour {
             WallManager wm = tp.WallManager;
             wm.doors.Remove(tp.Door);
             wm.UpdateWall();
-            PortalConnector.Z -= 1;
+            //PortalConnector.Z -= 1;
         }
     }
 

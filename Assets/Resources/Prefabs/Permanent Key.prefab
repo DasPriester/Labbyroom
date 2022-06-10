@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -3747821655343468329}
   - component: {fileID: 2695175928703190599}
   m_Layer: 6
-  m_Name: Temporary Key
+  m_Name: Permanent Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,9 +92,9 @@ MonoBehaviour:
   placeSound: {fileID: 8300000, guid: 6f0cfe23fe02b18488c69d04d5aa969b, type: 3}
   pickUpSound: {fileID: 8300000, guid: c2587d145786f4d4e8dae8d1bbb44973, type: 3}
   pickUpParticle: {fileID: 8452545625293292680, guid: 547fd1e2e7e6e44418ce27e79cd08083, type: 3}
-  roomType: {fileID: 1255976478663795016, guid: 41fd099b52b11274cae067413b70f319, type: 3}
+  roomType: {fileID: 1255976478663795016, guid: 26af1457050134ab7834708980f57815, type: 3}
   portalType: {fileID: 3254051265726217479, guid: bda5f4d16b7ac4e628adf2c8bd4175d8, type: 3}
-  temporary: 1
+  temporary: 0
 --- !u!65 &9190451834867064235
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936f3985fae63e34087bc0798b6b46c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: Temporary Key
+  prefabName: Permanent Key
 --- !u!1001 &2245112261273020462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -271,7 +271,7 @@ PrefabInstance:
     - target: {fileID: -4708999821919727577, guid: dba87a4ce8ded47c8982d94f2ec4ee9c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 868d5d49eb3f1784b8ce4633440ccc08, type: 2}
+      objectReference: {fileID: 2100000, guid: 1a7c6b13b8983fa4bbfb1dbfbb5fef57, type: 2}
     - target: {fileID: -1275492068605942599, guid: dba87a4ce8ded47c8982d94f2ec4ee9c, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -279,11 +279,11 @@ PrefabInstance:
     - target: {fileID: 751480733501378468, guid: dba87a4ce8ded47c8982d94f2ec4ee9c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 868d5d49eb3f1784b8ce4633440ccc08, type: 2}
+      objectReference: {fileID: 2100000, guid: 1a7c6b13b8983fa4bbfb1dbfbb5fef57, type: 2}
     - target: {fileID: 873133574377958600, guid: dba87a4ce8ded47c8982d94f2ec4ee9c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 868d5d49eb3f1784b8ce4633440ccc08, type: 2}
+      objectReference: {fileID: 2100000, guid: 1a7c6b13b8983fa4bbfb1dbfbb5fef57, type: 2}
     - target: {fileID: 919132149155446097, guid: dba87a4ce8ded47c8982d94f2ec4ee9c, type: 3}
       propertyPath: m_Name
       value: temp_key
@@ -299,7 +299,7 @@ PrefabInstance:
     - target: {fileID: 2858861989129603195, guid: dba87a4ce8ded47c8982d94f2ec4ee9c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 868d5d49eb3f1784b8ce4633440ccc08, type: 2}
+      objectReference: {fileID: 2100000, guid: 1a7c6b13b8983fa4bbfb1dbfbb5fef57, type: 2}
     - target: {fileID: 4534540882343480422, guid: dba87a4ce8ded47c8982d94f2ec4ee9c, type: 3}
       propertyPath: m_Layer
       value: 6

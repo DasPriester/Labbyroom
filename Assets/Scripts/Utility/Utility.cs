@@ -14,6 +14,11 @@ public class Utility : MonoBehaviour
 
         if (!sprite)
         {
+            sprite = Resources.Load<Sprite>("Sprites/Icons/" + item.name + "_tmp");
+
+        }
+        if(!sprite)
+        { 
             Texture2D saved = Resources.Load<Texture2D>("Sprites/Icons/" + item.name + "_tmp");
 
             if (saved)

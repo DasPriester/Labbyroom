@@ -23,6 +23,7 @@ public class RecipeInteractable : PickUpInteractable
         prefab = (GameObject)Resources.Load("Prefabs/" + prefabName);
         text = GameObject.Find("Canvas/Text").GetComponent<Text>();
         image = GameObject.Find("Canvas/Image").GetComponent<Image>();
+
         
         text.text = recipe.name;
         Item item = new Item();

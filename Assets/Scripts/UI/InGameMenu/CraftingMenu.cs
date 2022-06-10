@@ -68,7 +68,7 @@ public class CraftingMenu : MonoBehaviour
                 button.GetComponent<Image>().color = craftable ? Color.green : Color.gray;
                 button.interactable = craftable;
 
-                nen.transform.position += 70 * i * Vector3.down;
+                nen.transform.position += 120 * i * Vector3.down;
                 i++;
             }
         }
