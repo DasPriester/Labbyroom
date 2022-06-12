@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311915, g: 0.3807396, b: 0.35872662, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -843,13 +843,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestRoom
       objectReference: {fileID: 0}
-    - target: {fileID: 5518771474986691159, guid: 26af1457050134ab7834708980f57815, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 5929021183302699137, guid: 26af1457050134ab7834708980f57815, type: 3}
-      propertyPath: Wall
-      value: 
-      objectReference: {fileID: 1819586498260209660, guid: 925170e0a15fb42329a05c0ce752c48a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26af1457050134ab7834708980f57815, type: 3}
