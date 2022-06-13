@@ -94,7 +94,7 @@ public class PortalComponent : MonoBehaviour
         {
             if (!CameraUtility.VisibleFromCamera(linkedPortal.screen, playerCam))
             {
-                return;
+               // return;
             }
 
             CreateViewTexture();
