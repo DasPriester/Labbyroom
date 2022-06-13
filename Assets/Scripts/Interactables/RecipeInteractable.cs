@@ -20,11 +20,12 @@ public class RecipeInteractable : PickUpInteractable
 
     public override void Start()
     {
+        prefabName = GetComponent<Moveable>().PrefabName;
         prefab = (GameObject)Resources.Load("Prefabs/" + prefabName);
-        text = GameObject.Find("Canvas/Text").GetComponent<Text>();
-        image = GameObject.Find("Canvas/Image").GetComponent<Image>();
 
-        
+        text = GetComponentInChildren<Text>();
+        image = GetComponentInChildren<Image>();
+
         text.text = recipe.name;
         Item item = new Item();
         foreach (PickUpInteractable p in recipe.Yield.Keys)
@@ -41,9 +42,11 @@ public class RecipeInteractable : PickUpInteractable
     /// </summary>
     public override void OnInteract(Vector3 hit)
     {
-        if(UseAudio)
-            AudioSource.PlayClipAtPoint(pickUpSound, transform.position, Mathf.Min(pc.settings.masterVolume, pc.settings.effectsVolume));
-        
+        if (UseAudio)
+        {
+            PlayPickUpAudio();
+        }
+
         recipe.unlocked = true;
         Destroy(gameObject);
         

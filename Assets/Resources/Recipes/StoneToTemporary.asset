@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec9ed41941b4d46c693d18a3e97febb0, type: 3}
-  m_Name: StoneToTemp
+  m_Name: StoneToTemporary
   m_EditorClassIdentifier: 
-  name: Stone to Temp
-  unlocked: 1
+  name: Temporary Key
+  unlocked: 0
   Cost:
     keys:
     - {fileID: -3312713435364818256, guid: 3dc0032bda0a3a24f848db19061df8c0, type: 3}

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec9ed41941b4d46c693d18a3e97febb0, type: 3}
-  m_Name: StoneToPerma
+  m_Name: StoneToPermanent
   m_EditorClassIdentifier: 
-  name: Stone to Perma
+  name: Permanent Key
   unlocked: 0
   Cost:
     keys:

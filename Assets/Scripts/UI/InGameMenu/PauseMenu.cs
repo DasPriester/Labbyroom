@@ -34,8 +34,15 @@ public class PauseMenu : MonoBehaviour
         });
     }
 
-    private void PauseTime() { Time.timeScale = 0.0f; }
-    private void ResumeTime() { Time.timeScale = 1.0f; }
+    private void PauseTime() {
+        InGameMenu.instance = pauseMenu;
+        Time.timeScale = 0.0f; 
+    }
+    private void ResumeTime()
+    {
+        InGameMenu.instance = null; 
+        Time.timeScale = 1.0f; 
+    }
 
     public void LoadMenu()
     {

@@ -6,6 +6,7 @@ using UnityEngine;
 /// object that can be picked up
 /// </summary>
 [RequireComponent(typeof(Moveable))]
+[RequireComponent(typeof(AudioSource))]
 public class PickUpInteractable : Interactable
 {
 
@@ -14,13 +15,11 @@ public class PickUpInteractable : Interactable
     [SerializeField] protected ParticleSystem pickUpParticle = default;
 
 
-    protected AudioSource audioSource;
     protected GameObject prefab;
     protected string prefabName = "";
 
     public virtual void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         prefabName = GetComponent<Moveable>().PrefabName;
         prefab = (GameObject)Resources.Load("Prefabs/" + prefabName);
     }
@@ -28,11 +27,25 @@ public class PickUpInteractable : Interactable
     /// <summary>
     /// Play placing sound
     /// </summary>
-    /// <param name="position">Potition to play the sound at</param>
-    public void OnPlace(Vector3 position)
+    public void OnPlace()
     {
-        if(UseAudio)
-            AudioSource.PlayClipAtPoint(placeSound, position);
+        if (UseAudio)
+        {
+            GetComponent<AudioSource>().clip = placeSound;
+            GetComponent<AudioSource>().Play();
+        }
+            
+    }
+
+    protected void PlayPickUpAudio()
+    {
+        GameObject go = new GameObject("AudioSource");
+        go.AddComponent<AudioSource>();
+        go.GetComponent<AudioSource>().playOnAwake = false;
+        go.GetComponent<AudioSource>().outputAudioMixerGroup = GetComponent<AudioSource>().outputAudioMixerGroup;
+        go.GetComponent<AudioSource>().clip = pickUpSound;
+        go.GetComponent<AudioSource>().Play();
+        Destroy(go, pickUpSound.length + 1);
     }
 
     /// <summary>
@@ -40,8 +53,10 @@ public class PickUpInteractable : Interactable
     /// </summary>
     public override void OnInteract(Vector3 hit)
     {
-        if(UseAudio)
-            AudioSource.PlayClipAtPoint(pickUpSound, transform.position);
+        if (UseAudio)
+        {
+            PlayPickUpAudio();
+        }
 
         if (UseParticle)
             Instantiate(pickUpParticle, transform.position, Quaternion.identity).Play();

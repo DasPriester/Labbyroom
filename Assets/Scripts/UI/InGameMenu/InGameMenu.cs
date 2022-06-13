@@ -18,6 +18,8 @@ public class InGameMenu : Hideable
     float menuCooldown = 0;
     PlayerController pc;
 
+    static public InGameMenu instance;
+
     private void Awake()
     {
         pc = Camera.main.GetComponentInParent<PlayerController>();
@@ -26,11 +28,11 @@ public class InGameMenu : Hideable
     private void Update()
     {
         if (menuCooldown > 0)
-            menuCooldown -= Time.deltaTime;
+            menuCooldown -= Time.unscaledDeltaTime;
         else
             menuCooldown = 0;
 
-        if (Input.GetKey(openKey) && menuCooldown == 0)
+        if ((instance == null || instance == this) && Input.GetKey(openKey) && menuCooldown == 0)
         {
             ToggleMenu();
         }

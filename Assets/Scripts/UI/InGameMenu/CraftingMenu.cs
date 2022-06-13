@@ -25,6 +25,7 @@ public class CraftingMenu : MonoBehaviour
         recipes = Resources.LoadAll<Recipe>("Recipes");
 
         craftingMenu.OpenMenu = UpdateCraftMenu;
+        craftingMenu.CloseMenu = CloseCraftMenu;
     }
 
     /// <summary>
@@ -32,6 +33,9 @@ public class CraftingMenu : MonoBehaviour
     /// </summary>
     private void UpdateCraftMenu()
     {
+
+        InGameMenu.instance = craftingMenu;
+
         if (!inv)
             inv = GetComponentInChildren<Inventory>();
 
@@ -78,6 +82,12 @@ public class CraftingMenu : MonoBehaviour
         else
             craftingMenu.transform.Find("Scroll View/NoContent").GetComponent<Text>().text = "You have to discover a recipe first...";
     }
+
+    private void CloseCraftMenu()
+    {
+        InGameMenu.instance = null;
+    }
+
 
     /// <summary>
     /// Convert an inventory-dict to string
