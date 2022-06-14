@@ -16,7 +16,7 @@ public class Settings : ScriptableObject
     public KeyCode placeKey = KeyCode.Q;
 
     //Inventory
-    public KeyCode[] inventoryKeys = new KeyCode[] { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7 };
+    public KeyCode[] inventoryKeys = new KeyCode[] { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7, KeyCode.Alpha8, KeyCode.Alpha9 };
 
     //Menus
     public InGameMenu[] menus = { };
@@ -30,6 +30,7 @@ public class Settings : ScriptableObject
     public float masterVolume = 1f;
     public float effectsVolume = 1f;
     public float musicVolume = 1f;
+
 
     public bool useFootsteps = true;
 
@@ -51,7 +52,7 @@ public class Settings : ScriptableObject
                 {
                     if (menu.name == name)
                     {
-                        liveMenus[name] = Instantiate(menu, FindObjectOfType<CraftingMenu>().transform);
+                        liveMenus[name] = Instantiate(menu, FindObjectOfType<InventoryMenu>().transform);
                         return liveMenus[name];
                     }
                 }
@@ -66,7 +67,7 @@ public class Settings : ScriptableObject
             {
                 if (menu.name == name)
                 {
-                    liveMenus.Add(menu.name, Instantiate(menu, FindObjectOfType<CraftingMenu>().transform));
+                    liveMenus.Add(menu.name, Instantiate(menu, FindObjectOfType<InventoryMenu>().transform));
                     return liveMenus[name];
                 }
             }
@@ -115,6 +116,12 @@ public class Settings : ScriptableObject
                 break;
             case "Inventory 7":
                 inventoryKeys[6] = key;
+                break;
+            case "Inventory 8":
+                inventoryKeys[7] = key;
+                break;
+            case "Inventory 9":
+                inventoryKeys[8] = key;
                 break;
             case "Crafting":
                 foreach (InGameMenu menu in menus)
@@ -165,6 +172,10 @@ public class Settings : ScriptableObject
                 return inventoryKeys[5];
             case "Inventory 7":
                 return inventoryKeys[6];
+            case "Inventory 8":
+                return inventoryKeys[7];
+            case "Inventory 9":
+                return inventoryKeys[8];
             case "Crafting":
                 foreach (InGameMenu menu in menus)
                 {

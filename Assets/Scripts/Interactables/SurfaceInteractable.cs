@@ -15,8 +15,8 @@ public abstract class SurfaceInteractable : Interactable
     /// <param name="pos">Position of raycast-hit to place door at</param>
     override public void OnInteract(Vector3 pos)
     {
-        Inventory inv = GameObject.Find("UI/Inventory").GetComponent<Inventory>();
-        var item = inv.CurrentItem();
+        Inventory inv = GameObject.Find("Player").GetComponent<Inventory>();
+        Item item = inv.CurrentItem();
 
         KeyInteractable key;
 

@@ -9,69 +9,37 @@ using System;
 /// </summary>
 public class Inventory : MonoBehaviour
 {
-    private Color halfWhite = new Color(1, 1, 1, 0.4f);
+    private static readonly int inventorySize = 63;
+    private static readonly int hotbarSize = 9;
 
-    private readonly GameObject[] slots = new GameObject[7];
-    [SerializeField] private Item[] invList = new Item[7];
+    private InventoryMenu InvUI;
+    private Item[] invList;
+
     private int current = 0;
-    private PlayerController playerController;
-
     public Item[] Items {
         get { return invList; }
-        set { invList = value; UpdateUI(); }
+        set { invList = value; RefreshUI(); }
     }
     public int CurrentSlot
     {
         get { return current; }
         set { current = value; }
     }
+    public int HotbarSize { get { return hotbarSize; } }
+    public int InventorySize { get { return inventorySize; } }
 
-    public void Awake()
+    private void Awake()
     {
-        int i = 0;
-        foreach (Transform child in transform)
-        {
-            slots[i] = child.gameObject;
-            i++;
-        }
-        slots[current].GetComponent<Image>().color = Color.white;
-
-        playerController = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<PlayerController>();
+        InvUI = GameObject.Find("UI").GetComponent<InventoryMenu>();
+        invList = new Item[hotbarSize + inventorySize];
     }
 
-
-    public void Update()
-    {
-        for (int i = 0; i < 7; i++)
-        {
-            if (Input.GetKeyDown(playerController.settings.inventoryKeys[i]))
-            {
-                slots[current].GetComponent<Image>().color = halfWhite;
-                current = i;
-                slots[current].GetComponent<Image>().color = Color.white;
-
-            }
-        }
-
-    }
     /// <summary>
     /// Refresh Inventory UI
     /// </summary>
-    private void UpdateUI()
+    public void RefreshUI()
     {
-        for (int i = 0; i < invList.Length; i++)
-        {
-            if (invList[i].prefab != null)
-            {
-                GameObject slot = slots[i];
-                Image image = slot.GetComponentsInChildren<Image>()[1];
-                image.enabled = true;
-
-                image.sprite = Utility.GetIconFor(invList[i]);
-                slot.GetComponentInChildren<Text>().enabled = true;
-                slot.GetComponentInChildren<Text>().text = "" + invList[i].amount;
-            }
-        }
+        InvUI.RefreshUI();
     }
 
     /// <summary>
@@ -95,25 +63,18 @@ public class Inventory : MonoBehaviour
         if (index != -1)
         {
             invList[index].amount += item.amount;
-
-            slots[index].GetComponentInChildren<Text>().text = "" + invList[index].amount;
+            InvUI.UpdateCountUI(index);
         }
         else
         {
-            for (int i = 0; i < invList.Length; i++)
+            for (int i = 0; i < inventorySize; i++)
             {
+                
                 if (invList[i].prefab == null)
                 {
                     invList[i] = item;
 
-                    GameObject slot = slots[i];
-                    Image image = slot.GetComponentsInChildren<Image>()[1];
-                    image.enabled = true;
-
-                    image.sprite = Utility.GetIconFor(item);
-                    slot.GetComponentInChildren<Text>().enabled = true;
-                    slot.GetComponentInChildren<Text>().text = "" + item.amount;
-
+                    InvUI.AddItemUI(item, i);
                     break;
                 }
             }
@@ -131,35 +92,27 @@ public class Inventory : MonoBehaviour
         int index = Array.FindIndex(invList, x => x.name == item.name);
 
         if (index == -1)
-        {
             return false;
+
+        if (invList[index].amount < item.amount)
+            return false;
+            
+
+        invList[index].amount -= item.amount;
+
+        if (invList[index].amount < 1)
+        {
+            invList[index] = new Item(null, null, 0);
+
+            InvUI.RemoveItemUI(index);
+
         }
         else
         {
-            if (invList[index].amount >= item.amount)
-            {
-                invList[index].amount -= item.amount;
-            } else
-            {
-                return false;
-            }
-
-            if (invList[index].amount < 1)
-            {
-                invList[index] = new Item(null, null, 0);
-
-                GameObject slot = slots[index];
-                Image image = slot.GetComponentsInChildren<Image>()[1];
-                image.enabled = false;
-                image.sprite = null;
-                slot.GetComponentInChildren<Text>().enabled = false;
-            }
-
-            slots[index].GetComponentInChildren<Text>().text = "" + invList[index].amount;
-
-            return true;
+            InvUI.UpdateCountUI(index);
         }
-
+        return true;
+      
     }
 
     /// <summary>
@@ -237,7 +190,7 @@ public class Inventory : MonoBehaviour
     /// <returns>Currently selected item, nulled item if nothing selected</returns>
     public Item CurrentItem()
     {
-        if(current >= invList.Length)
+        if(current >= hotbarSize)
             return new Item(null, null, 0);
 
         return invList[current];

@@ -7,17 +7,11 @@ using UnityEngine.Audio;
 public class InputVolumeSlider : InputSlider
 {
     [SerializeField] private AudioMixer audioMixer = default;
-    [SerializeField] private string audioChannel;
-    
-    public string AudioChannel {
-         get { return audioChannel; }
-         set { audioChannel = value; }
-    }
 
     public override void ChangeValue()
     {
         currentSettings.SetValue(sets, slider.value);
-        audioMixer.SetFloat(audioChannel, Mathf.Log10(slider.value) * 20);
+        audioMixer.SetFloat(sets, Mathf.Log10(slider.value) * 20);
     }
 
 }

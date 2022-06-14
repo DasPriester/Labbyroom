@@ -42,6 +42,8 @@ public class OptionsMenu : MonoBehaviour
         {"Inventory 5", InputType.KEY},
         {"Inventory 6", InputType.KEY},
         {"Inventory 7", InputType.KEY},
+        {"Inventory 8", InputType.KEY},
+        {"Inventory 9", InputType.KEY},
         {"Crafting", InputType.KEY},
         { "Menu",  InputType.KEY},
     };
@@ -140,7 +142,6 @@ public class OptionsMenu : MonoBehaviour
                 case InputType.VOLUME:
                     var ivs = Instantiate(inputVolumeSlider, content);
                     ivs.transform.position = newPos(i);
-                    ivs.AudioChannel = k.Key;
                     ivs.Sets = k.Key;
                     break;
             }

@@ -61,8 +61,7 @@ public class PickUpInteractable : Interactable
         if (UseParticle)
             Instantiate(pickUpParticle, transform.position, Quaternion.identity).Play();
 
-        var inv = GameObject.Find("UI/Inventory").GetComponent<Inventory>();
-        inv.AddItem(prefab, prefabName);
+        GameObject.Find("Player").GetComponent<Inventory>().AddItem(prefab, prefabName);
 
         Destroy(gameObject);
     }

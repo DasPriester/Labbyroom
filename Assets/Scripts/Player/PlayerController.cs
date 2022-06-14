@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 /// <summary>
 /// Controller class for the player
 /// </summary>
-public class PlayerController : MonoBehaviour { 
+public class PlayerController : MonoBehaviour {
     public Vector3 PreviousOffsetFromPortal { get; set; }
 
     public bool CanMove { get; private set; } = true;
@@ -76,6 +77,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private AudioClip[] grassClips = default;
     [SerializeField] private AudioClip[] woodClips = default;
     [SerializeField] private AudioClip[] sandClips = default;
+
+    [SerializeField] private AudioMixer audioMixer = default;
     private float footstepTimer = 0;
     private float GetCurrentOffset => isCrouching ? baseStepSpeed * crouchStepMultiplier : IsSprinting ? baseStepSpeed * sprintStepMultiplier : baseStepSpeed;
 
@@ -100,21 +103,26 @@ public class PlayerController : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-
         settings = Resources.Load<Settings>("Settings/Current");
         foreach (InGameMenu menu in settings.menus)
         {
             if (!settings.liveMenus.ContainsKey(menu.name))
-                settings.liveMenus.Add(menu.name, Instantiate(menu, FindObjectOfType<CraftingMenu>().transform));
+                settings.liveMenus.Add(menu.name, Instantiate(menu, FindObjectOfType<InventoryMenu>().transform));
 
             if (settings.liveMenus.ContainsKey(menu.name) && settings.liveMenus[menu.name] == null)
-                settings.liveMenus[menu.name] = Instantiate(menu, FindObjectOfType<CraftingMenu>().transform);
+                settings.liveMenus[menu.name] = Instantiate(menu, FindObjectOfType<InventoryMenu>().transform);
 
         }
+        
     }
 
     void Update()
     {
+        // super ugly but w/e
+        audioMixer.SetFloat("Master Volume", Mathf.Log10(settings.masterVolume) * 20);
+        audioMixer.SetFloat("Effects Volume", Mathf.Log10(settings.effectsVolume) * 20);
+        audioMixer.SetFloat("Music Volume", Mathf.Log10(settings.musicVolume) * 20);
+
         if (CanMove)
         {
             HandleMouseInput();
@@ -261,7 +269,7 @@ public class PlayerController : MonoBehaviour {
         if (Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit wall, interactionDistance, wallLayer))
         {
             SurfaceInteractable surface = wall.collider.gameObject.GetComponent<SurfaceInteractable>();
-            Item item = GameObject.Find("UI/Inventory").GetComponent<Inventory>().CurrentItem();
+            Item item = GameObject.Find("Player").GetComponent<Inventory>().CurrentItem();
 
             try
             {
@@ -296,7 +304,7 @@ public class PlayerController : MonoBehaviour {
         {
 
 
-            Inventory inv = GameObject.Find("UI/Inventory").GetComponent<Inventory>();
+            Inventory inv = GameObject.Find("Player").GetComponent<Inventory>();
             var item = inv.CurrentItem();
             if (item.prefab != null)
             {
