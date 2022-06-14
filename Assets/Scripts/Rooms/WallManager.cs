@@ -24,6 +24,12 @@ public class WallManager : SurfaceManager
     {
         UpdateWall();
 
+        foreach (WallInteractable wall in walls)
+        {
+            foreach (MeshRenderer mr in wall.GetComponentsInChildren<MeshRenderer>())
+                mr.material.renderQueue = 2999;
+        }
+
         preview = Instantiate(Preview, transform);
     }
 
