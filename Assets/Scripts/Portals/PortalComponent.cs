@@ -30,6 +30,9 @@ public class PortalComponent : MonoBehaviour
     public float nearClipLimit = 0.2f;
     public int recursionLimit = 5;
 
+    private float screenThickness;
+    private float dstToNearClipPlaneCorner;
+
     public string PrefabName { get => prefabName; set => prefabName = value; }
     public bool IsTemporary { get => isTemporary; set => isTemporary = value; }
     public Room Room { get => room; set => room = value; }
@@ -44,6 +47,12 @@ public class PortalComponent : MonoBehaviour
         trackedTravellers = new List<PlayerController>();
         screenMeshFilter = screen.GetComponent<MeshFilter>();
         screen.material.SetInt("displayMask", 1);
+
+
+        float halfHeight = playerCam.nearClipPlane * Mathf.Tan(playerCam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        float halfWidth = halfHeight * playerCam.aspect;
+        dstToNearClipPlaneCorner = new Vector3(halfWidth, halfHeight, playerCam.nearClipPlane).magnitude;
+        screenThickness = dstToNearClipPlaneCorner;
     }
 
     private void LateUpdate()
@@ -92,10 +101,18 @@ public class PortalComponent : MonoBehaviour
     {
         if (linkedPortal)
         {
-            if (!CameraUtility.VisibleFromCamera(linkedPortal.screen, playerCam))
+            if ((!CameraUtility.VisibleFromCamera(linkedPortal.screen, playerCam)) || ((Vector3.Distance(linkedPortal.transform.position, playerCam.transform.position) > 50f) && (Vector3.Distance(linkedPortal.transform.position, linkedPortal.portalCam.transform.position) > 50f)))
             {
+                if ((Vector3.Distance(linkedPortal.transform.position, playerCam.transform.position) > 50f) && (Vector3.Distance(linkedPortal.transform.position, linkedPortal.portalCam.transform.position) > 50f))
+                {
+                    linkedPortal.screen.material.SetInt("displayMask", 0);
+                    linkedPortal.screenThickness = 0.1f;
+                }
+
                 return;
             }
+
+            linkedPortal.screenThickness = dstToNearClipPlaneCorner;
 
             CreateViewTexture();
 
@@ -161,11 +178,6 @@ public class PortalComponent : MonoBehaviour
 
     float ProtectScreenFromClipping(Vector3 viewPoint)
     {
-        float halfHeight = playerCam.nearClipPlane * Mathf.Tan(playerCam.fieldOfView * 0.5f * Mathf.Deg2Rad);
-        float halfWidth = halfHeight * playerCam.aspect;
-        float dstToNearClipPlaneCorner = new Vector3(halfWidth, halfHeight, playerCam.nearClipPlane).magnitude;
-        float screenThickness = dstToNearClipPlaneCorner;
-
         Transform screenT = screen.transform;
         bool camFacingSameDirAsPortal = Vector3.Dot(transform.forward, transform.position - viewPoint) > 0;
         screenT.localScale = new Vector3(screenT.localScale.x, screenT.localScale.y, screenThickness);

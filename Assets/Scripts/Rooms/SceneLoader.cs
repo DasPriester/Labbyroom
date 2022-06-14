@@ -82,7 +82,11 @@ public class SceneLoader : MonoBehaviour
                     position1 = portal.transform.position,
                     rotation1 = portal.transform.rotation,
                     position2 = portal.linkedPortal.transform.position,
-                    rotation2 = portal.linkedPortal.transform.rotation
+                    rotation2 = portal.linkedPortal.transform.rotation,
+                    pcposition1 = portal.GetComponentInChildren<Camera>().transform.position,
+                    pcrotation1 = portal.GetComponentInChildren<Camera>().transform.rotation,
+                    pcposition2 = portal.linkedPortal.GetComponentInChildren<Camera>().transform.position,
+                    pcrotation2 = portal.linkedPortal.GetComponentInChildren<Camera>().transform.rotation
                 };
 
                 foreach (MeshRenderer mr in portal.GetComponentsInChildren<MeshRenderer>())
@@ -200,6 +204,10 @@ public class SceneLoader : MonoBehaviour
         {
             PortalComponent p1 = Instantiate(Resources.Load<PortalComponent>("Portals/" + ppd.name), ppd.position1, ppd.rotation1);
             PortalComponent p2 = Instantiate(Resources.Load<PortalComponent>("Portals/" + ppd.name), ppd.position2, ppd.rotation2);
+            p1.GetComponentInChildren<Camera>().transform.position = ppd.pcposition1;
+            p1.GetComponentInChildren<Camera>().transform.rotation = ppd.pcrotation1;
+            p2.GetComponentInChildren<Camera>().transform.position = ppd.pcposition2;
+            p2.GetComponentInChildren<Camera>().transform.rotation = ppd.pcrotation2;
 
             p1.linkedPortal = p2;
             p2.linkedPortal = p1;
@@ -330,6 +338,15 @@ public class SceneLoader : MonoBehaviour
         public Quaternion rotation1;
         public Vector3 position2;
         public Quaternion rotation2;
+
+        public Vector3 pcposition1;
+        public Quaternion pcrotation1;
+        public Vector3 pcposition2;
+        public Quaternion pcrotation2;
+
+        public bool open1;
+        public bool open2;
+
         public string material1;
         public string material2;
         public string name;
