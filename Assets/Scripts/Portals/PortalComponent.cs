@@ -94,7 +94,7 @@ public class PortalComponent : MonoBehaviour
         {
             if (!CameraUtility.VisibleFromCamera(linkedPortal.screen, playerCam))
             {
-               // return;
+                return;
             }
 
             CreateViewTexture();
@@ -119,7 +119,7 @@ public class PortalComponent : MonoBehaviour
                 int renderOrderIndex = recursionLimit - i - 1;
                 renderPositions[renderOrderIndex] = localToWorldMatrix.GetColumn(3);
                 renderRotations[renderOrderIndex] = localToWorldMatrix.rotation;
-
+                
                 portalCam.transform.SetPositionAndRotation(renderPositions[renderOrderIndex], renderRotations[renderOrderIndex]);
                 startIndex = renderOrderIndex;
             }
@@ -153,6 +153,7 @@ public class PortalComponent : MonoBehaviour
         if (!trackedTravellers.Contains(traveller))
         {
             traveller.EnterPortalThreshold();
+            traveller.gameObject.layer = LayerMask.NameToLayer("Traveller");
             traveller.PreviousOffsetFromPortal = traveller.transform.position - transform.position;
             trackedTravellers.Add(traveller);
         }
@@ -166,10 +167,7 @@ public class PortalComponent : MonoBehaviour
         float screenThickness = dstToNearClipPlaneCorner;
 
         Transform screenT = screen.transform;
-        float dist = Vector3.Distance(screenT.position, viewPoint);
-        bool inFrontOfPortal = dist < screenT.localScale.x / 1.5;
         bool camFacingSameDirAsPortal = Vector3.Dot(transform.forward, transform.position - viewPoint) > 0;
-        screenThickness = inFrontOfPortal ? screenThickness : screenT.localScale.y / 2;
         screenT.localScale = new Vector3(screenT.localScale.x, screenT.localScale.y, screenThickness);
         screenT.localPosition = ((camFacingSameDirAsPortal) ? 0.5f : -0.5f) * screenThickness * Vector3.forward;
         return screenThickness;
@@ -211,6 +209,7 @@ public class PortalComponent : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         var traveller = other.GetComponent<PlayerController>();
+        traveller.gameObject.layer = LayerMask.NameToLayer("Player");
         if (traveller && trackedTravellers.Contains(traveller))
         {
             traveller.ExitPortalThreshold();
@@ -218,49 +217,57 @@ public class PortalComponent : MonoBehaviour
         }
     }
 
-    #if (UNITY_EDITOR)
-        private void OnDrawGizmosSelected()
+    private void OnDestroy()
+    {
+        foreach (PlayerController traveller in trackedTravellers)
         {
-            if (linkedPortal)
-            {
-                Gizmos.color = Color.green;
-                Vector3 a = screen.transform.position;
-                Vector3 b = linkedPortal.screen.transform.position;
-
-                Vector3 am = a;
-                Vector3 bi = b;
-                am.Scale(Vector3.one * 0.9f);
-                bi.Scale(Vector3.one * 0.1f);
-                am += bi;
-
-                Vector3 ai = a;
-                Vector3 bm = b;
-                ai.Scale(Vector3.one * 0.1f);
-                bm.Scale(Vector3.one * 0.9f);
-                bm += ai;
-
-                DrawArrow(am, bm);
-
-                Gizmos.color = Color.blue;
-                DrawArrow(a - transform.forward, a);
-                DrawArrow(b, b + linkedPortal.screen.transform.forward);
-
-
-                Gizmos.color = Color.red;
-                DrawArrow(a + transform.forward, a);
-                DrawArrow(b, b - linkedPortal.screen.transform.forward);
-            }
+            traveller.gameObject.layer = LayerMask.NameToLayer("Player");
         }
+    }
 
-        static void DrawArrow(Vector3 a, Vector3 b)
+#if (UNITY_EDITOR)
+    private void OnDrawGizmosSelected()
+    {
+        if (linkedPortal)
         {
-            Gizmos.DrawLine(a, b);
-            Vector3 dir = (a - b).normalized;
-            Vector3 n = Vector3.Cross(dir, (SceneView.lastActiveSceneView.camera.transform.position - b).normalized);
-            n.Scale(Vector3.one * 0.5f);
-            Gizmos.DrawLine(b + dir + n, b);
-            Gizmos.DrawLine(b + dir - n, b);
-            Gizmos.DrawLine(a, b);
+            Gizmos.color = Color.green;
+            Vector3 a = screen.transform.position;
+            Vector3 b = linkedPortal.screen.transform.position;
+
+            Vector3 am = a;
+            Vector3 bi = b;
+            am.Scale(Vector3.one * 0.9f);
+            bi.Scale(Vector3.one * 0.1f);
+            am += bi;
+
+            Vector3 ai = a;
+            Vector3 bm = b;
+            ai.Scale(Vector3.one * 0.1f);
+            bm.Scale(Vector3.one * 0.9f);
+            bm += ai;
+
+            DrawArrow(am, bm);
+
+            Gizmos.color = Color.blue;
+            DrawArrow(a - transform.forward, a);
+            DrawArrow(b, b + linkedPortal.screen.transform.forward);
+
+
+            Gizmos.color = Color.red;
+            DrawArrow(a + transform.forward, a);
+            DrawArrow(b, b - linkedPortal.screen.transform.forward);
         }
+    }
+
+    static void DrawArrow(Vector3 a, Vector3 b)
+    {
+        Gizmos.DrawLine(a, b);
+        Vector3 dir = (a - b).normalized;
+        Vector3 n = Vector3.Cross(dir, (SceneView.lastActiveSceneView.camera.transform.position - b).normalized);
+        n.Scale(Vector3.one * 0.5f);
+        Gizmos.DrawLine(b + dir + n, b);
+        Gizmos.DrawLine(b + dir - n, b);
+        Gizmos.DrawLine(a, b);
+    }
 #endif
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8460410003008753853}
   - component: {fileID: 8460410003008753852}
   - component: {fileID: 1140770555}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 8460410003938108308}
   - component: {fileID: 5126079403908891380}
   - component: {fileID: 6946266902364850116}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -218,9 +218,6 @@ MonoBehaviour:
     m_Bits: 256
   placementRayPoint: {x: 0.5, y: 0.5, z: 0}
   placementDistance: 4
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
   baseStepSpeed: 0.5
   crouchStepMultiplier: 1.5
   sprintStepMultiplier: 0.6
@@ -426,7 +423,7 @@ GameObject:
   - component: {fileID: 8460410004057096656}
   - component: {fileID: 8460410004057096663}
   - component: {fileID: 8460410004057096662}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -416,6 +416,7 @@ public class PlayerController : MonoBehaviour {
         {
             Destroy(fromPortal.gameObject);
             Destroy(toPortal.gameObject);
+            gameObject.layer = LayerMask.NameToLayer("Player");
             Room frm = fp.Room;
             Destroy(frm.gameObject);
             WallManager wm = tp.WallManager;
