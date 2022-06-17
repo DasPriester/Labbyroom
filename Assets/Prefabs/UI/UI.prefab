@@ -119,6 +119,7 @@ MonoBehaviour:
   itemSlot: {fileID: 2588724498381213132, guid: 93ef123127fc3a94187cd0c2364c7deb, type: 3}
   itemPref: {fileID: 3880007534733317040, guid: 38f26a2e172bc7245b70d6922269f4b8, type: 3}
   recipeEntryPrefab: {fileID: 9200550695261171048, guid: 5898025e853f840a0804b6925288ea25, type: 3}
+  recipeCostPrefab: {fileID: 9200550695261171048, guid: b93d74ae2ba12dc48a6c690029f112f2, type: 3}
 --- !u!114 &6884926892899863739
 MonoBehaviour:
   m_ObjectHideFlags: 0

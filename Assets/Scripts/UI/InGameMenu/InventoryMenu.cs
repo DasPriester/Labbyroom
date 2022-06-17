@@ -22,10 +22,13 @@ public class InventoryMenu : MonoBehaviour
 
     // Crafting UI
     [SerializeField] private RectTransform recipeEntryPrefab = null;
+    [SerializeField] private RectTransform recipeCostPrefab = null;
     private RectTransform content = null;
     private Recipe[] recipes;
     private Recipe currentRecipe = null;
     private RectTransform currentEntry = null;
+    private int entryPos = 0;
+    private int costPos = 0;
 
     // Hotbar UI
     private static readonly Color halfWhite = new Color(1, 1, 1, 0.4f);
@@ -151,18 +154,23 @@ public class InventoryMenu : MonoBehaviour
 
         InGameMenu.instance = inventoryMenu;
 
+        costPos = 0;
+        entryPos = 0;
+
         foreach (RectTransform g in content.GetComponentsInChildren<RectTransform>())
             if (g != content)
                 Destroy(g.gameObject);
 
-        float i = 0;
         foreach (Recipe rec in recipes)
         {
             if (rec.unlocked)
             {
                 RectTransform entry = Instantiate(recipeEntryPrefab, content);
+
                 if (currentRecipe == rec)
                     currentEntry = entry;
+
+
                 Item item = new Item();
                 foreach (PickUpInteractable p in rec.Yield.Keys)
                 {
@@ -173,20 +181,71 @@ public class InventoryMenu : MonoBehaviour
                 }
                 entry.Find("Image").GetComponent<Image>().sprite = Utility.GetIconFor(item);
 
+                void MoveEntries(int direction)
+                {
+                    bool found = false;
+                    for (int child = 0; child < content.transform.childCount; child++)
+                    {
+                        if (found)
+                            content.transform.GetChild(child).transform.position += direction * 70 * costPos * Vector3.down;
+
+                        if (content.transform.GetChild(child) == entry.transform)
+                            found = true;
+                    }
+                }
+
                 entry.Find("SelectButton").GetComponent<Button>().onClick.AddListener(() =>
                 {
+                    if (currentRecipe == rec) {
+                        foreach (RectTransform rect in entry)
+                        {
+                            if (rect.name == "RecipeCost(Clone)")
+                                Destroy(rect.gameObject);
+                            // TODO close on swap
+                        }
+                        MoveEntries(-1);
+
+                        currentEntry.GetComponent<Image>().color = Color.gray;
+                        currentRecipe = null;
+                        currentEntry = null;
+                        costPos = 0;
+                        entryPos = 0;
+                        return;
+                    }
                     if (currentEntry)
                         currentEntry.GetComponent<Image>().color = Color.gray;
 
                     currentRecipe = rec;
                     currentEntry = entry;
+
+                    foreach (PickUpInteractable cost in rec.Cost.Keys)
+                    {
+                        RectTransform costEntry = Instantiate(recipeCostPrefab, entry);
+                        Item item = new Item
+                        {
+                            prefab = cost.gameObject,
+                            name = cost.name,
+                            amount = rec.Cost[cost]
+                        };
+                        costEntry.Find("Cost").GetComponent<Text>().color =
+                            inv.CanRemoveItem(item) ?
+                            Color.white :
+                            Color.gray;
+                        costEntry.Find("Cost").GetComponent<Text>().text = rec.Cost[cost] + "x " + cost.name;
+                        costEntry.Find("Image").GetComponent<Image>().sprite = Utility.GetIconFor(item);    
+                        costPos++;
+                        costEntry.transform.position += 70 * costPos * Vector3.down;
+                    }
+
+                    MoveEntries(1);
+                    
                 });
-                entry.transform.position += 120 * i * Vector3.down;
-                i++;
+                entry.transform.position += 120 * entryPos * Vector3.down + 70 * costPos * Vector3.down;
+                entryPos++;
             }
         }
 
-        if (i > 0)
+        if (entryPos > 0)
             inventoryMenu.transform.Find("BG/Scroll View/NoContent").GetComponent<Text>().text = "";
         else
             inventoryMenu.transform.Find("BG/Scroll View/NoContent").GetComponent<Text>().text = "You have to discover a recipe first...";

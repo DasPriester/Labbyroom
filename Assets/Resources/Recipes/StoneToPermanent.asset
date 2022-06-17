@@ -17,7 +17,8 @@ MonoBehaviour:
   Cost:
     keys:
     - {fileID: -3312713435364818256, guid: d9e64921fd522de40b304678442a81cf, type: 3}
-    values: 02000000
+    - {fileID: -3312713435364818256, guid: 3dc0032bda0a3a24f848db19061df8c0, type: 3}
+    values: 0200000001000000
   Yield:
     keys:
     - {fileID: 8696993802869622923, guid: 0b03c9bc1e3e04e6ba27999abaa9eb96, type: 3}

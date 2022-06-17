@@ -104,6 +104,7 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
     public void OnAfterDeserialize()
     {
         this.Clear();
+
         if (keys.Count > size)
             size = keys.Count;
 
