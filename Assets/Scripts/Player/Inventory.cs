@@ -175,6 +175,9 @@ public class Inventory : MonoBehaviour
     /// <returns>True if recipe is craftable else false</returns>
     public bool IsCraftable(Recipe recipe)
     {
+        if (recipe == null)
+            return false;
+
         bool canCraft = true;
         foreach (PickUpInteractable costName in recipe.Cost.Keys)
         {

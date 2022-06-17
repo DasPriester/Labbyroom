@@ -21,9 +21,11 @@ public class InventoryMenu : MonoBehaviour
     private ItemUI[] itemUIs;
 
     // Crafting UI
-    [SerializeField] private RectTransform entry = null;
+    [SerializeField] private RectTransform recipeEntryPrefab = null;
     private RectTransform content = null;
     private Recipe[] recipes;
+    private Recipe currentRecipe = null;
+    private RectTransform currentEntry = null;
 
     // Hotbar UI
     private static readonly Color halfWhite = new Color(1, 1, 1, 0.4f);
@@ -34,9 +36,11 @@ public class InventoryMenu : MonoBehaviour
     {
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         inventoryMenu = playerController.settings.GetMenu("InventoryMenu");
+        content = inventoryMenu.transform.Find("BG/Scroll View/Viewport/Content").GetComponent<RectTransform>();
         inv = playerController.GetComponent<Inventory>();
         recipes = Resources.LoadAll<Recipe>("Recipes");
 
+        
         hotbarSlots = new GameObject[inv.HotbarSize];
         inventorySlots = new GameObject[inv.HotbarSize + inv.InventorySize];
         itemUIs = new ItemUI[inv.HotbarSize + inv.InventorySize];
@@ -45,18 +49,29 @@ public class InventoryMenu : MonoBehaviour
         inventoryMenu.OpenMenu = UpdateCraftMenu;
         inventoryMenu.CloseMenu = CloseCraftMenu;
 
+        Transform hotbarGrid = this.transform.Find("Hotbar BG/Hotbar Grid");
+        Transform inventoryGrid = inventoryMenu.transform.Find("BG/Inv Grid");
         for (int i = 0; i < inv.HotbarSize; i++)
-            hotbarSlots[i] = Instantiate(itemSlot, this.transform.Find("Hotbar BG/Hotbar Grid"));
+            hotbarSlots[i] = Instantiate(itemSlot, hotbarGrid);
 
         for (int i = 0; i < inv.InventorySize; i++)
-            inventorySlots[i] = Instantiate(itemSlot, inventoryMenu.transform.Find("Inv BG/Inv Grid"));
+            inventorySlots[i] = Instantiate(itemSlot, inventoryGrid);
+
+        inventoryMenu.transform.Find("BG/Craft").GetComponent<Button>().onClick.AddListener(() =>
+        {
+            if (inv.IsCraftable(currentRecipe))
+            {
+                inv.CraftRecipe(currentRecipe);
+                UpdateCraftMenu();
+            }
+        });
 
         hotbarSlots[inv.CurrentSlot].GetComponent<Image>().color = Color.white;
     }
 
     public void Update()
     {
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < playerController.settings.inventoryKeys.Length; i++)
         {
             if (Input.GetKeyDown(playerController.settings.inventoryKeys[i]))
             {
@@ -66,21 +81,35 @@ public class InventoryMenu : MonoBehaviour
 
             }
         }
+        Transform craftButton = inventoryMenu.transform.Find("BG/Craft");
+        if (inv.IsCraftable(currentRecipe))
+        { 
+            craftButton.GetComponent<Image>().color = Color.green;
+            craftButton.GetComponent<Button>().enabled = true;
+        }
+        else
+        {
+            craftButton.GetComponent<Image>().color = Color.gray;
+            craftButton.GetComponent<Button>().enabled = false;
+        }
+        if(currentEntry)
+            currentEntry.GetComponent<Image>().color = Color.white;
     }
 
-    public void AddItemUI(Item item, int index){
+    public void AddItemUI(Item item, int index)
+    {
 
         GameObject itemUI = Instantiate(itemPref,
             index < inv.HotbarSize ?
-            this.transform.Find("Hotbar BG") : 
-            inventoryMenu.transform.Find("Inv BG"));
-        
+            this.transform.Find("Hotbar BG") :
+            inventoryMenu.transform.Find("BG"));
+
         itemUI.GetComponent<RectTransform>().anchoredPosition =
             index < inv.HotbarSize ?
             hotbarSlots[index].GetComponent<RectTransform>().anchoredPosition :
-            inventorySlots[index-inv.HotbarSize].GetComponent<RectTransform>().anchoredPosition;
-            
-        
+            inventorySlots[index - inv.HotbarSize].GetComponent<RectTransform>().anchoredPosition;
+
+
         itemUI.GetComponent<ItemUI>().Item = item;
         itemUI.GetComponent<Image>().sprite = Utility.GetIconFor(item);
         itemUI.GetComponentInChildren<Text>().text = item.amount.ToString();
@@ -122,9 +151,6 @@ public class InventoryMenu : MonoBehaviour
 
         InGameMenu.instance = inventoryMenu;
 
-        if (!content)
-            content = inventoryMenu.transform.Find("Scroll View/Viewport/Content").GetComponent<RectTransform>();
-
         foreach (RectTransform g in content.GetComponentsInChildren<RectTransform>())
             if (g != content)
                 Destroy(g.gameObject);
@@ -134,41 +160,43 @@ public class InventoryMenu : MonoBehaviour
         {
             if (rec.unlocked)
             {
-                RectTransform nen = Instantiate(entry, content);
-
-                nen.Find("Name").GetComponent<Text>().text = rec.name;
-                nen.Find("Cost").GetComponent<Text>().text = "Cost: " + DictToString(rec.Cost);
-                nen.Find("Yield").GetComponent<Text>().text = "Yield: " + DictToString(rec.Yield);
+                RectTransform entry = Instantiate(recipeEntryPrefab, content);
+                if (currentRecipe == rec)
+                    currentEntry = entry;
                 Item item = new Item();
                 foreach (PickUpInteractable p in rec.Yield.Keys)
                 {
-                    item.name= p.name;
+                    entry.Find("Yield").GetComponent<Text>().text = rec.Yield[p] + "x " + p.name;
                     item.prefab = p.gameObject;
+                    item.name = p.name;
                     break;
                 }
-                nen.Find("Image").GetComponent<Image>().sprite = Utility.GetIconFor(item);
+                entry.Find("Image").GetComponent<Image>().sprite = Utility.GetIconFor(item);
 
-                Button button = nen.Find("CraftButton").GetComponent<Button>();
-                button.onClick.AddListener(() => { inv.CraftRecipe(rec); UpdateCraftMenu(); });
+                entry.Find("SelectButton").GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    if (currentEntry)
+                        currentEntry.GetComponent<Image>().color = Color.gray;
 
-                bool craftable = inv.IsCraftable(rec);
-                button.GetComponent<Image>().color = craftable ? Color.green : Color.gray;
-                button.interactable = craftable;
-
-                nen.transform.position += 120 * i * Vector3.down;
+                    currentRecipe = rec;
+                    currentEntry = entry;
+                });
+                entry.transform.position += 120 * i * Vector3.down;
                 i++;
             }
         }
 
         if (i > 0)
-            inventoryMenu.transform.Find("Scroll View/NoContent").GetComponent<Text>().text = "";
+            inventoryMenu.transform.Find("BG/Scroll View/NoContent").GetComponent<Text>().text = "";
         else
-            inventoryMenu.transform.Find("Scroll View/NoContent").GetComponent<Text>().text = "You have to discover a recipe first...";
+            inventoryMenu.transform.Find("BG/Scroll View/NoContent").GetComponent<Text>().text = "You have to discover a recipe first...";
     }
 
     private void CloseCraftMenu()
     {
         InGameMenu.instance = null;
+        currentRecipe = null;
+        currentEntry = null;
     }
 
 
@@ -179,16 +207,16 @@ public class InventoryMenu : MonoBehaviour
     /// <returns>String representation of dict</returns>
     private string DictToString(Dictionary<PickUpInteractable, int> dict)
     {
-        string[] o = new string[dict.Count];
+        string[] output = new string[dict.Count];
 
         int i = 0;
         foreach (PickUpInteractable pi in dict.Keys)
         {
-            o[i] = dict[pi] + "x " + pi.name;
+            output[i] = dict[pi] + "x " + pi.name;
             i++;
         }
 
-        return string.Join(", ", o);
+        return string.Join("\n", output);
     }
 
 }
