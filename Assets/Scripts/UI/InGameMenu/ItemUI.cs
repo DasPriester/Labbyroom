@@ -45,7 +45,7 @@ public class ItemUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEn
         canvasGroup.blocksRaycasts = true;
 
         GameObject target = eventData.pointerCurrentRaycast.gameObject;
-        if (!target.GetComponent<ItemSlot>()) { 
+        if (!target || !target.GetComponent<ItemSlot>()) { 
             rectTransform.anchoredPosition = oldPosition;
             rectTransform.SetParent(oldParent, false);
         }else

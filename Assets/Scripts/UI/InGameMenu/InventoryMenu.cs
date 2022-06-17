@@ -157,6 +157,7 @@ public class InventoryMenu : MonoBehaviour
         costPos = 0;
         entryPos = 0;
 
+        // clear content
         foreach (RectTransform g in content.GetComponentsInChildren<RectTransform>())
             if (g != content)
                 Destroy(g.gameObject);
@@ -167,10 +168,15 @@ public class InventoryMenu : MonoBehaviour
             {
                 RectTransform entry = Instantiate(recipeEntryPrefab, content);
 
+                // keep stuff after crafting
                 if (currentRecipe == rec)
+                {
                     currentEntry = entry;
+                    CreateCostEntries();
+                }
 
 
+                // set text and icon
                 Item item = new Item();
                 foreach (PickUpInteractable p in rec.Yield.Keys)
                 {
@@ -181,43 +187,23 @@ public class InventoryMenu : MonoBehaviour
                 }
                 entry.Find("Image").GetComponent<Image>().sprite = Utility.GetIconFor(item);
 
-                void MoveEntries(int direction)
+                // local function to move entries below 
+                void MoveEntries(bool up)
                 {
                     bool found = false;
                     for (int child = 0; child < content.transform.childCount; child++)
                     {
                         if (found)
-                            content.transform.GetChild(child).transform.position += direction * 70 * costPos * Vector3.down;
+                            content.transform.GetChild(child).transform.position += (up ? -1 : 1) * 70 * costPos * Vector3.down;
 
-                        if (content.transform.GetChild(child) == entry.transform)
+                        if (content.transform.GetChild(child) == currentEntry.transform)
                             found = true;
                     }
                 }
 
-                entry.Find("SelectButton").GetComponent<Button>().onClick.AddListener(() =>
+                // local function to create Cost entries
+                void CreateCostEntries()
                 {
-                    if (currentRecipe == rec) {
-                        foreach (RectTransform rect in entry)
-                        {
-                            if (rect.name == "RecipeCost(Clone)")
-                                Destroy(rect.gameObject);
-                            // TODO close on swap
-                        }
-                        MoveEntries(-1);
-
-                        currentEntry.GetComponent<Image>().color = Color.gray;
-                        currentRecipe = null;
-                        currentEntry = null;
-                        costPos = 0;
-                        entryPos = 0;
-                        return;
-                    }
-                    if (currentEntry)
-                        currentEntry.GetComponent<Image>().color = Color.gray;
-
-                    currentRecipe = rec;
-                    currentEntry = entry;
-
                     foreach (PickUpInteractable cost in rec.Cost.Keys)
                     {
                         RectTransform costEntry = Instantiate(recipeCostPrefab, entry);
@@ -232,15 +218,49 @@ public class InventoryMenu : MonoBehaviour
                             Color.white :
                             Color.gray;
                         costEntry.Find("Cost").GetComponent<Text>().text = rec.Cost[cost] + "x " + cost.name;
-                        costEntry.Find("Image").GetComponent<Image>().sprite = Utility.GetIconFor(item);    
+                        costEntry.Find("Image").GetComponent<Image>().sprite = Utility.GetIconFor(item);
                         costPos++;
                         costEntry.transform.position += 70 * costPos * Vector3.down;
                     }
+                }
 
-                    MoveEntries(1);
+                entry.Find("SelectButton").GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    // close old crafting cost
+                    if (currentEntry)
+                    {
+                        foreach (RectTransform rect in currentEntry)
+                        {
+                            if (rect.name == "RecipeCost(Clone)")
+                                Destroy(rect.gameObject);
+                        }
+                        currentEntry.GetComponent<Image>().color = Color.gray;
+                        MoveEntries(true);
+                        costPos = 0;
+                    }
+
+                    // reset if clicked second time
+                    if (currentRecipe == rec) {                     
+                        currentEntry.GetComponent<Image>().color = Color.gray;
+                        currentRecipe = null;
+                        currentEntry = null;
+                        costPos = 0;
+                        entryPos = 0;
+                        return;
+                    }
+
+                    currentRecipe = rec;
+                    currentEntry = entry;
+
+                    // create cost entries
+                    CreateCostEntries();
+
+                    // move entries down
+                    MoveEntries(false);
                     
                 });
-                entry.transform.position += 120 * entryPos * Vector3.down + 70 * costPos * Vector3.down;
+
+                entry.transform.position += 120 * entryPos * Vector3.down;
                 entryPos++;
             }
         }
