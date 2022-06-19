@@ -45,7 +45,7 @@ public class InventoryMenu : MonoBehaviour
 
         
         hotbarSlots = new GameObject[inv.HotbarSize];
-        inventorySlots = new GameObject[inv.HotbarSize + inv.InventorySize];
+        inventorySlots = new GameObject[inv.InventorySize];
         itemUIs = new ItemUI[inv.HotbarSize + inv.InventorySize];
 
 
@@ -60,6 +60,7 @@ public class InventoryMenu : MonoBehaviour
         for (int i = 0; i < inv.InventorySize; i++)
             inventorySlots[i] = Instantiate(itemSlot, inventoryGrid);
 
+
         inventoryMenu.transform.Find("BG/Craft").GetComponent<Button>().onClick.AddListener(() =>
         {
             if (inv.IsCraftable(currentRecipe))
@@ -68,15 +69,19 @@ public class InventoryMenu : MonoBehaviour
                 UpdateCraftMenu();
             }
         });
-
         hotbarSlots[inv.CurrentSlot].GetComponent<Image>().color = Color.white;
+
+        // force griditems to be proper position on first frame (else their position in set too late after loading a savefile)
+        LayoutRebuilder.ForceRebuildLayoutImmediate(inventoryGrid.GetComponent<RectTransform>());
+        LayoutRebuilder.ForceRebuildLayoutImmediate(hotbarGrid.GetComponent<RectTransform>());
+
     }
 
     public void Update()
     {
         for (int i = 0; i < playerController.settings.inventoryKeys.Length; i++)
         {
-            if (Input.GetKeyDown(playerController.settings.inventoryKeys[i]))
+            if (Input.GetKeyDown(playerController.settings.inventoryKeys[i]) && Time.timeScale != 0)
             {
                 hotbarSlots[inv.CurrentSlot].GetComponent<Image>().color = halfWhite;
                 inv.CurrentSlot = i;
@@ -101,17 +106,15 @@ public class InventoryMenu : MonoBehaviour
 
     public void AddItemUI(Item item, int index)
     {
-
         GameObject itemUI = Instantiate(itemPref,
-            index < inv.HotbarSize ?
+            index <= inv.HotbarSize ?
             this.transform.Find("Hotbar BG") :
             inventoryMenu.transform.Find("BG"));
 
         itemUI.GetComponent<RectTransform>().anchoredPosition =
-            index < inv.HotbarSize ?
+            index <= inv.HotbarSize ?
             hotbarSlots[index].GetComponent<RectTransform>().anchoredPosition :
             inventorySlots[index - inv.HotbarSize].GetComponent<RectTransform>().anchoredPosition;
-
 
         itemUI.GetComponent<ItemUI>().Item = item;
         itemUI.GetComponent<Image>().sprite = Utility.GetIconFor(item);
@@ -143,7 +146,19 @@ public class InventoryMenu : MonoBehaviour
 
     public void RefreshUI()
     {
-        // TODO
+        foreach (GameObject hotbarSlot in hotbarSlots)
+        {
+            hotbarSlot.GetComponent<Image>().color = halfWhite;
+        }
+        hotbarSlots[inv.CurrentSlot].GetComponent<Image>().color = Color.white;
+
+        for (int i = 0; i < inv.Items.Length; i++)
+        {
+            if (inv.Items[i].prefab != null)
+            {
+                AddItemUI(inv.Items[i], i);
+            }
+        }
     }
 
     /// <summary>
@@ -277,25 +292,4 @@ public class InventoryMenu : MonoBehaviour
         currentRecipe = null;
         currentEntry = null;
     }
-
-
-    /// <summary>
-    /// Convert an inventory-dict to string
-    /// </summary>
-    /// <param name="dict">Dictionary to convert</param>
-    /// <returns>String representation of dict</returns>
-    private string DictToString(Dictionary<PickUpInteractable, int> dict)
-    {
-        string[] output = new string[dict.Count];
-
-        int i = 0;
-        foreach (PickUpInteractable pi in dict.Keys)
-        {
-            output[i] = dict[pi] + "x " + pi.name;
-            i++;
-        }
-
-        return string.Join("\n", output);
-    }
-
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// Manage the loading of a scene from a save file
@@ -33,7 +34,7 @@ public class SceneLoader : MonoBehaviour
 
         //Variables
         PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        Inventory inv = FindObjectOfType<Inventory>();
+        Inventory inv = player.GetComponent<Inventory>();
 
         //Save
 
@@ -42,7 +43,7 @@ public class SceneLoader : MonoBehaviour
         gd.playerRotation = new Vector2(player.Pitch, player.Yaw);
 
         //Player Inventory
-        gd.inventory = inv.Items;
+        gd.inventory = JsonHelper.ToJson(inv.Items);
         gd.currentSlot = inv.CurrentSlot;
 
         //Rooms and doors
@@ -165,7 +166,7 @@ public class SceneLoader : MonoBehaviour
 
         //Variables
         PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        Inventory inv = FindObjectOfType<Inventory>();
+        Inventory inv = player.GetComponent<Inventory>();
 
         //Load
 
@@ -175,8 +176,9 @@ public class SceneLoader : MonoBehaviour
         player.Yaw = gd.playerRotation.y;
 
         //Player Inventory
-        inv.Items = gd.inventory;
+        inv.Items = JsonHelper.FromJson<Item>(gd.inventory);
         inv.CurrentSlot = gd.currentSlot;
+        inv.RefreshUI();
 
         //Rooms and doors
         foreach (RoomData rd in gd.roomData)
@@ -204,10 +206,8 @@ public class SceneLoader : MonoBehaviour
         {
             PortalComponent p1 = Instantiate(Resources.Load<PortalComponent>("Portals/" + ppd.name), ppd.position1, ppd.rotation1);
             PortalComponent p2 = Instantiate(Resources.Load<PortalComponent>("Portals/" + ppd.name), ppd.position2, ppd.rotation2);
-            p1.GetComponentInChildren<Camera>().transform.position = ppd.pcposition1;
-            p1.GetComponentInChildren<Camera>().transform.rotation = ppd.pcrotation1;
-            p2.GetComponentInChildren<Camera>().transform.position = ppd.pcposition2;
-            p2.GetComponentInChildren<Camera>().transform.rotation = ppd.pcrotation2;
+            p1.GetComponentInChildren<Camera>().transform.SetPositionAndRotation(ppd.pcposition1, ppd.pcrotation1);
+            p2.GetComponentInChildren<Camera>().transform.SetPositionAndRotation(ppd.pcposition2, ppd.pcrotation2);
 
             p1.linkedPortal = p2;
             p2.linkedPortal = p1;
@@ -279,7 +279,7 @@ public class SceneLoader : MonoBehaviour
         public Vector2 playerRotation;
 
         //Player Inventory
-        public Item[] inventory;
+        public string inventory;
         public int currentSlot;
 
         //Rooms and doors

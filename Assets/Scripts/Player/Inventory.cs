@@ -13,12 +13,12 @@ public class Inventory : MonoBehaviour
     private static readonly int hotbarSize = 9;
 
     private InventoryMenu InvUI;
-    private Item[] invList;
+    private Item[] invList = new Item[hotbarSize + inventorySize];
 
     private int current = 0;
     public Item[] Items {
         get { return invList; }
-        set { invList = value; RefreshUI(); }
+        set { invList = value; }
     }
     public int CurrentSlot
     {
@@ -31,12 +31,9 @@ public class Inventory : MonoBehaviour
     private void Awake()
     {
         InvUI = GameObject.Find("UI").GetComponent<InventoryMenu>();
-        invList = new Item[hotbarSize + inventorySize];
     }
 
-    /// <summary>
-    /// Refresh Inventory UI
-    /// </summary>
+
     public void RefreshUI()
     {
         InvUI.RefreshUI();
