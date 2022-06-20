@@ -19,6 +19,7 @@ public class InventoryMenu : MonoBehaviour
     private InGameMenu inventoryMenu = null;
     private GameObject[] inventorySlots;
     private ItemUI[] itemUIs;
+    private Vector2 spacing = new Vector2(10, -10);
 
     // Crafting UI
     [SerializeField] private RectTransform recipeEntryPrefab = null;
@@ -112,9 +113,10 @@ public class InventoryMenu : MonoBehaviour
             inventoryMenu.transform.Find("BG"));
 
         itemUI.GetComponent<RectTransform>().anchoredPosition =
-            index <= inv.HotbarSize ?
+            (index <= inv.HotbarSize ?
             hotbarSlots[index].GetComponent<RectTransform>().anchoredPosition :
-            inventorySlots[index - inv.HotbarSize].GetComponent<RectTransform>().anchoredPosition;
+            inventorySlots[index - inv.HotbarSize].GetComponent<RectTransform>().anchoredPosition)
+            + spacing;
 
         itemUI.GetComponent<ItemUI>().Item = item;
         itemUI.GetComponent<Image>().sprite = Utility.GetIconFor(item);
@@ -133,12 +135,20 @@ public class InventoryMenu : MonoBehaviour
         itemUIs[index] = null;
     }
 
-    public void DroppedOff(ItemUI Item, GameObject SlotObj)
+    public void DroppedOff(ItemUI item, GameObject slotObj)
     {
-        int oldIndex = Array.FindIndex(itemUIs, x => x == Item);
-        int newIndex = Array.FindIndex(hotbarSlots, x => x.gameObject == SlotObj);
+        int oldIndex = Array.FindIndex(itemUIs, x => x == item);
+        int newIndex = Array.FindIndex(hotbarSlots, x => x.gameObject == slotObj);
         if(newIndex == -1)
-            newIndex = inv.HotbarSize + Array.FindIndex(inventorySlots, x => x.gameObject == SlotObj);
+            newIndex = inv.HotbarSize + Array.FindIndex(inventorySlots, x => x.gameObject == slotObj);
+        (itemUIs[oldIndex], itemUIs[newIndex]) = (itemUIs[newIndex], itemUIs[oldIndex]);
+        (inv.Items[oldIndex], inv.Items[newIndex]) = (inv.Items[newIndex], inv.Items[oldIndex]);
+    }
+
+    public void DroppedOff(ItemUI item1, ItemUI item2)
+    {
+        int oldIndex = Array.FindIndex(itemUIs, x => x == item1);
+        int newIndex = Array.FindIndex(itemUIs, x => x == item2);
         (itemUIs[oldIndex], itemUIs[newIndex]) = (itemUIs[newIndex], itemUIs[oldIndex]);
         (inv.Items[oldIndex], inv.Items[newIndex]) = (inv.Items[newIndex], inv.Items[oldIndex]);
     }

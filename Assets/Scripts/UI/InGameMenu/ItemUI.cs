@@ -45,18 +45,33 @@ public class ItemUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEn
         canvasGroup.blocksRaycasts = true;
 
         GameObject target = eventData.pointerCurrentRaycast.gameObject;
-        if (!target || !target.GetComponent<ItemSlot>()) { 
+
+        if (!target || !(target.GetComponent<ItemSlot>() || target.GetComponent<ItemUI>()))
+        {
             rectTransform.anchoredPosition = oldPosition;
             rectTransform.SetParent(oldParent, false);
-        }else
+        }
+        else if (target.GetComponent<ItemSlot>())
         {
             InventoryMenu menu = GameObject.Find("UI").GetComponent<InventoryMenu>();
             menu.DroppedOff(this, target);
             rectTransform.SetParent(target.transform.parent.parent, false);
         }
-    }
+        else if (target.GetComponent<ItemUI>())
+        {
+            InventoryMenu menu = GameObject.Find("UI").GetComponent<InventoryMenu>();
+            menu.DroppedOff(this, target.GetComponent<ItemUI>());
 
+
+            rectTransform.SetParent(target.transform.parent, false);
+            target.transform.SetParent(oldParent, false);
+
+            rectTransform.anchoredPosition = target.GetComponent<RectTransform>().anchoredPosition;
+            target.GetComponent<RectTransform>().anchoredPosition = oldPosition;
+        }
+    }
     public void OnPointerDown(PointerEventData eventData)
     {
+
     }
 }
