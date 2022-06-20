@@ -29,10 +29,15 @@ public class LoadMenu : MonoBehaviour
         int i = 0;
         foreach (SaveFile sf in GetSaveFiles())
         {
-            var slot = Instantiate(saveSlot, content);
-            slot.transform.position = new Vector3(content.position.x + content.rect.width / 2, content.position.y - i * 40 - 25, 0);
+            SaveSlot slot = Instantiate(saveSlot, content);
+            slot.transform.position = new Vector3(content.position.x + content.rect.width / 2, content.position.y - i * 45 - 25, 0);
             slot.saveFile = sf;
             slot.title.text = sf.name;
+            slot.transform.Find("Delete").GetComponent<Button>().onClick.AddListener(() =>
+            {
+                File.Delete(Application.persistentDataPath + Path.DirectorySeparatorChar + slot.saveFile.name + ".save");
+                SpawnSaveSlots();
+            });
 
             i++;
         }
