@@ -13,6 +13,7 @@ public class Inventory : MonoBehaviour
     private static readonly int hotbarSize = 9;
 
     private InventoryMenu InvUI;
+    [SerializeField]
     private Item[] invList = new Item[hotbarSize + inventorySize];
 
     private int current = 0;
@@ -33,10 +34,21 @@ public class Inventory : MonoBehaviour
         InvUI = GameObject.Find("UI").GetComponent<InventoryMenu>();
     }
 
-
     public void RefreshUI()
     {
         InvUI.RefreshUI();
+    }
+
+    public int GetAmmount(string name)
+    {
+        int index = Array.FindIndex(invList, x => x.name == name);
+        print(index);
+
+        if (index != -1)
+        {
+            return invList[index].amount;
+        }
+        return 0;
     }
 
     /// <summary>
