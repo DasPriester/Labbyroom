@@ -234,6 +234,7 @@ MonoBehaviour:
   accessDoor: {x: 5, y: 2}
   accessWall: {fileID: 5518771475098346700}
   prefabName: GreenRoom
+  isTemporary: 1
 --- !u!1 &5518771476128126092
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,11 +923,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
---- !u!4 &5518771475098346703 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3792920370674848359, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
-  m_PrefabInstance: {fileID: 8662029094883522216}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5518771475098346700 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
@@ -938,3 +934,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f3b77a25d30e49058ce3de0476f61b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &5518771475098346703 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3792920370674848359, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
+  m_PrefabInstance: {fileID: 8662029094883522216}
+  m_PrefabAsset: {fileID: 0}

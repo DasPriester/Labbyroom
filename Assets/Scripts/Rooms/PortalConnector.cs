@@ -7,9 +7,11 @@ using UnityEngine;
 /// </summary>
 public class PortalConnector : MonoBehaviour
 {
-    static int z = 0;
+    static int z_temp = 0;
+    static int z_perm = 0;
 
-    public static int Z { get => z; set => z = value; }
+    public static int ZTemp { get => z_temp; set => z_temp = value; }
+    public static int ZPerm { get => z_perm; set => z_perm = value; }
 
     /// <summary>
     /// Insert portal into a wall
@@ -24,8 +26,11 @@ public class PortalConnector : MonoBehaviour
         PortalComponent p1 = Instantiate(portalType, pos, rot);
         p1.GetComponentInChildren<DoorInteractable>().enabled = false;
         p1.GetComponentInChildren<DoorInteractable>().gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
-        z += 1;
-        Room room = Instantiate(roomType, 100 * z * Vector3.forward, new Quaternion());
+        if (temporary)
+            z_temp += 1;
+        else
+            z_perm += 1;
+        Room room = Instantiate(roomType, 100 * (temporary ? z_temp : z_perm) * Vector3.forward + 100 * (temporary ? 1 : 0) * Vector3.right, new Quaternion());
         Transform coords = room.AddAccessDoor();
         PortalComponent p2 = Instantiate(portalType, coords);
 

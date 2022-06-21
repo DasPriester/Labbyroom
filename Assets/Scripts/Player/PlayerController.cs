@@ -273,7 +273,7 @@ public class PlayerController : MonoBehaviour {
 
             try
             {
-                if (surface && item.prefab.GetComponent<KeyInteractable>())
+                if ((surface && item.prefab.GetComponent<KeyInteractable>()) && (!(!item.prefab.GetComponent<KeyInteractable>().temporary && surface.IsTemporary)))
                 {
                     surface.OnViewedAtWithKey(wall.point, item.prefab.GetComponent<KeyInteractable>().portalType);
                 }
@@ -420,17 +420,30 @@ public class PlayerController : MonoBehaviour {
         PortalComponent fp = fromPortal.GetComponent<PortalComponent>();
         PortalComponent tp = toPortal.GetComponent<PortalComponent>();
 
-        if (tp.IsTemporary)
+        if (tp.IsTemporary && !tp.Room.IsTemporary)
         {
-            Destroy(fromPortal.gameObject);
             Destroy(toPortal.gameObject);
             gameObject.layer = LayerMask.NameToLayer("Player");
-            Room frm = fp.Room;
-            Destroy(frm.gameObject);
             WallManager wm = tp.WallManager;
             wm.doors.Remove(tp.Door);
             wm.UpdateWall();
-            //PortalConnector.Z -= 1;
+            PortalConnector.ZTemp = 0;
+
+            foreach (Room rm in FindObjectsOfType<Room>())
+            {
+                if (Mathf.Round(rm.transform.position.x / 100) != 0)
+                {
+                    Destroy(rm.gameObject);
+                }
+            }
+
+            foreach (PortalComponent pc in FindObjectsOfType<PortalComponent>())
+            {
+                if (Mathf.Round(pc.transform.position.x / 100) != 0)
+                {
+                    Destroy(pc.gameObject);
+                }
+            }
         }
     }
 

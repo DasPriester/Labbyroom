@@ -99,6 +99,14 @@ public class PortalComponent : MonoBehaviour
 
     private void Update()
     {
+        if (GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Close"))
+        {
+            screen.enabled = false;
+        } else
+        {
+            screen.enabled = true;
+        }
+
         if (linkedPortal)
         {
             if ((!CameraUtility.VisibleFromCamera(linkedPortal.screen, playerCam)) || ((Vector3.Distance(linkedPortal.transform.position, playerCam.transform.position) > 50f) && (Vector3.Distance(linkedPortal.transform.position, linkedPortal.portalCam.transform.position) > 50f)))

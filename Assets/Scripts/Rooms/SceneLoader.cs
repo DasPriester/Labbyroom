@@ -80,32 +80,9 @@ public class SceneLoader : MonoBehaviour
                 PortalPairData ppd = new PortalPairData
                 {
                     name = portal.PrefabName,
-                    position1 = portal.transform.position,
-                    rotation1 = portal.transform.rotation,
-                    position2 = portal.linkedPortal.transform.position,
-                    rotation2 = portal.linkedPortal.transform.rotation,
-                    pcposition1 = portal.GetComponentInChildren<Camera>().transform.position,
-                    pcrotation1 = portal.GetComponentInChildren<Camera>().transform.rotation,
-                    pcposition2 = portal.linkedPortal.GetComponentInChildren<Camera>().transform.position,
-                    pcrotation2 = portal.linkedPortal.GetComponentInChildren<Camera>().transform.rotation
+                    portal1 = new PortalData(portal),
+                    portal2 = new PortalData(portal.linkedPortal)
                 };
-
-                foreach (MeshRenderer mr in portal.GetComponentsInChildren<MeshRenderer>())
-                {
-                    if (mr.gameObject.name == "_Wall")
-                    {
-                        ppd.material1 = mr.material.name.Replace(" (Instance)", "");
-                        break;
-                    }
-                }
-                foreach (MeshRenderer mr in portal.linkedPortal.GetComponentsInChildren<MeshRenderer>())
-                {
-                    if (mr.gameObject.name == "_Wall")
-                    {
-                        ppd.material2 = mr.material.name.Replace(" (Instance)","");
-                        break;
-                    }
-                }
 
                 gd.ppData.Add(ppd);
                 connected.Add(portal);
@@ -113,7 +90,8 @@ public class SceneLoader : MonoBehaviour
             }
         }
 
-        gd.z = PortalConnector.Z;
+        gd.z_temp = PortalConnector.ZTemp;
+        gd.z_perm = PortalConnector.ZPerm;
 
         //Objects
         gd.objectData = new List<ObjectData>();
@@ -204,23 +182,29 @@ public class SceneLoader : MonoBehaviour
         }
         foreach (PortalPairData ppd in gd.ppData)
         {
-            PortalComponent p1 = Instantiate(Resources.Load<PortalComponent>("Portals/" + ppd.name), ppd.position1, ppd.rotation1);
-            PortalComponent p2 = Instantiate(Resources.Load<PortalComponent>("Portals/" + ppd.name), ppd.position2, ppd.rotation2);
-            p1.GetComponentInChildren<Camera>().transform.SetPositionAndRotation(ppd.pcposition1, ppd.pcrotation1);
-            p2.GetComponentInChildren<Camera>().transform.SetPositionAndRotation(ppd.pcposition2, ppd.pcrotation2);
+            PortalComponent p1 = Instantiate(Resources.Load<PortalComponent>("Portals/" + ppd.name), ppd.portal1.position, ppd.portal1.rotation);
+            PortalComponent p2 = Instantiate(Resources.Load<PortalComponent>("Portals/" + ppd.name), ppd.portal2.position, ppd.portal2.rotation);
+            p1.GetComponentInChildren<Camera>().transform.SetPositionAndRotation(ppd.portal1.pcposition, ppd.portal1.pcrotation);
+            p2.GetComponentInChildren<Camera>().transform.SetPositionAndRotation(ppd.portal2.pcposition, ppd.portal2.pcrotation);
+
+            p1.IsTemporary = ppd.portal1.temp;
+            p2.IsTemporary = ppd.portal2.temp;
 
             p1.linkedPortal = p2;
             p2.linkedPortal = p1;
 
+            p1.Door = ppd.portal1.door;
+            p2.Door = ppd.portal2.door;
+
             foreach (MeshRenderer mr in p1.GetComponentsInChildren<MeshRenderer>())
             {
                 if (mr.gameObject.name == "_Wall")
-                    mr.material = Resources.Load<Material>("Materials/" + ppd.material1);
+                    mr.material = Resources.Load<Material>("Materials/" + ppd.portal1.material);
             }
             foreach (MeshRenderer mr in p2.GetComponentsInChildren<MeshRenderer>())
             {
                 if (mr.gameObject.name == "_Wall")
-                    mr.material = Resources.Load<Material>("Materials/" + ppd.material2);
+                    mr.material = Resources.Load<Material>("Materials/" + ppd.portal2.material);
             }
             foreach (MeshRenderer mr in p1.GetComponentsInChildren<MeshRenderer>())
             {
@@ -238,12 +222,61 @@ public class SceneLoader : MonoBehaviour
                     mr.enabled = false;
             }
 
+
+            foreach (Room rm in GameObject.FindObjectsOfType<Room>())
+            {
+                float roomZ = Mathf.Round(rm.transform.position.z / 100);
+                float roomX = Mathf.Round(rm.transform.position.x / 100);
+
+                float portal1Z = Mathf.Round(p1.transform.position.z / 100);
+                float portal1X = Mathf.Round(p1.transform.position.x / 100);
+                if (roomZ == portal1Z && roomX == portal1X) {
+                    p1.Room = rm;
+
+                    foreach (WallManager wm in rm.GetComponentsInChildren<WallManager>())
+                    {
+                        if (wm.RoomWMID == ppd.portal1.wmid)
+                            p1.WallManager = wm;
+                    }
+
+                    break;
+                }
+            }
+
+            foreach (Room rm in GameObject.FindObjectsOfType<Room>())
+            {
+                float roomZ = Mathf.Round(rm.transform.position.z / 100);
+                float roomX = Mathf.Round(rm.transform.position.x / 100);
+
+
+                float portal2Z = Mathf.Round(p2.transform.position.z / 100);
+                float portal2X = Mathf.Round(p2.transform.position.x / 100);
+                if (roomZ == portal2Z && roomX == portal2X)
+                {
+                    p2.Room = rm;
+
+                    foreach (WallManager wm in rm.GetComponentsInChildren<WallManager>())
+                    {
+                        if (wm.RoomWMID == ppd.portal2.wmid)
+                            p2.WallManager = wm;
+                    }
+
+                    break;
+                }
+            }
+
+            if (ppd.portal1.open)
+                p1.GetComponentInChildren<Animator>().SetTrigger("ToggleTrigger");
+            if (ppd.portal2.open)
+                p2.GetComponentInChildren<Animator>().SetTrigger("ToggleTrigger");
+
             p1.GetComponentInChildren<DoorInteractable>().UpdateConnection();
             p2.GetComponentInChildren<DoorInteractable>().UpdateConnection();
 
         }
 
-        PortalConnector.Z = gd.z;
+        PortalConnector.ZTemp = gd.z_temp;
+        PortalConnector.ZPerm = gd.z_perm;
 
         //Objects
         foreach (ObjectData od in gd.objectData)
@@ -285,7 +318,8 @@ public class SceneLoader : MonoBehaviour
         //Rooms and doors
         public List<RoomData> roomData;
         public List<PortalPairData> ppData;
-        public int z;
+        public int z_temp;
+        public int z_perm;
 
         //Objects
         public List<ObjectData> objectData;
@@ -334,21 +368,49 @@ public class SceneLoader : MonoBehaviour
     [Serializable]
     private struct PortalPairData
     {
-        public Vector3 position1;
-        public Quaternion rotation1;
-        public Vector3 position2;
-        public Quaternion rotation2;
-
-        public Vector3 pcposition1;
-        public Quaternion pcrotation1;
-        public Vector3 pcposition2;
-        public Quaternion pcrotation2;
-
-        public bool open1;
-        public bool open2;
-
-        public string material1;
-        public string material2;
+        public PortalData portal1;
+        public PortalData portal2;
         public string name;
+    }
+
+    [Serializable] struct PortalData
+    {
+        public Vector3 position;
+        public Quaternion rotation;
+
+        public Vector3 pcposition;
+        public Quaternion pcrotation;
+
+        public bool temp;
+        public bool open;
+        public string material;
+        public Vector2 door;
+        public int wmid;
+
+        public PortalData(PortalComponent portal)
+        {
+            position = portal.transform.position;
+            rotation = portal.transform.rotation;
+            pcposition = portal.GetComponentInChildren<Camera>().transform.position;
+            pcrotation = portal.GetComponentInChildren<Camera>().transform.rotation;
+
+            temp = portal.IsTemporary;
+            material = null;
+            open = portal.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Open");
+            door = portal.Door;
+            if (portal.WallManager)
+                wmid = portal.WallManager.RoomWMID;
+            else
+                wmid = -1;
+
+            foreach (MeshRenderer mr in portal.GetComponentsInChildren<MeshRenderer>())
+            {
+                if (mr.gameObject.name == "_Wall")
+                {
+                    material = mr.material.name.Replace(" (Instance)", "");
+                    break;
+                }
+            }
+        }
     }
 }

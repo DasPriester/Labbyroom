@@ -116,6 +116,7 @@ MonoBehaviour:
   UseAnimation: 1
   UseToolTip: 1
   manager: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
+  isTemporary: 0
 --- !u!114 &7411803245611265613
 MonoBehaviour:
   m_ObjectHideFlags: 0
