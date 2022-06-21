@@ -122,6 +122,10 @@ public class SceneLoader : MonoBehaviour
         }
 
         return JsonUtility.ToJson(gd);
+
+        //Quests
+
+        //gd.quests = FindObjectOfType<QuestManager>().Quests;
     }
 
     /// <summary>
@@ -299,6 +303,10 @@ public class SceneLoader : MonoBehaviour
         }
 
         Physics.SyncTransforms();
+
+        //Quests
+
+        //FindObjectOfType<QuestManager>().AddQuest(gd.quests);
     }
 
     /// <summary>
@@ -326,6 +334,9 @@ public class SceneLoader : MonoBehaviour
 
         //Recipies
         public List<string> unlockedRecipies;
+
+        //Quests
+        //public Dictionary<Quest, bool> quests;
     }
 
     /// <summary>

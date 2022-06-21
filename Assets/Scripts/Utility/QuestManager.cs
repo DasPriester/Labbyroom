@@ -11,6 +11,8 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private UnityEvent OnQuestRemoved;
     [SerializeField] private UnityEvent OnQuestCompleted;
 
+    public Dictionary<Quest, bool> Quests { get => quests; }
+
     public void AddQuest(Quest quest)
     {
         quests.Add(quest, false);
@@ -22,6 +24,15 @@ public class QuestManager : MonoBehaviour
         foreach (Quest q in quest)
         {
             quests.Add(q, false);
+        }
+        OnQuestAdded.Invoke();
+    }
+
+    public void AddQuest(Dictionary<Quest, bool> quest)
+    {
+        foreach (KeyValuePair<Quest, bool> q in quest)
+        {
+            quests.Add(q.Key, q.Value);
         }
         OnQuestAdded.Invoke();
     }
@@ -87,12 +98,19 @@ public class QuestManager : MonoBehaviour
 
     private void Update()
     {
+        List<Quest> keys = new List<Quest>();
+
         foreach (Quest q in quests.Keys)
         {
-            if (!quests[q] && q.IsDone())
+            keys.Add(q);
+        }
+
+        foreach (Quest key in keys)
+        {
+            if (!quests[key] && key.IsDone())
             {
                 OnQuestCompleted.Invoke();
-                quests[q] = true;
+                quests[key] = true;
             }
         }
     }

@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 5126079403908891380}
   - component: {fileID: 6946266902364850116}
   - component: {fileID: 4843017363312016904}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -426,7 +426,223 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a55ad3c9d9a8c5448cc109ec085e1f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSlot: {fileID: 0}
+  invList:
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
+  - prefab: {fileID: 0}
+    name: 
+    amount: 0
 --- !u!1 &8460410004057096659
 GameObject:
   m_ObjectHideFlags: 0

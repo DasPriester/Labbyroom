@@ -378,10 +378,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8460410003938108310, guid: 666954af78a82424d8c846561a9dffbd, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 666954af78a82424d8c846561a9dffbd, type: 3}
 --- !u!1001 &844045688
@@ -804,7 +800,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2115318714}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 326.24338, y: 180.77643, z: -536.87823}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -822,6 +818,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0620d39d7e3b4851b3d213b993a312e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quests:
+    keys:
+    - {fileID: 11400000, guid: a21e9ff6fba18408aa295e6d8095e813, type: 2}
+    - {fileID: 11400000, guid: 6dab40a764fb54687abe2fff296c7462, type: 2}
+    - {fileID: 11400000, guid: 8ebb65fdf5b244789b0be07b8bfef75e, type: 2}
+    values: 000000
+  OnQuestAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnQuestRemoved:
+    m_PersistentCalls:
+      m_Calls: []
+  OnQuestCompleted:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &2901200025628496897
 PrefabInstance:
   m_ObjectHideFlags: 0

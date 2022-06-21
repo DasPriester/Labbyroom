@@ -10,9 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fed2e23577d44501b8f597586461a61, type: 3}
-  m_Name: Craft a Permanent Key
+  m_Name: Press F
   m_EditorClassIdentifier: 
-  name: 
-  description: 
-  goal: 0
-  task: {fileID: 0}
+  name: Press F
+  description: Press F to pay respect
+  task:
+    id: 0
+  goal: 1
+  maximise: 1
+  references:
+    version: 1
+    00000000:
+      type: {class: PressButton, ns: , asm: Assembly-CSharp}
+      data:
+        buttons: 66000000

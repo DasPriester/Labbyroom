@@ -42,8 +42,6 @@ public class Inventory : MonoBehaviour
     public int GetAmmount(string name)
     {
         int index = Array.FindIndex(invList, x => x.name == name);
-        print(index);
-
         if (index != -1)
         {
             return invList[index].amount;

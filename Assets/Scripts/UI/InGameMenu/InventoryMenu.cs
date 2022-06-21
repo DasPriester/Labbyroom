@@ -35,7 +35,6 @@ public class InventoryMenu : MonoBehaviour
     private static readonly Color halfWhite = new Color(1, 1, 1, 0.4f);
     private GameObject[] hotbarSlots;
 
-
     private void Awake()
     {
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
