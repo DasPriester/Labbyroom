@@ -37,6 +37,7 @@ public class QuestManager : MonoBehaviour
         OnQuestAdded.Invoke();
     }
 
+
     public bool RemoveQuest(Quest quest)
     {
         if (quests.ContainsKey(quest))

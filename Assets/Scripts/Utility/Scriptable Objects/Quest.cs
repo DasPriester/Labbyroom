@@ -5,10 +5,9 @@ using System;
 /// Scriptable object to represent a Quest
 /// </summary>
 [CreateAssetMenu(fileName = "Quest", menuName = "Scriptable Object/Quest", order = 1)]
-[Serializable]
 public class Quest : ScriptableObject
 {
-    [SerializeField] private string name = default;
+    [SerializeField] new private string name = default;
     [TextArea(3, 10)]
     [SerializeField] private string description = "";
 

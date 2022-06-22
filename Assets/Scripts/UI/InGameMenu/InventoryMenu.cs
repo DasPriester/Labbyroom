@@ -71,9 +71,6 @@ public class InventoryMenu : MonoBehaviour
         });
         hotbarSlots[inv.CurrentSlot].GetComponent<Image>().color = Color.white;
 
-        // force griditems to be proper position on first frame (else their position in set too late after loading a savefile)
-        LayoutRebuilder.ForceRebuildLayoutImmediate(inventoryGrid.GetComponent<RectTransform>());
-        LayoutRebuilder.ForceRebuildLayoutImmediate(hotbarGrid.GetComponent<RectTransform>());
 
     }
 
@@ -161,6 +158,14 @@ public class InventoryMenu : MonoBehaviour
         }
         hotbarSlots[inv.CurrentSlot].GetComponent<Image>().color = Color.white;
 
+        StartCoroutine(AddItemsWithDelay());
+
+    }
+
+    private IEnumerator AddItemsWithDelay()
+    {
+        yield return new WaitForSeconds(0);
+
         for (int i = 0; i < inv.Items.Length; i++)
         {
             if (inv.Items[i].prefab != null)
@@ -168,8 +173,8 @@ public class InventoryMenu : MonoBehaviour
                 AddItemUI(inv.Items[i], i);
             }
         }
-    }
 
+    }
     /// <summary>
     /// Updates visuals for crafting menu and each recipe
     /// </summary>

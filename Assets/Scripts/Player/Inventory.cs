@@ -39,7 +39,7 @@ public class Inventory : MonoBehaviour
         InvUI.RefreshUI();
     }
 
-    public int GetAmmount(string name)
+    public int GetAmount(string name)
     {
         int index = Array.FindIndex(invList, x => x.name == name);
         if (index != -1)

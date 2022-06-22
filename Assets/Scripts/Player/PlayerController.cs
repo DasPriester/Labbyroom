@@ -9,7 +9,6 @@ using UnityEngine.Audio;
 public class PlayerController : MonoBehaviour {
     public Vector3 PreviousOffsetFromPortal { get; set; }
 
-    public bool CanMove { get; private set; } = true;
     public bool IsSprinting => canSprint && Input.GetKey(settings.sprintKey);
     public bool ShouldJump => Input.GetKeyDown(settings.jumpKey) && characterController.isGrounded;
     public bool ShouldCrouch => Input.GetKeyDown(settings.crouchKey) && !duringCrouchAnimation && characterController.isGrounded;
@@ -17,11 +16,12 @@ public class PlayerController : MonoBehaviour {
     public Settings settings;
 
     [Header("Funktional Options")]
-    [SerializeField] private bool canSprint = true;
-    [SerializeField] private bool canJump = true;
-    [SerializeField] private bool canCrouch = true;
-    [SerializeField] private bool canInteract = true;
-    [SerializeField] private bool canPlace = true;
+    public bool canMove = false;
+    public bool canSprint = false;
+    public bool canJump = false;
+    public bool canCrouch = false;
+    public bool canInteract = false;
+    public bool canPlace = false;
 
     [Header("Movement Parameters")]
     [SerializeField] private float walkSpeed = 3.0f;
@@ -123,35 +123,35 @@ public class PlayerController : MonoBehaviour {
         audioMixer.SetFloat("Effects Volume", Mathf.Log10(settings.effectsVolume) * 20);
         audioMixer.SetFloat("Music Volume", Mathf.Log10(settings.musicVolume) * 20);
 
-        if (CanMove)
+        if (canMove)
         {
             HandleMouseInput();
             HandleMovementInput();
-
-            if (canJump)
-                HandleJump();
-
-            if (canCrouch)
-                HandleCrouch();
-
-
-            if (canInteract)
-            {
-                HandleInteractionCheck();
-                HandleInteractionInput();
-            }
-
-            if(canPlace)
-                HandlePlace();
-
-            if (settings.useHeadbob)
-                HandleHeadbob();
-
-            if (settings.useFootsteps)
-                HandleFootsteps();
-
-            ApplyFinalMovements();
         }
+        if (canJump)
+            HandleJump();
+
+        if (canCrouch)
+            HandleCrouch();
+
+
+        if (canInteract)
+        {
+            HandleInteractionCheck();
+            HandleInteractionInput();
+        }
+
+        if(canPlace)
+            HandlePlace();
+
+        if (settings.useHeadbob)
+            HandleHeadbob();
+
+        if (settings.useFootsteps)
+            HandleFootsteps();
+
+        ApplyFinalMovements();
+        
     }
 
     /// <summary>
@@ -417,7 +417,6 @@ public class PlayerController : MonoBehaviour {
         moveDirection = toPortal.TransformVector(fromPortal.InverseTransformVector(moveDirection));
         Physics.SyncTransforms();
 
-        PortalComponent fp = fromPortal.GetComponent<PortalComponent>();
         PortalComponent tp = toPortal.GetComponent<PortalComponent>();
 
         if (tp.IsTemporary && !tp.Room.IsTemporary)

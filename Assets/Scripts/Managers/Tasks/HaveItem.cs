@@ -13,6 +13,6 @@ public class HaveItem : Task
     override public float Done()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        return player.GetComponent<Inventory>().GetAmmount(name);
+        return player.GetComponent<Inventory>().GetAmount(name);
     }
 }
