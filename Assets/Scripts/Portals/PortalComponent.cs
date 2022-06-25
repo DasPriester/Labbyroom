@@ -187,10 +187,14 @@ public class PortalComponent : MonoBehaviour
     float ProtectScreenFromClipping(Vector3 viewPoint)
     {
         Transform screenT = screen.transform;
+        float dist = Vector3.Distance(screenT.position, viewPoint);
+        bool inFrontOfPortal = dist < screenT.lossyScale.y;
         bool camFacingSameDirAsPortal = Vector3.Dot(transform.forward, transform.position - viewPoint) > 0;
-        screenT.localScale = new Vector3(screenT.localScale.x, screenT.localScale.y, screenThickness);
-        screenT.localPosition = ((camFacingSameDirAsPortal) ? 0.5f : -0.5f) * screenThickness * Vector3.forward;
-        return screenThickness;
+        float ascreenThickness = inFrontOfPortal ? screenThickness : 0.1f;
+        print(ascreenThickness);
+        screenT.localScale = new Vector3(screenT.localScale.x, screenT.localScale.y, ascreenThickness);
+        screenT.localPosition = ((camFacingSameDirAsPortal) ? 0.5f : -0.5f) * ascreenThickness * Vector3.forward;
+        return ascreenThickness;
     }
 
     void SetNearClipPlane()
