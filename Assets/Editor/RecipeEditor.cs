@@ -44,7 +44,7 @@ class RecipeInspector : Editor
         _implementationTypeIndex = EditorGUILayout.Popup(new GUIContent("Item"),
             _implementationTypeIndex, _implementations.Select(impl => impl.name).ToArray());
 
-        EditorGUILayout.IntField(numberOfItems, new GUILayoutOption[] { });
+        numberOfItems = EditorGUILayout.IntField(numberOfItems, new GUILayoutOption[] { });
 
         GUILayout.EndHorizontal();
 
@@ -54,12 +54,14 @@ class RecipeInspector : Editor
         {
             //set new value
             recipe.Cost.Add(_implementations[_implementationTypeIndex], numberOfItems);
+            numberOfItems = 1;
         }
 
         if (GUILayout.Button("Add to Yield"))
         {
             //set new value
             recipe.Yield.Add(_implementations[_implementationTypeIndex], numberOfItems);
+            numberOfItems = 1;
         }
 
         GUILayout.EndHorizontal();

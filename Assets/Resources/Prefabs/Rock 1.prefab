@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936f3985fae63e34087bc0798b6b46c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: Rock
+  prefabName: Rock 1
 --- !u!1001 &3428708720309783845
 PrefabInstance:
   m_ObjectHideFlags: 0

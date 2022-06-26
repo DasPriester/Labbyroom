@@ -206,7 +206,7 @@ public class InventoryMenu : MonoBehaviour
 
         foreach (Recipe rec in recipes)
         {
-            if (rec.unlocked)
+            if (rec.unlocked || rec.alwaysUnlocked)
             {
                 RectTransform entry = Instantiate(recipeEntryPrefab, content);
 

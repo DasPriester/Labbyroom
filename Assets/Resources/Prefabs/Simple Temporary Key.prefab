@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936f3985fae63e34087bc0798b6b46c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: Permanent Key
+  prefabName: Simple Temporary Key
 --- !u!1001 &2245112261273020462
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3735,7 +3735,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "b2beb2c99cff4d33834ec7519aaae273",
     "m_Id": 0,
-    "m_DisplayName": "Frequency",
+    "m_DisplayName": "Speed",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
