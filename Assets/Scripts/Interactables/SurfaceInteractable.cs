@@ -33,7 +33,7 @@ public abstract class SurfaceInteractable : Interactable
 
         if (key) {
             item.amount = 1;
-            if (inv.CanRemoveItem(item))
+            if (inv.CanRemoveItem(item) && !(PlayerController.hasTempPath && key.temporary && !isTemporary))
             {
                 (Room r, PortalComponent p) = key.GetRandomRoom();
                 if (manager.AddDoor(pos, r, p, key.temporary))

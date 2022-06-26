@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private Vector3 standingCenter = new Vector3(0, 0, 0);
     private bool isCrouching;
     private bool duringCrouchAnimation;
+    public static bool hasTempPath = false;
 
     [Header("Headbob Parameters")]
     [SerializeField] private float walkBobSpeed = 12f;
@@ -277,7 +278,7 @@ public class PlayerController : MonoBehaviour {
 
             try
             {
-                if ((surface && item.prefab.GetComponent<KeyInteractable>()) && (!(!item.prefab.GetComponent<KeyInteractable>().temporary && surface.IsTemporary)))
+                if ((surface && item.prefab.GetComponent<KeyInteractable>()) && (!(!item.prefab.GetComponent<KeyInteractable>().temporary && surface.IsTemporary)) && !(item.prefab.GetComponent<KeyInteractable>().temporary && PlayerController.hasTempPath && !surface.IsTemporary))
                 {
                     surface.OnViewedAtWithKey(wall.point, item.prefab.GetComponent<KeyInteractable>().MaxWidth());
                 }
@@ -455,6 +456,8 @@ public class PlayerController : MonoBehaviour {
                     Destroy(pc.gameObject);
                 }
             }
+
+            hasTempPath = false;
         }
     }
 

@@ -67,8 +67,12 @@ public class WallManager : SurfaceManager
             doors.Add(door);
             UpdateWall();
 
-
             Vector3 left = transform.position - transform.right * Dimensions.x / 2;
+
+            if (temporary)
+            {
+                PlayerController.hasTempPath = true;
+            }
 
             InsertPortal(left + door.x * transform.right - transform.up * Dimensions.y / 2, transform.rotation, roomType, portalType, Wall.GetComponent<MeshRenderer>().sharedMaterial, temporary, GetComponentInParent<Room>(), door, this);
 
