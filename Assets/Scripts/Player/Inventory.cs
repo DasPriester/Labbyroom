@@ -13,7 +13,6 @@ public class Inventory : MonoBehaviour
     private static readonly int hotbarSize = 9;
 
     private InventoryMenu InvUI;
-    [SerializeField]
     private Item[] invList = new Item[hotbarSize + inventorySize];
 
     private int current = 0;

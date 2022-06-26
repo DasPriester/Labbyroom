@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stick
       objectReference: {fileID: 0}
+    - target: {fileID: 8742471451781248404, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
+      propertyPath: m_TagString
+      value: Highlight
+      objectReference: {fileID: 0}
     - target: {fileID: 8742471451781474740, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -246,17 +250,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &365593334 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -3312713435364818256, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
-  m_PrefabInstance: {fileID: 197251881}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a20d97ac998d27f44801a71cd2aa5a85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &740139287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -267,6 +260,10 @@ PrefabInstance:
     - target: {fileID: 8742471451781248404, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
       propertyPath: m_Name
       value: Stick (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8742471451781248404, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
+      propertyPath: m_TagString
+      value: Highlight
       objectReference: {fileID: 0}
     - target: {fileID: 8742471451781474740, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
       propertyPath: m_RootOrder
@@ -663,19 +660,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe25178aab8213c4393281d7d7771ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popUps:
-  - {fileID: 6212059647101658467, guid: 900b8b59d919cda48ad1c9cc60fd4a42, type: 3}
-  - {fileID: 6212059647101658467, guid: 63557c1ef309ea543908bd58a6340ac4, type: 3}
-  - {fileID: 6212059647101658467, guid: ca4b2aac8d78c4a45ac2106727d69caa, type: 3}
   quests:
   - {fileID: 11400000, guid: d37719805d151504f8e2825cb0f05d7a, type: 2}
   - {fileID: 11400000, guid: 3aae9668576977a4f9f464d25186907d, type: 2}
   - {fileID: 11400000, guid: 30d2b3e97e3143649a3d56fad0139b2d, type: 2}
   - {fileID: 11400000, guid: cda7cf5d1ce7f504981363ab0cb3affb, type: 2}
-  highlightedObjects:
-  - {fileID: 365593334}
-  - {fileID: 1309581881}
+  movePopUp: {fileID: 6212059647101658467, guid: 900b8b59d919cda48ad1c9cc60fd4a42, type: 3}
+  inventoryPopUp: {fileID: 6212059647101658467, guid: 63557c1ef309ea543908bd58a6340ac4, type: 3}
+  finishPopUp: {fileID: 6212059647101658467, guid: ca4b2aac8d78c4a45ac2106727d69caa, type: 3}
   recipeToUnlock: {fileID: 11400000, guid: b70ab8ce50164cf4197d15993623d8ec, type: 2}
+  currentPopUp: {fileID: 0}
+  currentQuest: {fileID: 0}
+  startedQuest: 0
+  step: 0
 --- !u!4 &1071342230
 Transform:
   m_ObjectHideFlags: 0
@@ -690,17 +687,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1309581881 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -3312713435364818256, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
-  m_PrefabInstance: {fileID: 740139287}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a20d97ac998d27f44801a71cd2aa5a85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2115318714
 GameObject:
   m_ObjectHideFlags: 0

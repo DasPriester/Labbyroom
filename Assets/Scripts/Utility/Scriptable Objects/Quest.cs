@@ -15,6 +15,11 @@ public class Quest : ScriptableObject
     [SerializeField] private float goal = 1;
     [SerializeField] private bool maximise = true;
 
+    public delegate void Action();
+    public Action StartUI;
+    public Action CloseUI;
+    public Action Rewards;
+
     Quest(string pName, string pDescription, Task pTask, float pGoal = 1f, bool pMaximise = true)
     {
         name = pName;
