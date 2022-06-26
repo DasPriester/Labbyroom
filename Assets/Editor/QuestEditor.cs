@@ -20,17 +20,24 @@ class QuestInspector : Editor
             return;
         }
 
-        if (_implementations == null || GUILayout.Button("Refresh tasks"))
+        GUILayout.BeginHorizontal();
+
+        if (_implementations == null)
         {
-            //this is probably the most imporant part:
-            //find all implementations of Task using System.Reflection.Module
-            _implementations = GetImplementations<Task>();
+            _implementations = Utility.GetImplementations<Task>();
         }
 
         EditorGUILayout.LabelField($"Found {_implementations.Count()} tasks");
 
+        if (GUILayout.Button("Refresh tasks"))
+        {
+            _implementations = Utility.GetImplementations<Task>();
+        }
+
+        GUILayout.EndHorizontal();
+
         //select implementation from editor popup
-        _implementationTypeIndex = EditorGUILayout.Popup(new GUIContent("Implementation"),
+        _implementationTypeIndex = EditorGUILayout.Popup(new GUIContent("Tasks"),
             _implementationTypeIndex, _implementations.Select(impl => impl.FullName).ToArray());
 
         if (GUILayout.Button("Use task"))
@@ -38,13 +45,5 @@ class QuestInspector : Editor
             //set new value
             quest.Task = (Task)Activator.CreateInstance(_implementations[_implementationTypeIndex]);
         }
-    }
-
-    private static Type[] GetImplementations<T>()
-    {
-        var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetTypes());
-
-        var interfaceType = typeof(T);
-        return types.Where(p => interfaceType.IsAssignableFrom(p) && !p.IsAbstract).ToArray();
     }
 }
