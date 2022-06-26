@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: aee30e6fed3534b6baf5324ee7525a98
+guid: 514934540f7d04884a4ba50ce9a712ff
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable:
-  - first:
-      74: -4379138895778929148
-    second: Door|DoorAction
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -34,7 +31,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1

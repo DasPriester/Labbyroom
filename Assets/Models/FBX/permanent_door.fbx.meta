@@ -1,0 +1,177 @@
+fileFormatVersion: 2
+guid: f66b66021a6bc4f2ab0e20dadd901444
+ModelImporter:
+  serializedVersion: 20200
+  internalIDToNameTable:
+  - first:
+      74: -4416500839048991068
+    second: Door|DoorAction.001
+  - first:
+      74: -7170353891283212046
+    second: Door|Hinges bottomAction
+  - first:
+      74: 1970345183737512468
+    second: Door|Hinges topAction
+  - first:
+      74: 4954238323913224400
+    second: Door|LockAction
+  - first:
+      74: 1891084663830465297
+    second: Door|RingAction
+  - first:
+      74: -6067403780232141274
+    second: Hinges bottom|DoorAction.001
+  - first:
+      74: -8081876188833660132
+    second: Hinges bottom|Hinges bottomAction
+  - first:
+      74: -5608505638935293820
+    second: Hinges bottom|Hinges topAction
+  - first:
+      74: -5840515619079680195
+    second: Hinges bottom|LockAction
+  - first:
+      74: -9139390891785674083
+    second: Hinges bottom|RingAction
+  - first:
+      74: -3263929217251714669
+    second: Hinges top|DoorAction.001
+  - first:
+      74: 8624310500703575338
+    second: Hinges top|Hinges bottomAction
+  - first:
+      74: 5656755210257211076
+    second: Hinges top|Hinges topAction
+  - first:
+      74: -4664306457427057958
+    second: Hinges top|LockAction
+  - first:
+      74: -4696965835104554911
+    second: Hinges top|RingAction
+  - first:
+      74: -1413372113346276973
+    second: Lock|DoorAction.001
+  - first:
+      74: 7383323462022176480
+    second: Lock|Hinges bottomAction
+  - first:
+      74: -7925728658118455164
+    second: Lock|Hinges topAction
+  - first:
+      74: -8792390759076284241
+    second: Lock|LockAction
+  - first:
+      74: 5150946866921601212
+    second: Lock|RingAction
+  - first:
+      74: -8620794952983040811
+    second: Ring|DoorAction.001
+  - first:
+      74: 166592204769064994
+    second: Ring|Hinges bottomAction
+  - first:
+      74: 4349214222904884030
+    second: Ring|Hinges topAction
+  - first:
+      74: -8765148971907478974
+    second: Ring|LockAction
+  - first:
+      74: -8758741321931377907
+    second: Ring|RingAction
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
