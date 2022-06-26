@@ -39,6 +39,12 @@ public abstract class Interactable : MonoBehaviour
     /// </summary>
     /// <param name="pos">Location at which the hit occured</param>
     public abstract void OnInteract(Vector3 pos);
+    
+    /// <summary>
+    /// Called if the player uses the build key while targeting the object.
+    /// </summary>
+    /// <param name="pos">Location at which the hit occured</param>
+    public virtual void OnBuild(Vector3 pos) { }
 
    
     /// <summary>

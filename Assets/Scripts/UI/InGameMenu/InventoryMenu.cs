@@ -85,6 +85,18 @@ public class InventoryMenu : MonoBehaviour
 
             }
         }
+
+        if(Input.mouseScrollDelta != Vector2.zero)
+        {
+            hotbarSlots[inv.CurrentSlot].GetComponent<Image>().color = halfWhite;
+            inv.CurrentSlot += (int)Input.mouseScrollDelta.y;
+            if (inv.CurrentSlot >= inv.HotbarSize)
+                inv.CurrentSlot = 0;
+            else if (inv.CurrentSlot < 0)
+                inv.CurrentSlot = inv.HotbarSize - 1;
+            hotbarSlots[inv.CurrentSlot].GetComponent<Image>().color = Color.white;
+        }
+
         Transform craftButton = inventoryMenu.transform.Find("BG/Craft");
         if (inv.IsCraftable(currentRecipe))
         { 

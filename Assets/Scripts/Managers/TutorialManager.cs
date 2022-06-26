@@ -91,13 +91,13 @@ public class TutorialManager : MonoBehaviour
         player.canMove = true;
         player.canSprint = true;
         player.canInteract = true;
+        player.canBuild = true;
     }
 
 
     private void CollectRewards() { 
         StartCoroutine(FadeCanvas(UI.transform.Find("InventoryIcon").gameObject, 1f, 1f));
         recipeToUnlock.unlocked = true;
-
     }
 
 
@@ -116,13 +116,10 @@ public class TutorialManager : MonoBehaviour
     }
 
 
-    private void StartCraftUI()
-    {
+    private void StartCraftUI() {
         currentCoroutine = StartCoroutine(FlashFirstRecipe());
-        
     }
-    private void CloseCraftUI()
-    {
+    private void CloseCraftUI() {
         currentPopUp = Instantiate(finishPopUp);
         StartCoroutine(FadeCanvas(currentPopUp, 0.025f, 1f));
         StartCoroutine(RemovePopUp(currentPopUp, 4f));
@@ -233,9 +230,10 @@ public class TutorialManager : MonoBehaviour
         Coroutine flashing = StartCoroutine(FlashingUIOutline(firstRecipe, 0.75f, 0f, 1f));
         firstRecipe.GetComponentInChildren<UnityEngine.UI.Button>().onClick.AddListener(() =>
         {
-            var ol = firstRecipe.GetComponent<UnityEngine.UI.Outline>();
-            ol.effectColor = new Color(ol.effectColor.r, ol.effectColor.g, ol.effectColor.b, 0f);
             StopCoroutine(flashing);
+            var ol = firstRecipe.GetComponent<UnityEngine.UI.Outline>();
+            StartCoroutine(FadeUIOutline(ol, 0.75f, 0f));
+
         });
 
         while (true) { 
@@ -246,9 +244,10 @@ public class TutorialManager : MonoBehaviour
                 flashing = StartCoroutine(FlashingUIOutline(newRecipe, 0.75f, 0f, 1f));
                 newRecipe.GetComponentInChildren<UnityEngine.UI.Button>().onClick.AddListener(() =>
                 {
-                    var ol = firstRecipe.GetComponent<UnityEngine.UI.Outline>();
-                    ol.effectColor = new Color(ol.effectColor.r, ol.effectColor.g, ol.effectColor.b, 0f);
                     StopCoroutine(flashing);
+                    var ol = firstRecipe.GetComponent<UnityEngine.UI.Outline>();
+                    StartCoroutine(FadeUIOutline(ol, 0.75f, 0f));
+                    
                 });
                 firstRecipe = newRecipe;
             }

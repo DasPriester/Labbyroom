@@ -16,7 +16,7 @@ public abstract class SurfaceInteractable : Interactable
     /// Add Door if possible
     /// </summary>
     /// <param name="pos">Position of raycast-hit to place door at</param>
-    override public void OnInteract(Vector3 pos)
+    override public void OnBuild(Vector3 pos)
     {
         Inventory inv = GameObject.Find("Player").GetComponent<Inventory>();
         Item item = inv.CurrentItem();
@@ -33,10 +33,12 @@ public abstract class SurfaceInteractable : Interactable
 
         if (key) {
             item.amount = 1;
-            if (inv.RemoveItem(item))
+            if (inv.CanRemoveItem(item))
             {
-                if (!manager.AddDoor(pos, key.roomType, key.portalType, key.temporary))
-                    inv.AddItem(item);
+                (Room r, PortalComponent p) = key.GetRandomRoom();
+                if (manager.AddDoor(pos, r, p, key.temporary))
+                    if(!key.temporary)
+                        inv.RemoveItem(item);
             }
         }
     }
@@ -46,9 +48,9 @@ public abstract class SurfaceInteractable : Interactable
     /// </summary>
     /// <param name="pos">Raycast-hit position</param>
     /// <param name="portalType">Type of Portal outline</param>
-    public void OnViewedAtWithKey(Vector3 pos, PortalComponent portalType)
+    public void OnViewedAtWithKey(Vector3 pos, float width)
     {
-        manager.OnViewedAtWithKey(pos, portalType);
+        manager.OnViewedAtWithKey(pos, width);
     }
 
     override public void OnFocus()
@@ -57,6 +59,11 @@ public abstract class SurfaceInteractable : Interactable
     }
 
     override public void OnLoseFcous()
+    {
+        return;
+    }
+
+    public override void OnInteract(Vector3 pos)
     {
         return;
     }

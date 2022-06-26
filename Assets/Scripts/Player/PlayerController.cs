@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
     public bool canJump = false;
     public bool canCrouch = false;
     public bool canInteract = false;
+    public bool canBuild = false;
     public bool canPlace = false;
 
     [Header("Movement Parameters")]
@@ -136,13 +137,16 @@ public class PlayerController : MonoBehaviour {
 
 
         if (canInteract)
-        {
-            HandleInteractionCheck();
             HandleInteractionInput();
-        }
+        
+        if (canBuild)
+            HandleBuildInput();
+        
+        if(canInteract || canBuild)
+            HandleFocus();
 
-        if(canPlace)
-            HandlePlace();
+        if (canPlace)
+            HandlePlaceInput();
 
         if (settings.useHeadbob)
             HandleHeadbob();
@@ -240,7 +244,7 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// Send raycast and call the focus method for currently targeted object
     /// </summary>
-    private void HandleInteractionCheck()
+    private void HandleFocus()
     {
         if (Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
         {
@@ -275,7 +279,7 @@ public class PlayerController : MonoBehaviour {
             {
                 if ((surface && item.prefab.GetComponent<KeyInteractable>()) && (!(!item.prefab.GetComponent<KeyInteractable>().temporary && surface.IsTemporary)))
                 {
-                    surface.OnViewedAtWithKey(wall.point, item.prefab.GetComponent<KeyInteractable>().portalType);
+                    surface.OnViewedAtWithKey(wall.point, item.prefab.GetComponent<KeyInteractable>().MaxWidth());
                 }
             }
             catch (System.NullReferenceException) { }
@@ -292,12 +296,20 @@ public class PlayerController : MonoBehaviour {
         {
             currentInteractable.OnInteract(hit.point);
         }
+
+    }private void HandleBuildInput()
+    {
+        if (Input.GetKeyDown(settings.buildKey) && currentInteractable != null && 
+            Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
+        {
+            currentInteractable.OnBuild(hit.point);
+        }
     }
 
     /// <summary>
     /// Place currently selected inventory-item
     /// </summary>
-    private void HandlePlace()
+    private void HandlePlaceInput()
     {
         if(Input.GetKeyDown(settings.placeKey) &&
             Physics.Raycast(playerCamera.ViewportPointToRay(placementRayPoint), out RaycastHit hit, placementDistance))

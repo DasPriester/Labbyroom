@@ -12,6 +12,7 @@ public class Settings : ScriptableObject
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode crouchKey = KeyCode.LeftControl;
+    public KeyCode buildKey = KeyCode.Mouse0;
     public KeyCode interactKey = KeyCode.E;
     public KeyCode placeKey = KeyCode.Q;
 
@@ -90,6 +91,9 @@ public class Settings : ScriptableObject
             case "Crouch":
                 crouchKey = key;
                 break;
+            case "Build":
+                buildKey = key;
+                break;
             case "Interact":
                 interactKey = key;
                 break;
@@ -153,6 +157,8 @@ public class Settings : ScriptableObject
             case "Jump":
                 return jumpKey;
             case "Crouch":
+                return crouchKey;
+            case "Build":
                 return crouchKey;
             case "Interact":
                 return interactKey;

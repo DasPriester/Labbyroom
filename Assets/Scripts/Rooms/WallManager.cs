@@ -107,10 +107,10 @@ public class WallManager : SurfaceManager
     /// </summary>
     /// <param name="pos">Position of hit detection</param>
     /// <param name="portalType">Type of portal to preview</param>
-    public override void OnViewedAtWithKey(Vector3 pos, PortalComponent portalType)
+    public override void OnViewedAtWithKey(Vector3 pos, float width)
     {
         Vector3 inv = transform.InverseTransformPoint(pos);
-        Vector2 door = new Vector2(inv.x + Dimensions.x / 2, portalType.width);
+        Vector2 door = new Vector2(inv.x + Dimensions.x / 2, width);
 
         if (DoorFits(door))
         {
@@ -118,7 +118,7 @@ public class WallManager : SurfaceManager
             position.y = Dimensions.y / 2;
             Vector3 scale = Vector3.one;
             scale.y = Dimensions.y;
-            scale.x = portalType.width;
+            scale.x = width;
 
             preview.transform.position = position;
             preview.transform.localScale = scale;

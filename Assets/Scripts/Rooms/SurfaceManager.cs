@@ -20,6 +20,6 @@ public abstract class SurfaceManager : PortalConnector
     /// Display preview of portal
     /// </summary>
     /// <param name="pos">Position of the preview</param>
-    /// <param name="portalType">Type of portal to preview</param>
-    public abstract void OnViewedAtWithKey(Vector3 pos, PortalComponent portalType);
+    /// <param name="width">Width of portal to preview</param>
+    public abstract void OnViewedAtWithKey(Vector3 pos, float width);
 }

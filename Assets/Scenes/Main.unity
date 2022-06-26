@@ -669,9 +669,6 @@ MonoBehaviour:
   inventoryPopUp: {fileID: 6212059647101658467, guid: 63557c1ef309ea543908bd58a6340ac4, type: 3}
   finishPopUp: {fileID: 6212059647101658467, guid: ca4b2aac8d78c4a45ac2106727d69caa, type: 3}
   recipeToUnlock: {fileID: 11400000, guid: b70ab8ce50164cf4197d15993623d8ec, type: 2}
-  currentPopUp: {fileID: 0}
-  currentQuest: {fileID: 0}
-  startedQuest: 0
   step: 0
 --- !u!4 &1071342230
 Transform:
