@@ -42,8 +42,7 @@ public class InventoryMenu : MonoBehaviour
         content = inventoryMenu.transform.Find("BG/Scroll View/Viewport/Content").GetComponent<RectTransform>();
         inv = playerController.GetComponent<Inventory>();
         recipes = Resources.LoadAll<Recipe>("Recipes");
-
-        
+       
         hotbarSlots = new GameObject[inv.HotbarSize];
         inventorySlots = new GameObject[inv.InventorySize];
         itemUIs = new ItemUI[inv.HotbarSize + inv.InventorySize];
@@ -71,7 +70,7 @@ public class InventoryMenu : MonoBehaviour
         });
         hotbarSlots[inv.CurrentSlot].GetComponent<Image>().color = Color.white;
 
-
+        transform.Find("InventoryIcon/Image/Text").GetComponent<Text>().text = playerController.settings.GetKey("Inventory").ToString();
     }
 
     public void Update()

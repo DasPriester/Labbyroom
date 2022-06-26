@@ -13,11 +13,9 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private PickUpInteractable[] highlightedObjects;
     [SerializeField] private Recipe recipeToUnlock;
     private GameObject currentPopUp = null;
-    private Quest currentQuest = null;
+    [SerializeField] private Quest currentQuest = null;
     private int step = 0;
     private int popUpStep = 0;
-
-    private bool blinkingRecipe = true;
 
     private void Awake()
     {
@@ -63,14 +61,23 @@ public class TutorialManager : MonoBehaviour
                     StartCoroutine(FadeCanvas(currentPopUp, 1f, 1f));
                     StartCoroutine(FadeCanvas(UI.transform.Find("InventoryIcon").gameObject, 1f, 1f));
                     recipeToUnlock.unlocked = true;
+                    
+                    currentPopUp.transform.Find("Image/Text").GetComponent<UnityEngine.UI.Text>().text =
+                        "Open Inventory with \"" + player.settings.GetKey("Inventory").ToString() + "\"";
+                    quests[step+1].Task = new PressButton(new List<KeyCode>() { player.settings.GetKey("Inventory")});
                     break;
 
                 case 2: // opened inventory
                     StartCoroutine(FadeCanvas(currentPopUp, 1f, 0f));
                     StartCoroutine(DestoryAfterTime(currentPopUp, 1f));
                     GameObject firstRecipe = UI.transform.Find("InventoryMenu(Clone)/BG/Scroll View/Viewport/Content/RecipeEntry(Clone)").gameObject;
-                    firstRecipe.GetComponentInChildren<UnityEngine.UI.Button>().onClick.AddListener(() => blinkingRecipe = false);
-                    StartCoroutine(FlashingUIOutline(firstRecipe, 0.75f, 0f, 1f));
+                    Coroutine flashing = StartCoroutine(FlashingUIOutline(firstRecipe, 0.75f, 0f, 1f));
+                    firstRecipe.GetComponentInChildren<UnityEngine.UI.Button>().onClick.AddListener(() =>
+                    {
+                        StopCoroutine(flashing);
+                        Destroy(firstRecipe.GetComponent<UnityEngine.UI.Outline>());
+                    });
+                    
                     break;
 
                 case 3: // crafted key
@@ -156,7 +163,7 @@ public class TutorialManager : MonoBehaviour
     {
         go.GetComponent<UnityEngine.UI.Outline>().enabled = true;
         var ol = go.GetComponent<UnityEngine.UI.Outline>();
-        while (blinkingRecipe)
+        while (true)
         {
             yield return StartCoroutine(FadeUIOutline(ol, fadeDuration, maxAlpha));
             yield return StartCoroutine(FadeUIOutline(ol, fadeDuration, minAlpha));

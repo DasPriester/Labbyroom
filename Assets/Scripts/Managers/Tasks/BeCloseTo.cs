@@ -9,6 +9,14 @@ public class BeCloseTo : Task
     [SerializeField] private Vector3 position;
 
     private GameObject player;
+    public BeCloseTo()
+    {
+        this.position = Vector3.zero;
+    }
+    public BeCloseTo(Vector3 position)
+    {
+        this.position = position;
+    }
 
     override public float Done()
     {

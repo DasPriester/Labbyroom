@@ -8,6 +8,15 @@ public class PressButton : Task
 {
     [SerializeField] private List<KeyCode> buttons;
 
+    public PressButton() { 
+        buttons = new List<KeyCode>(); 
+    }
+
+    public PressButton(List<KeyCode> buttons)
+    {
+        this.buttons = buttons;
+    }
+
     override public float Done()
     {
         int k = 0;

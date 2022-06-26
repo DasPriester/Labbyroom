@@ -9,6 +9,14 @@ public class HaveItem : Task
     [SerializeField] private string name;
 
     private GameObject player;
+    public HaveItem()
+    {
+        name = "";
+    }
+    public HaveItem(string name)
+    {
+        this.name = name;
+    }
 
     override public float Done()
     {

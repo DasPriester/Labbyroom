@@ -96,37 +96,37 @@ public class Settings : ScriptableObject
             case "Place":
                 placeKey = key;
                 break;
-            case "Inventory 1":
+            case "Hotbar Slot 1":
                 inventoryKeys[0] = key;
                 break;
-            case "Inventory 2":
+            case "Hotbar Slot 2":
                 inventoryKeys[1] = key;
                 break;
-            case "Inventory 3":
+            case "Hotbar Slot 3":
                 inventoryKeys[2] = key;
                 break;
-            case "Inventory 4":
+            case "Hotbar Slot 4":
                 inventoryKeys[3] = key;
                 break;
-            case "Inventory 5":
+            case "Hotbar Slot 5":
                 inventoryKeys[4] = key;
                 break;
-            case "Inventory 6":
+            case "Hotbar Slot 6":
                 inventoryKeys[5] = key;
                 break;
-            case "Inventory 7":
+            case "Hotbar Slot 7":
                 inventoryKeys[6] = key;
                 break;
-            case "Inventory 8":
+            case "Hotbar Slot 8":
                 inventoryKeys[7] = key;
                 break;
-            case "Inventory 9":
+            case "Hotbar Slot 9":
                 inventoryKeys[8] = key;
                 break;
-            case "Crafting":
+            case "Inventory":
                 foreach (InGameMenu menu in menus)
                 {
-                    if (menu.name == "CraftingMenu")
+                    if (menu.name == "InventoryMenu")
                     {
                         menu.openKey = key;
                     }
@@ -158,28 +158,28 @@ public class Settings : ScriptableObject
                 return interactKey;
             case "Place":
                 return placeKey;
-            case "Inventory 1":
+            case "Hotbar Slot 1":
                 return inventoryKeys[0];
-            case "Inventory 2":
+            case "Hotbar Slot 2":
                 return inventoryKeys[1];
-            case "Inventory 3":
+            case "Hotbar Slot 3":
                 return inventoryKeys[2];
-            case "Inventory 4":
+            case "Hotbar Slot 4":
                 return inventoryKeys[3];
-            case "Inventory 5":
+            case "Hotbar Slot 5":
                 return inventoryKeys[4];
-            case "Inventory 6":
+            case "Hotbar Slot 6":
                 return inventoryKeys[5];
-            case "Inventory 7":
+            case "Hotbar Slot 7":
                 return inventoryKeys[6];
-            case "Inventory 8":
+            case "Hotbar Slot 8":
                 return inventoryKeys[7];
-            case "Inventory 9":
+            case "Hotbar Slot 9":
                 return inventoryKeys[8];
-            case "Crafting":
+            case "Inventory":
                 foreach (InGameMenu menu in menus)
                 {
-                    if (menu.name == "CraftingMenu")
+                    if (menu.name == "InventoryMenu")
                     {
                         return menu.openKey;
                     }
