@@ -676,6 +676,7 @@ MonoBehaviour:
   - {fileID: 365593334}
   - {fileID: 1309581881}
   recipeToUnlock: {fileID: 11400000, guid: b70ab8ce50164cf4197d15993623d8ec, type: 2}
+  currentQuest: {fileID: 0}
 --- !u!4 &1071342230
 Transform:
   m_ObjectHideFlags: 0
