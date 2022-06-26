@@ -159,6 +159,8 @@ public class InventoryMenu : MonoBehaviour
 
         StartCoroutine(AddItemsWithDelay());
 
+        UpdateCraftMenu();
+        CloseCraftMenu();
     }
 
     private IEnumerator AddItemsWithDelay()
@@ -177,7 +179,7 @@ public class InventoryMenu : MonoBehaviour
     /// <summary>
     /// Updates visuals for crafting menu and each recipe
     /// </summary>
-    private void UpdateCraftMenu()
+    public void UpdateCraftMenu()
     {
 
         InGameMenu.instance = inventoryMenu;
@@ -299,7 +301,7 @@ public class InventoryMenu : MonoBehaviour
             inventoryMenu.transform.Find("BG/Scroll View/NoContent").GetComponent<Text>().text = "You have to discover a recipe first...";
     }
 
-    private void CloseCraftMenu()
+    public void CloseCraftMenu()
     {
         InGameMenu.instance = null;
         currentRecipe = null;

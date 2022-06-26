@@ -40,11 +40,15 @@ public class SceneLoader : MonoBehaviour
 
         //Player Transform
         gd.playerPosition = player.transform.position;
+        gd.rotation = player.transform.rotation;
         gd.playerRotation = new Vector2(player.Pitch, player.Yaw);
 
         //Player Inventory
         gd.inventory = JsonHelper.ToJson(inv.Items);
         gd.currentSlot = inv.CurrentSlot;
+
+        //Tutorial
+        gd.step = GameObject.Find("TutorialManager").GetComponent<TutorialManager>().step;
 
         //Rooms and doors
         gd.roomData = new List<RoomData>();
@@ -101,7 +105,8 @@ public class SceneLoader : MonoBehaviour
             {
                 name = go.PrefabName,
                 position = go.transform.position,
-                rotation = go.transform.rotation
+                rotation = go.transform.rotation,
+                tag = go.transform.tag
             };
 
             RecipeInteractable ri = go.GetComponent<RecipeInteractable>();
@@ -149,11 +154,11 @@ public class SceneLoader : MonoBehaviour
         //Variables
         PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         Inventory inv = player.GetComponent<Inventory>();
+        TutorialManager tm = GameObject.Find("TutorialManager").GetComponent<TutorialManager>();
 
         //Load
-
         //Player Transform
-        player.transform.position = gd.playerPosition;
+        player.transform.SetPositionAndRotation(gd.playerPosition, gd.rotation);
         player.Pitch = gd.playerRotation.x;
         player.Yaw = gd.playerRotation.y;
 
@@ -283,11 +288,13 @@ public class SceneLoader : MonoBehaviour
         PortalConnector.ZPerm = gd.z_perm;
 
         //Objects
+        GameObject summon;
         foreach (ObjectData od in gd.objectData)
         {
             if (!od.recipe)
             {
-                Instantiate(Resources.Load("Prefabs/" + od.name), od.position, od.rotation);
+                summon = Instantiate(Resources.Load("Prefabs/" + od.name), od.position, od.rotation) as GameObject;
+                summon.tag = od.tag;
             }
             else
             {
@@ -301,6 +308,10 @@ public class SceneLoader : MonoBehaviour
         {
             rec.unlocked = gd.unlockedRecipies.Contains(rec.name);
         }
+
+        //Tutorial
+        tm.step = gd.step;
+        tm.Refresh();
 
         Physics.SyncTransforms();
 
@@ -318,10 +329,14 @@ public class SceneLoader : MonoBehaviour
         //Player Transform
         public Vector3 playerPosition;
         public Vector2 playerRotation;
+        public Quaternion rotation;
 
         //Player Inventory
         public string inventory;
         public int currentSlot;
+
+        //Tutorial
+        public int step;
 
         //Rooms and doors
         public List<RoomData> roomData;
@@ -348,7 +363,7 @@ public class SceneLoader : MonoBehaviour
         public string name;
         public Vector3 position;
         public Quaternion rotation;
-
+        public string tag;
         public Recipe recipe;
     }
 

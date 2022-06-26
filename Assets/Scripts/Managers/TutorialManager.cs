@@ -8,26 +8,25 @@ public class TutorialManager : MonoBehaviour
     private PlayerController player;
     private GameObject UI;
 
-    [SerializeField] private List<GameObject> popUps = new List<GameObject>();
     [SerializeField] private List<Quest> quests = new List<Quest>();
-    [SerializeField] private PickUpInteractable[] highlightedObjects;
+    [SerializeField] private GameObject movePopUp;
+    [SerializeField] private GameObject inventoryPopUp;
+    [SerializeField] private GameObject finishPopUp;
     [SerializeField] private Recipe recipeToUnlock;
+    private Coroutine currentCoroutine = null;
     private GameObject currentPopUp = null;
-    [SerializeField] private Quest currentQuest = null;
-    private int step = 0;
-    private int popUpStep = 0;
+    private Quest currentQuest = null;
+    private bool startedQuest = false;
+    public int step = 0;
 
     private void Awake()
     {
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         UI = GameObject.Find("UI");
 
-
-        currentPopUp = Instantiate(popUps[popUpStep]);
-        currentQuest = quests[step];
-
-        foreach (PickUpInteractable pui in highlightedObjects)
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Highlight"))
         {
+            PickUpInteractable pui = go.GetComponent<PickUpInteractable>();
             if (pui != null)
             {
                 pui.UseOutline = false;
@@ -35,63 +34,128 @@ public class TutorialManager : MonoBehaviour
                 StartCoroutine(FlashingOutline(pui.GetComponent<Outline>(), 1f, 0f, 1f));
             }
         }
+        
+        quests[0].StartUI = StartMoveUI;
+        quests[0].CloseUI = CloseMoveUI;
+        quests[0].Rewards = MoveRewards;
+
+        quests[1].Rewards = CollectRewards;
+
+        quests[2].StartUI = StartOpenUI;
+        quests[2].CloseUI = CloseOpenUI;
+        quests[2].Task = new PressButton(new List<KeyCode>() { player.settings.GetKey("Inventory") });
+
+        quests[3].StartUI = StartCraftUI;
+        quests[3].CloseUI = CloseCraftUI;
+
+        currentQuest = quests[step];
+
     }
 
     private void Update()
     {
-
-        if (currentQuest.IsDone())
+        if (!startedQuest)
         {
-            switch (step)
-            {
+            currentQuest.StartUI?.Invoke();
+            startedQuest = true;
+        }
 
-                case 0: // moved
-                    StartCoroutine(FadeCanvas(currentPopUp, 2f, 0f));
-                    StartCoroutine(DestoryAfterTime(currentPopUp, 2f));
+        if (currentQuest && currentQuest.IsDone())
+        {
+            currentQuest.CloseUI?.Invoke();
+            currentQuest.Rewards?.Invoke();
 
-                    StartCoroutine(FadeCanvas(UI.transform.Find("Hotbar BG").gameObject, 2f, 1f));
-                    player.canMove = true;
-                    player.canSprint = true;
-                    player.canInteract = true;
-                    break;
-
-                case 1: // collected sticks
-                    popUpStep++;
-                    currentPopUp = Instantiate(popUps[popUpStep]);
-                    StartCoroutine(FadeCanvas(currentPopUp, 1f, 1f));
-                    StartCoroutine(FadeCanvas(UI.transform.Find("InventoryIcon").gameObject, 1f, 1f));
-                    recipeToUnlock.unlocked = true;
-                    
-                    currentPopUp.transform.Find("Image/Text").GetComponent<UnityEngine.UI.Text>().text =
-                        "Open Inventory with \"" + player.settings.GetKey("Inventory").ToString() + "\"";
-                    quests[step+1].Task = new PressButton(new List<KeyCode>() { player.settings.GetKey("Inventory")});
-                    break;
-
-                case 2: // opened inventory
-                    StartCoroutine(FadeCanvas(currentPopUp, 1f, 0f));
-                    StartCoroutine(DestoryAfterTime(currentPopUp, 1f));
-                    GameObject firstRecipe = UI.transform.Find("InventoryMenu(Clone)/BG/Scroll View/Viewport/Content/RecipeEntry(Clone)").gameObject;
-                    Coroutine flashing = StartCoroutine(FlashingUIOutline(firstRecipe, 0.75f, 0f, 1f));
-                    firstRecipe.GetComponentInChildren<UnityEngine.UI.Button>().onClick.AddListener(() =>
-                    {
-                        StopCoroutine(flashing);
-                        Destroy(firstRecipe.GetComponent<UnityEngine.UI.Outline>());
-                    });
-                    
-                    break;
-
-                case 3: // crafted key
-                    popUpStep++;
-                    currentPopUp = Instantiate(popUps[popUpStep]);
-                    StartCoroutine(FadeCanvas(currentPopUp, 0.025f, 1f));
-                    StartCoroutine(DestoryAfterTime(currentPopUp, 4f));
-                    break;
-
-            }
-
+            startedQuest = false;
             step++;
             if (step < quests.Count)
                 currentQuest = quests[step];
+            else
+            {
+                currentQuest = null;
+                startedQuest = true;
+            }
+        }
+    }
+
+    private void StartMoveUI()
+    {
+        currentPopUp = Instantiate(movePopUp);
+        currentQuest = quests[step]; 
+    }
+    private void CloseMoveUI() {
+        StartCoroutine(FadeCanvas(currentPopUp, 1.5f, 0f));
+        StartCoroutine(RemovePopUp(currentPopUp, 1.5f));
+    }
+    private void MoveRewards() { 
+        StartCoroutine(FadeCanvas(UI.transform.Find("Hotbar BG").gameObject, 1.5f, 1f));
+        player.canMove = true;
+        player.canSprint = true;
+        player.canInteract = true;
+    }
+
+
+    private void CollectRewards() { 
+        StartCoroutine(FadeCanvas(UI.transform.Find("InventoryIcon").gameObject, 1f, 1f));
+        recipeToUnlock.unlocked = true;
+
+    }
+
+
+    private void StartOpenUI() {
+        UI.GetComponent<InventoryMenu>().UpdateCraftMenu();
+        UI.GetComponent<InventoryMenu>().CloseCraftMenu();
+
+        currentPopUp = Instantiate(inventoryPopUp);
+        currentPopUp.transform.Find("Image/Text").GetComponent<UnityEngine.UI.Text>().text =
+            "Open Inventory with \"" + player.settings.GetKey("Inventory").ToString() + "\"";
+        StartCoroutine(FadeCanvas(currentPopUp, 1f, 1f));
+    }
+    private void CloseOpenUI() {
+        StartCoroutine(FadeCanvas(currentPopUp, 1f, 0f));
+        StartCoroutine(RemovePopUp(currentPopUp, 1f));
+    }
+
+
+    private void StartCraftUI()
+    {
+        currentCoroutine = StartCoroutine(FlashFirstRecipe());
+        
+    }
+    private void CloseCraftUI()
+    {
+        currentPopUp = Instantiate(finishPopUp);
+        StartCoroutine(FadeCanvas(currentPopUp, 0.025f, 1f));
+        StartCoroutine(RemovePopUp(currentPopUp, 4f));
+        StopCoroutine(currentCoroutine);
+    }
+
+    public void Refresh()
+    {
+        player = GameObject.Find("Player").GetComponent<PlayerController>();
+        UI = GameObject.Find("UI");
+
+
+        if (step < quests.Count)
+            currentQuest = quests[step];
+        else
+        {
+            currentQuest = null;
+            startedQuest = true;
+        }
+
+        for (int i = 0; i < step; i++)
+        {
+            quests[i].Rewards?.Invoke();
+        }
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Highlight"))
+        {
+            PickUpInteractable pui = go.GetComponent<PickUpInteractable>();
+            if (pui != null)
+            {
+                pui.UseOutline = false;
+                pui.GetComponent<Outline>().enabled = true;
+                StartCoroutine(FlashingOutline(pui.GetComponent<Outline>(), 1f, 0f, 1f));
+            }
         }
     }
 
@@ -134,7 +198,7 @@ public class TutorialManager : MonoBehaviour
 
         float elapsedTime = 0f;
 
-        while (elapsedTime < fadeDuration)
+        while (ol && elapsedTime < fadeDuration)
         {
             elapsedTime += Time.deltaTime;
             currentAlpha = Mathf.MoveTowards(currentAlpha, desiredAlpha, Time.deltaTime / fadeDuration);
@@ -144,10 +208,11 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    private IEnumerator DestoryAfterTime(GameObject go, float time)
+    private IEnumerator RemovePopUp(GameObject go, float time)
     {
         yield return new WaitForSeconds(time);
         Destroy(go);
+        currentPopUp = null;
     }
 
     private IEnumerator FlashingOutline(Outline ol, float fadeDuration, float minAlpha, float maxAlpha)
@@ -159,6 +224,38 @@ public class TutorialManager : MonoBehaviour
 
         }
     }
+
+    private IEnumerator FlashFirstRecipe()
+    {
+        GameObject firstRecipe = UI.transform.Find("InventoryMenu(Clone)/BG/Scroll View/Viewport/Content/RecipeEntry(Clone)").gameObject;
+        GameObject newRecipe = UI.transform.Find("InventoryMenu(Clone)/BG/Scroll View/Viewport/Content/RecipeEntry(Clone)").gameObject;
+
+        Coroutine flashing = StartCoroutine(FlashingUIOutline(firstRecipe, 0.75f, 0f, 1f));
+        firstRecipe.GetComponentInChildren<UnityEngine.UI.Button>().onClick.AddListener(() =>
+        {
+            var ol = firstRecipe.GetComponent<UnityEngine.UI.Outline>();
+            ol.effectColor = new Color(ol.effectColor.r, ol.effectColor.g, ol.effectColor.b, 0f);
+            StopCoroutine(flashing);
+        });
+
+        while (true) { 
+            newRecipe = UI.transform.Find("InventoryMenu(Clone)/BG/Scroll View/Viewport/Content/RecipeEntry(Clone)").gameObject;
+            if (newRecipe && firstRecipe != newRecipe)
+            {
+                StopCoroutine(flashing);
+                flashing = StartCoroutine(FlashingUIOutline(newRecipe, 0.75f, 0f, 1f));
+                newRecipe.GetComponentInChildren<UnityEngine.UI.Button>().onClick.AddListener(() =>
+                {
+                    var ol = firstRecipe.GetComponent<UnityEngine.UI.Outline>();
+                    ol.effectColor = new Color(ol.effectColor.r, ol.effectColor.g, ol.effectColor.b, 0f);
+                    StopCoroutine(flashing);
+                });
+                firstRecipe = newRecipe;
+            }
+            yield return null;
+        }
+    }
+
     private IEnumerator FlashingUIOutline(GameObject go, float fadeDuration, float minAlpha, float maxAlpha)
     {
         go.GetComponent<UnityEngine.UI.Outline>().enabled = true;
