@@ -38,6 +38,8 @@ public class SceneLoader : MonoBehaviour
 
         //Save
 
+        gd.hasTempPath = PlayerController.hasTempPath;
+
         //Player Transform
         gd.playerPosition = player.transform.position;
         gd.rotation = player.transform.rotation;
@@ -150,6 +152,8 @@ public class SceneLoader : MonoBehaviour
         }
 
         GameData gd = JsonUtility.FromJson<GameData>(data);
+
+        PlayerController.hasTempPath = gd.hasTempPath;
 
         //Variables
         PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -326,6 +330,8 @@ public class SceneLoader : MonoBehaviour
     [Serializable]
     private struct GameData
     {
+        public bool hasTempPath;
+
         //Player Transform
         public Vector3 playerPosition;
         public Vector2 playerRotation;
