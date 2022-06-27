@@ -14,15 +14,31 @@ abstract class SerializableDictionaryEditor : PropertyDrawer
     public static GUILayoutOption miniButtonWidth = GUILayout.Width(20f);
     private static GUIContent
          moveButtonContent = new GUIContent("\u21b4", "move down"),
-         //duplicateButtonContent = new GUIContent("+", "duplicate"),
-         deleteButtonContent = new GUIContent("x", "delete");
+         duplicateButtonContent = new GUIContent("+", "duplicate"),
+         deleteButtonContent = new GUIContent("-", "delete");
 
-    private static void ShowButtons(SerializedProperty keys, SerializedProperty values, int index)
+    private void ShowButtons(SerializedProperty keys, SerializedProperty values, int index)
     {
         if (GUILayout.Button(moveButtonContent, EditorStyles.miniButtonLeft, miniButtonWidth))
         {
             keys.MoveArrayElement(index, index + 1);
             values.MoveArrayElement(index, index + 1);
+        }
+        if (GUILayout.Button(duplicateButtonContent, EditorStyles.miniButtonMid, miniButtonWidth))
+        {
+            keys.InsertArrayElementAtIndex(index + 1);
+            values.InsertArrayElementAtIndex(index + 1);
+            keys.GetArrayElementAtIndex(index + 1);
+
+            string[] names = _implementations_key.Select(impl => impl.name).ToArray();
+            int _implementationTypeIndex = 0;
+            string str = _implementations_key[_implementationTypeIndex].name;
+            while (used_keys.Contains(str))
+            {
+                _implementationTypeIndex++;
+                str = _implementations_key[_implementationTypeIndex].name;
+            }
+            keys.GetArrayElementAtIndex(index + 1).objectReferenceValue = _implementations_key[_implementationTypeIndex];
         }
         if (GUILayout.Button(deleteButtonContent, EditorStyles.miniButtonRight, miniButtonWidth))
         {
@@ -61,7 +77,8 @@ abstract class SerializableDictionaryEditor : PropertyDrawer
 
             for (int x = 0; x < keys.arraySize; x++)
             {
-                used_keys.Add(keys.GetArrayElementAtIndex(x).objectReferenceValue.name);
+                if(keys.GetArrayElementAtIndex(x).objectReferenceValue)
+                    used_keys.Add(keys.GetArrayElementAtIndex(x).objectReferenceValue.name);
             }
         }
 
@@ -81,21 +98,44 @@ abstract class SerializableDictionaryEditor : PropertyDrawer
 
             for (int x = 0; x < values.arraySize; x++)
             {
-                used_values.Add(values.GetArrayElementAtIndex(x).objectReferenceValue.name);
+                if(values.GetArrayElementAtIndex(x).objectReferenceValue)
+                    used_values.Add(values.GetArrayElementAtIndex(x).objectReferenceValue.name);
             }
         }
 
         GUILayout.EndHorizontal();
 
-        for (int i = 0; i < keys.arraySize; i++)
+        if (keys.arraySize == 0)
         {
-            GUILayout.BeginHorizontal();
+            if (GUILayout.Button(duplicateButtonContent))
+            {
+                keys.InsertArrayElementAtIndex(0);
+                values.InsertArrayElementAtIndex(0);
+                keys.GetArrayElementAtIndex(0);
 
-            ListField(keys, values, i);
+                string[] names = _implementations_key.Select(impl => impl.name).ToArray();
+                int _implementationTypeIndex = 0;
+                string str = _implementations_key[_implementationTypeIndex].name;
+                while (used_keys.Contains(str))
+                {
+                    _implementationTypeIndex++;
+                    str = _implementations_key[_implementationTypeIndex].name;
+                }
+                keys.GetArrayElementAtIndex(0).objectReferenceValue = _implementations_key[_implementationTypeIndex];
+            }
+        }
+        else
+        {
+            for (int i = 0; i < keys.arraySize; i++)
+            {
+                GUILayout.BeginHorizontal();
 
-            ShowButtons(keys, values, i);
+                ListField(keys, values, i);
 
-            GUILayout.EndHorizontal();
+                ShowButtons(keys, values, i);
+
+                GUILayout.EndHorizontal();
+            }
         }
 
         EditorGUI.indentLevel -= 1;
@@ -106,7 +146,9 @@ abstract class SerializableDictionaryEditor : PropertyDrawer
     protected void DropDown(SerializedProperty list, UnityEngine.Object[] _implementations, List<string> used, int i)
     {
         string[] names = _implementations.Select(impl => impl.name).ToArray();
-        string oname = list.GetArrayElementAtIndex(i).objectReferenceValue.name;
+        string oname = "";
+        if (list.GetArrayElementAtIndex(i).objectReferenceValue)
+            oname = list.GetArrayElementAtIndex(i).objectReferenceValue.name;
         int _implementationTypeIndex = 0;
 
         for (int x = 0; x < names.Length; x++)

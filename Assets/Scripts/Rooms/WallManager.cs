@@ -13,12 +13,14 @@ public class WallManager : SurfaceManager
     [SerializeField] private int roomWMID = 0;
     private Hideable preview = null;
     private float previewCooldown = 0;
+    private bool isTemporary = false;
 
     private readonly List<WallInteractable> walls = new List<WallInteractable>();
     public List<Vector2> doors = new List<Vector2>();
 
 
     public int RoomWMID { get => roomWMID; set => roomWMID = value; }
+    public bool IsTemporary { get => isTemporary; set => isTemporary = value; }
 
     void Start()
     {
@@ -194,6 +196,7 @@ public class WallManager : SurfaceManager
 
             w = Instantiate(Wall, center, transform.rotation, transform);
             w.manager = this;
+            w.IsTemporary = isTemporary;
             walls.Add(w);
 
             at = door.x + door.y / 2;
@@ -208,6 +211,7 @@ public class WallManager : SurfaceManager
 
         w = Instantiate(Wall, center, transform.rotation, transform);
         w.manager = this;
+        w.IsTemporary = isTemporary;
         walls.Add(w);
 
         Wall.transform.localScale = Vector3.one;

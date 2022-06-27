@@ -12,10 +12,19 @@ public class Room : MonoBehaviour
     [SerializeField] private Vector2 accessDoor = Vector2.zero;
     [SerializeField] private WallManager accessWall = null;
     [SerializeField] private string prefabName = null;
-    [SerializeField] private bool isTemporary = false;
+    private bool isTemporary = false;
 
     public string PrefabName { get => prefabName; set => prefabName = value; }
-    public bool IsTemporary { get => isTemporary; set => isTemporary = value; }
+    public bool IsTemporary {
+        get => isTemporary;
+        set {
+            isTemporary = value;
+            foreach (WallManager wm in GetComponentsInChildren<WallManager>())
+            {
+                wm.IsTemporary = value;
+            }
+        }
+    }
 
     public Transform AddAccessDoor()
     {

@@ -8,7 +8,7 @@ using UnityEngine;
 public abstract class SurfaceInteractable : Interactable
 {
     public SurfaceManager manager;
-    [SerializeField] private bool isTemporary = false;
+    private bool isTemporary = false;
 
     public bool IsTemporary { get => isTemporary; set => isTemporary = value; }
 

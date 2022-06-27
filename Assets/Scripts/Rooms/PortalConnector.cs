@@ -33,6 +33,7 @@ public class PortalConnector : MonoBehaviour
         Room room = Instantiate(roomType, 100 * (temporary ? z_temp : z_perm) * Vector3.forward + 100 * (temporary ? 1 : 0) * Vector3.right, new Quaternion());
         Transform coords = room.AddAccessDoor();
         PortalComponent p2 = Instantiate(portalType, coords);
+        room.IsTemporary = temporary;
 
         p1.linkedPortal = p2;
         p2.linkedPortal = p1;
