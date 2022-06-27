@@ -53,8 +53,14 @@ public class Utility : MonoBehaviour
             }
             tex.SetPixels32(colors);
             byte[] bytes = tex.EncodeToPNG();
-            System.IO.File.WriteAllBytes("Assets/Resources/Sprites/Icons/" + item.name + "_tmp.PNG", bytes);
-        }
+            string path = "Assets/Resources/Sprites/Icons/" + item.name + "_tmp.PNG";
+            System.IO.File.WriteAllBytes(path, bytes);
+            UnityEditor.AssetDatabase.Refresh();
+            UnityEditor.AssetDatabase.ImportAsset(path);
+            UnityEditor.TextureImporter importer = UnityEditor.AssetImporter.GetAtPath(path) as UnityEditor.TextureImporter;
+            importer.textureType = UnityEditor.TextureImporterType.Sprite;
+            UnityEditor.AssetDatabase.WriteImportSettingsIfDirty(path);
+    }
     #endif
 
     public static bool FastApproximately(float a, float b, float threshold)

@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: StickToBasic
   m_EditorClassIdentifier: 
   name: Simple Temporary Key
-  unlocked: 1
+  unlocked: 0
+  alwaysUnlocked: 0
   Cost:
     keys:
     - {fileID: -3312713435364818256, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
     values: 02000000
   Yield:
     keys:
-    - {fileID: 8696993802869622923, guid: 0b03c9bc1e3e04e6ba27999abaa9eb96, type: 3}
+    - {fileID: 8696993802869622923, guid: 33552c5fa989598478e581cffc550a1d, type: 3}
     values: 01000000

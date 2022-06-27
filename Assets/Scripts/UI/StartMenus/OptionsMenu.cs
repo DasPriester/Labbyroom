@@ -58,6 +58,7 @@ public class OptionsMenu : MonoBehaviour
     readonly Dictionary<string, InputType> video = new Dictionary<string, InputType> {
         {"Headbob", InputType.BOOL},
         {"Particles", InputType.BOOL},
+        {"InvertScrollWheel", InputType.BOOL},
     };
 
     private void Start()

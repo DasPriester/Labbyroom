@@ -86,10 +86,10 @@ public class InventoryMenu : MonoBehaviour
             }
         }
 
-        if(Input.mouseScrollDelta != Vector2.zero)
+        if(Input.mouseScrollDelta != Vector2.zero && InGameMenu.instance == null)
         {
             hotbarSlots[inv.CurrentSlot].GetComponent<Image>().color = halfWhite;
-            inv.CurrentSlot += (int)Input.mouseScrollDelta.y;
+            inv.CurrentSlot -= (int)Input.mouseScrollDelta.y;
             if (inv.CurrentSlot >= inv.HotbarSize)
                 inv.CurrentSlot = 0;
             else if (inv.CurrentSlot < 0)
@@ -227,6 +227,7 @@ public class InventoryMenu : MonoBehaviour
                     item.name = p.name;
                     break;
                 }
+                print(item.name);
                 entry.Find("Image").GetComponent<Image>().sprite = Utility.GetIconFor(item);
 
                 // local function to move entries below 
