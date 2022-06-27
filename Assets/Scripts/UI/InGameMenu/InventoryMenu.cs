@@ -21,35 +21,27 @@ public class InventoryMenu : MonoBehaviour
     private ItemUI[] itemUIs;
     private Vector2 spacing = new Vector2(10, -10);
 
-    // Crafting UI
-    [SerializeField] private RectTransform recipeEntryPrefab = null;
-    [SerializeField] private RectTransform recipeCostPrefab = null;
-    private RectTransform content = null;
-    private Recipe[] recipes;
-    private Recipe currentRecipe = null;
-    private RectTransform currentEntry = null;
-    private int entryPos = 0;
-    private int costPos = 0;
-
     // Hotbar UI
     private static readonly Color halfWhite = new Color(1, 1, 1, 0.4f);
     private GameObject[] hotbarSlots;
+
+    // Crafting UI
+    [SerializeField] private CraftingMenu craftingMenuPrefab;
+    private CraftingMenu craftingMenu;
 
     private void Awake()
     {
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         inventoryMenu = playerController.settings.GetMenu("InventoryMenu");
-        content = inventoryMenu.transform.Find("BG/Scroll View/Viewport/Content").GetComponent<RectTransform>();
-        inv = playerController.GetComponent<Inventory>();
-        recipes = Resources.LoadAll<Recipe>("Recipes");
+        inv = playerController.GetComponent<Inventory>(); 
        
         hotbarSlots = new GameObject[inv.HotbarSize];
         inventorySlots = new GameObject[inv.InventorySize];
         itemUIs = new ItemUI[inv.HotbarSize + inv.InventorySize];
+        craftingMenu = Instantiate(craftingMenuPrefab, inventoryMenu.transform);
 
-
-        inventoryMenu.OpenMenu = UpdateCraftMenu;
-        inventoryMenu.CloseMenu = CloseCraftMenu;
+        inventoryMenu.OpenMenu = craftingMenu.UpdateCraftMenu;
+        inventoryMenu.CloseMenu = craftingMenu.CloseCraftMenu;
 
         Transform hotbarGrid = this.transform.Find("Hotbar BG/Hotbar Grid");
         Transform inventoryGrid = inventoryMenu.transform.Find("BG/Inv Grid");
@@ -59,15 +51,6 @@ public class InventoryMenu : MonoBehaviour
         for (int i = 0; i < inv.InventorySize; i++)
             inventorySlots[i] = Instantiate(itemSlot, inventoryGrid);
 
-
-        inventoryMenu.transform.Find("BG/Craft").GetComponent<Button>().onClick.AddListener(() =>
-        {
-            if (inv.IsCraftable(currentRecipe))
-            {
-                inv.CraftRecipe(currentRecipe);
-                UpdateCraftMenu();
-            }
-        });
         hotbarSlots[inv.CurrentSlot].GetComponent<Image>().color = Color.white;
 
         transform.Find("InventoryIcon/Image/Text").GetComponent<Text>().text = playerController.settings.GetKey("Inventory").ToString();
@@ -96,20 +79,6 @@ public class InventoryMenu : MonoBehaviour
                 inv.CurrentSlot = inv.HotbarSize - 1;
             hotbarSlots[inv.CurrentSlot].GetComponent<Image>().color = Color.white;
         }
-
-        Transform craftButton = inventoryMenu.transform.Find("BG/Craft");
-        if (inv.IsCraftable(currentRecipe))
-        { 
-            craftButton.GetComponent<Image>().color = Color.green;
-            craftButton.GetComponent<Button>().enabled = true;
-        }
-        else
-        {
-            craftButton.GetComponent<Image>().color = Color.gray;
-            craftButton.GetComponent<Button>().enabled = false;
-        }
-        if(currentEntry)
-            currentEntry.GetComponent<Image>().color = Color.white;
     }
 
     public void AddItemUI(Item item, int index)
@@ -171,8 +140,8 @@ public class InventoryMenu : MonoBehaviour
 
         StartCoroutine(AddItemsWithDelay());
 
-        UpdateCraftMenu();
-        CloseCraftMenu();
+        craftingMenu.UpdateCraftMenu();
+        craftingMenu.CloseCraftMenu();
     }
 
     private IEnumerator AddItemsWithDelay()
@@ -188,136 +157,23 @@ public class InventoryMenu : MonoBehaviour
         }
 
     }
-    /// <summary>
-    /// Updates visuals for crafting menu and each recipe
-    /// </summary>
-    public void UpdateCraftMenu()
+    public void OpenInventoryMenu()
     {
 
         InGameMenu.instance = inventoryMenu;
+    }
+    public void CloseInventoryMenu()
+    {
+        InGameMenu.instance = null;
+    }
 
-        costPos = 0;
-        entryPos = 0;
-
-        // clear content
-        foreach (RectTransform g in content.GetComponentsInChildren<RectTransform>())
-            if (g != content)
-                Destroy(g.gameObject);
-
-        foreach (Recipe rec in recipes)
-        {
-            if (rec.unlocked || rec.alwaysUnlocked)
-            {
-                RectTransform entry = Instantiate(recipeEntryPrefab, content);
-
-                // keep stuff after crafting
-                if (currentRecipe == rec)
-                {
-                    currentEntry = entry;
-                    CreateCostEntries();
-                }
-
-
-                // set text and icon
-                Item item = new Item();
-                foreach (PickUpInteractable p in rec.Yield.Keys)
-                {
-                    entry.Find("Yield").GetComponent<Text>().text = rec.Yield[p] + "x " + p.name;
-                    item.prefab = p.gameObject;
-                    item.name = p.name;
-                    break;
-                }
-                print(item.name);
-                entry.Find("Image").GetComponent<Image>().sprite = Utility.GetIconFor(item);
-
-                // local function to move entries below 
-                void MoveEntries(bool up)
-                {
-                    bool found = false;
-                    for (int child = 0; child < content.transform.childCount; child++)
-                    {
-                        if (found)
-                            content.transform.GetChild(child).transform.position += (up ? -1 : 1) * 70 * costPos * Vector3.down;
-
-                        if (content.transform.GetChild(child) == currentEntry.transform)
-                            found = true;
-                    }
-                }
-
-                // local function to create Cost entries
-                void CreateCostEntries()
-                {
-                    foreach (PickUpInteractable cost in rec.Cost.Keys)
-                    {
-                        RectTransform costEntry = Instantiate(recipeCostPrefab, entry);
-                        Item item = new Item
-                        {
-                            prefab = cost.gameObject,
-                            name = cost.name,
-                            amount = rec.Cost[cost]
-                        };
-                        costEntry.Find("Cost").GetComponent<Text>().color =
-                            inv.CanRemoveItem(item) ?
-                            Color.white :
-                            Color.gray;
-                        costEntry.Find("Cost").GetComponent<Text>().text = rec.Cost[cost] + "x " + cost.name;
-                        costEntry.Find("Image").GetComponent<Image>().sprite = Utility.GetIconFor(item);
-                        costPos++;
-                        costEntry.transform.position += 70 * costPos * Vector3.down;
-                    }
-                }
-
-                entry.Find("SelectButton").GetComponent<Button>().onClick.AddListener(() =>
-                {
-                    // close old crafting cost
-                    if (currentEntry)
-                    {
-                        foreach (RectTransform rect in currentEntry)
-                        {
-                            if (rect.name == "RecipeCost(Clone)")
-                                Destroy(rect.gameObject);
-                        }
-                        currentEntry.GetComponent<Image>().color = Color.gray;
-                        MoveEntries(true);
-                        costPos = 0;
-                    }
-
-                    // reset if clicked second time
-                    if (currentRecipe == rec) {                     
-                        currentEntry.GetComponent<Image>().color = Color.gray;
-                        currentRecipe = null;
-                        currentEntry = null;
-                        costPos = 0;
-                        entryPos = 0;
-                        return;
-                    }
-
-                    currentRecipe = rec;
-                    currentEntry = entry;
-
-                    // create cost entries
-                    CreateCostEntries();
-
-                    // move entries down
-                    MoveEntries(false);
-                    
-                });
-
-                entry.transform.position += 120 * entryPos * Vector3.down;
-                entryPos++;
-            }
-        }
-
-        if (entryPos > 0)
-            inventoryMenu.transform.Find("BG/Scroll View/NoContent").GetComponent<Text>().text = "";
-        else
-            inventoryMenu.transform.Find("BG/Scroll View/NoContent").GetComponent<Text>().text = "You have to discover a recipe first...";
+    public void UpdateCraftMenu()
+    {
+        craftingMenu.UpdateCraftMenu();
     }
 
     public void CloseCraftMenu()
     {
-        InGameMenu.instance = null;
-        currentRecipe = null;
-        currentEntry = null;
+        craftingMenu.CloseCraftMenu();
     }
 }

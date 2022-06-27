@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StickToBasic
   m_EditorClassIdentifier: 
   name: Simple Temporary Key
-  unlocked: 0
+  unlocked: 1
   alwaysUnlocked: 0
   Cost:
     keys:
