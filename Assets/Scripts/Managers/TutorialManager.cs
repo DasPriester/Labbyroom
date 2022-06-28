@@ -102,8 +102,8 @@ public class TutorialManager : MonoBehaviour
 
 
     private void StartOpenUI() {
-        UI.GetComponent<InventoryMenu>().UpdateCraftMenu();
-        UI.GetComponent<InventoryMenu>().CloseCraftMenu();
+        UI.GetComponent<InventoryMenu>().OpenInventoryMenu();
+        UI.GetComponent<InventoryMenu>().CloseInventoryMenu();
 
         currentPopUp = Instantiate(inventoryPopUp);
         currentPopUp.transform.Find("Image/Text").GetComponent<UnityEngine.UI.Text>().text =
@@ -224,8 +224,8 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator FlashFirstRecipe()
     {
-        GameObject firstRecipe = UI.transform.Find("InventoryMenu(Clone)/CraftingMenu(Clone)/Viewport/Content/RecipeEntry(Clone)").gameObject;
-        GameObject newRecipe = UI.transform.Find("InventoryMenu(Clone)/CraftingMenu(Clone)/Viewport/Content/RecipeEntry(Clone)").gameObject;
+        GameObject firstRecipe = UI.transform.Find("InventoryMenu(Clone)/CraftingMenu(Clone)/Scroll BG/Viewport/Content/RecipeEntry(Clone)").gameObject;
+        GameObject newRecipe = UI.transform.Find("InventoryMenu(Clone)/CraftingMenu(Clone)/Scroll BG/Viewport/Content/RecipeEntry(Clone)").gameObject;
 
         Coroutine flashing = StartCoroutine(FlashingUIOutline(firstRecipe, 0.75f, 0f, 1f));
         firstRecipe.GetComponentInChildren<UnityEngine.UI.Button>().onClick.AddListener(() =>
@@ -237,7 +237,7 @@ public class TutorialManager : MonoBehaviour
         });
 
         while (true) { 
-            newRecipe = UI.transform.Find("InventoryMenu(Clone)/CraftingMenu(Clone)/Viewport/Content/RecipeEntry(Clone)").gameObject;
+            newRecipe = UI.transform.Find("InventoryMenu(Clone)/CraftingMenu(Clone)/Scroll BG/Viewport/Content/RecipeEntry(Clone)").gameObject;
             if (newRecipe && firstRecipe != newRecipe)
             {
                 StopCoroutine(flashing);

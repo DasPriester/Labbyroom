@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CraftingMenu : SubMenu
+public class ForgeMenu : SubMenu
 {
-
     [SerializeField] private RectTransform recipeEntryPrefab = null;
     [SerializeField] private RectTransform recipeCostPrefab = null;
     private RectTransform content = null;
@@ -15,8 +14,10 @@ public class CraftingMenu : SubMenu
     private int entryPos = 0;
     private int costPos = 0;
 
-    private void Start()
+    public override void Awake()
     {
+        inv = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().GetComponent<Inventory>();
+
         content = transform.Find("Scroll BG/Viewport/Content").GetComponent<RectTransform>();
         recipes = Resources.LoadAll<Recipe>("Recipes");
         transform.Find("Craft").GetComponent<Button>().onClick.AddListener(() =>
@@ -45,7 +46,7 @@ public class CraftingMenu : SubMenu
         if (currentEntry)
             currentEntry.GetComponent<Image>().color = Color.white;
     }
-    
+
     /// <summary>
     /// Updates visuals for crafting menu and each recipe
     /// </summary>
@@ -62,7 +63,7 @@ public class CraftingMenu : SubMenu
 
         foreach (Recipe rec in recipes)
         {
-            if (!rec.requiresForge && (rec.unlocked || rec.alwaysUnlocked))
+            if (rec.requiresForge && (rec.unlocked || rec.alwaysUnlocked))
             {
                 RectTransform entry = Instantiate(recipeEntryPrefab, content);
 
@@ -171,6 +172,9 @@ public class CraftingMenu : SubMenu
     }
     public override void CloseMenu()
     {
+
+        InventoryMenu inventoryMenu = GameObject.Find("UI").GetComponent<InventoryMenu>();
+        inventoryMenu.SwitchMenu("CraftingMenu");
         currentRecipe = null;
         currentEntry = null;
     }

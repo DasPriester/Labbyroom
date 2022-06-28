@@ -208,7 +208,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSlot: {fileID: 2588724498381213132, guid: 93ef123127fc3a94187cd0c2364c7deb, type: 3}
   itemPref: {fileID: 3880007534733317040, guid: 38f26a2e172bc7245b70d6922269f4b8, type: 3}
-  craftingMenuPrefab: {fileID: 4067547992909285854, guid: 7b30fc2835f1181438b2d4fc09362d90, type: 3}
+  craftingMenuPrefab: {fileID: 4067547992909285854, guid: bbc8b2b07643c024a86111f49b919738, type: 3}
+  forgeMenuPrefab: {fileID: 4390727328520105870, guid: 30338862cbd945d478616d2a5610dfe3, type: 3}
 --- !u!114 &6884926892899863739
 MonoBehaviour:
   m_ObjectHideFlags: 0

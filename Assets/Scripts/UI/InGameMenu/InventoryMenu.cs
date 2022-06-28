@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using System;
 
 /// <summary>
-/// In game crafting menu
+/// Inventory UI
 /// </summary>
 public class InventoryMenu : MonoBehaviour
 {
@@ -21,13 +21,15 @@ public class InventoryMenu : MonoBehaviour
     private ItemUI[] itemUIs;
     private Vector2 spacing = new Vector2(10, -10);
 
+    
     // Hotbar UI
     private static readonly Color halfWhite = new Color(1, 1, 1, 0.4f);
     private GameObject[] hotbarSlots;
 
     // Crafting UI
     [SerializeField] private CraftingMenu craftingMenuPrefab;
-    private CraftingMenu craftingMenu;
+    [SerializeField] private ForgeMenu forgeMenuPrefab;
+    private SubMenu subMenu;
 
     private void Awake()
     {
@@ -38,10 +40,10 @@ public class InventoryMenu : MonoBehaviour
         hotbarSlots = new GameObject[inv.HotbarSize];
         inventorySlots = new GameObject[inv.InventorySize];
         itemUIs = new ItemUI[inv.HotbarSize + inv.InventorySize];
-        craftingMenu = Instantiate(craftingMenuPrefab, inventoryMenu.transform);
+        subMenu = Instantiate(craftingMenuPrefab, inventoryMenu.transform);
 
-        inventoryMenu.OpenMenu = craftingMenu.UpdateCraftMenu;
-        inventoryMenu.CloseMenu = craftingMenu.CloseCraftMenu;
+        inventoryMenu.OpenMenu = OpenInventoryMenu;
+        inventoryMenu.CloseMenu = CloseInventoryMenu;
 
         Transform hotbarGrid = this.transform.Find("Hotbar BG/Hotbar Grid");
         Transform inventoryGrid = inventoryMenu.transform.Find("BG/Inv Grid");
@@ -140,8 +142,8 @@ public class InventoryMenu : MonoBehaviour
 
         StartCoroutine(AddItemsWithDelay());
 
-        craftingMenu.UpdateCraftMenu();
-        craftingMenu.CloseCraftMenu();
+        subMenu.OpenMenu();
+        subMenu.CloseMenu();
     }
 
     private IEnumerator AddItemsWithDelay()
@@ -157,23 +159,33 @@ public class InventoryMenu : MonoBehaviour
         }
 
     }
+
+    public void SwitchMenu(string name)
+    {
+        Destroy(subMenu.gameObject);
+        switch (name)
+        {
+            case "CraftingMenu":
+                subMenu = Instantiate(craftingMenuPrefab, inventoryMenu.transform);
+                break;
+            case "ForgeMenu":
+                subMenu = Instantiate(forgeMenuPrefab, inventoryMenu.transform);
+                break;
+        }
+    }
+
     public void OpenInventoryMenu()
     {
-
         InGameMenu.instance = inventoryMenu;
+        subMenu.OpenMenu();
     }
     public void CloseInventoryMenu()
     {
         InGameMenu.instance = null;
+        subMenu.CloseMenu();
     }
 
-    public void UpdateCraftMenu()
-    {
-        craftingMenu.UpdateCraftMenu();
-    }
+    public InGameMenu GetInventoryMenu()
+    { return inventoryMenu; }
 
-    public void CloseCraftMenu()
-    {
-        craftingMenu.CloseCraftMenu();
-    }
 }
