@@ -411,7 +411,7 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Crouch
@@ -578,7 +578,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: a26995703664f174e8ffcfa44c67f563, type: 2}
-  audioChannel: 
 --- !u!1 &8729448962018411506
 GameObject:
   m_ObjectHideFlags: 0

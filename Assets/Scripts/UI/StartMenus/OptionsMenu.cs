@@ -30,6 +30,7 @@ public class OptionsMenu : MonoBehaviour
     Category currentCategory = Category.CONTROLLS;
 
     readonly Dictionary<string, InputType> controlls = new Dictionary<string, InputType> {
+        {"Invert Wheel", InputType.BOOL},
         {"Sprint", InputType.KEY},
         {"Jump", InputType.KEY},
         {"Crouch", InputType.KEY},
@@ -58,7 +59,6 @@ public class OptionsMenu : MonoBehaviour
     readonly Dictionary<string, InputType> video = new Dictionary<string, InputType> {
         {"Headbob", InputType.BOOL},
         {"Particles", InputType.BOOL},
-        {"InvertScrollWheel", InputType.BOOL},
     };
 
     private void Start()

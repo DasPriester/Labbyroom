@@ -26,7 +26,7 @@ public class Settings : ScriptableObject
     //Video
     public bool useHeadbob = true;
     public bool particlesActivated = true;
-    public bool invertScrollWheel = false;
+    public bool wheel = false;
 
     //Audio
     public float masterVolume = 1f;
@@ -219,8 +219,8 @@ public class Settings : ScriptableObject
             case "Particles":
                 particlesActivated = value;
                 break;
-            case "InvertScrollWheel":
-                invertScrollWheel = value;
+            case "Wheel":
+                wheel = value;
                 break;
         }
     }
@@ -235,8 +235,8 @@ public class Settings : ScriptableObject
                 return useHeadbob;
             case "Particles":
                 return particlesActivated;
-            case "InvertScrollWheel":
-                return particlesActivated;
+            case "Wheel":
+                return wheel;
             default:
                 break;
         }

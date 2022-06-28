@@ -73,8 +73,9 @@ public class InventoryMenu : MonoBehaviour
 
         if(Input.mouseScrollDelta != Vector2.zero && InGameMenu.instance == null)
         {
+            int dir = playerController.settings.wheel ? 1 : -1;
             hotbarSlots[inv.CurrentSlot].GetComponent<Image>().color = halfWhite;
-            inv.CurrentSlot -= (int)Input.mouseScrollDelta.y;
+            inv.CurrentSlot += dir * (int)Input.mouseScrollDelta.y;
             if (inv.CurrentSlot >= inv.HotbarSize)
                 inv.CurrentSlot = 0;
             else if (inv.CurrentSlot < 0)
