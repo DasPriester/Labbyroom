@@ -238,7 +238,6 @@ MonoBehaviour:
   accessDoor: {x: 5, y: 2}
   accessWall: {fileID: 5518771475098346700}
   prefabName: GreenRoom
-  isTemporary: 1
 --- !u!1 &5518771476128126092
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +252,7 @@ GameObject:
   - component: {fileID: 5518771476128126093}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Footsteps/Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

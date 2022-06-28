@@ -325,7 +325,7 @@ public class PlayerController : MonoBehaviour {
                 item.amount = 1;
                 if (inv.RemoveItem(item))
                 {
-                    GameObject newItem = Instantiate(item.prefab, new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z), gameObject.transform.rotation);
+                    GameObject newItem = Instantiate(item.prefab, new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z), gameObject.transform.rotation * item.prefab.gameObject.transform.rotation);
                     newItem.GetComponent<PickUpInteractable>().OnPlace();
                 }
             }

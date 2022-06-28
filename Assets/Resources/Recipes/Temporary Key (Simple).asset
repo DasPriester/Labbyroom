@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec9ed41941b4d46c693d18a3e97febb0, type: 3}
-  m_Name: StickToBasic
+  m_Name: Temporary Key (Simple)
   m_EditorClassIdentifier: 
   name: Simple Temporary Key
   unlocked: 1

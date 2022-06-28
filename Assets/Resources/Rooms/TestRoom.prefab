@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 1255976478663795016}
   m_Layer: 0
   m_Name: TestRoom
-  m_TagString: Untagged
+  m_TagString: Footsteps/Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -327,7 +327,6 @@ MonoBehaviour:
   accessDoor: {x: 5, y: 2}
   accessWall: {fileID: 5518771475098346700}
   prefabName: TestRoom
-  isTemporary: 0
 --- !u!1 &5518771476128126092
 GameObject:
   m_ObjectHideFlags: 0

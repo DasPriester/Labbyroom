@@ -14,10 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Table
   unlocked: 0
-  alwaysUnlocked: 0
+  alwaysUnlocked: 1
+  requiresForge: 0
   Cost:
-    keys: []
-    values: 
+    keys:
+    - {fileID: -3312713435364818256, guid: 00b567454b6c444578425a2069268b48, type: 3}
+    - {fileID: -3312713435364818256, guid: 6426458782e3549e086f2bd3f846650d, type: 3}
+    - {fileID: -3312713435364818256, guid: 51254ed16043249949a2e21bfff8c1ef, type: 3}
+    values: 060000000400000001000000
   Yield:
-    keys: []
-    values: 
+    keys:
+    - {fileID: -3312713435364818256, guid: 55bebdd9321e3471c940eb2f88a1c2dd, type: 3}
+    values: 01000000
