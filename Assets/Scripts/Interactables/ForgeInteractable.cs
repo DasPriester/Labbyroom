@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForgeInteractable : Interactable
+public class ForgeInteractable : PickUpInteractable
 {
     private InventoryMenu inventoryMenu;
     
