@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour {
     public bool canJump = false;
     public bool canCrouch = false;
     public bool canInteract = false;
+    public bool canPickUp = false;
     public bool canBuild = false;
-    public bool canPlace = false;
 
     [Header("Movement Parameters")]
     [SerializeField] private float walkSpeed = 3.0f;
@@ -65,10 +65,6 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private LayerMask interactionLayer = default;
     [SerializeField] private LayerMask wallLayer = default;
     private Interactable currentInteractable;
-
-    [Header("Placement")]
-    [SerializeField] private Vector3 placementRayPoint = new Vector3(0.5f, 0.5f, 0);
-    [SerializeField] private float placementDistance = 4;
 
     [Header("Footstep Parameters")]
     [SerializeField] private float baseStepSpeed = 0.5f;
@@ -115,7 +111,6 @@ public class PlayerController : MonoBehaviour {
                 settings.liveMenus[menu.name] = Instantiate(menu, FindObjectOfType<InventoryMenu>().transform);
 
         }
-        
     }
 
     void Update()
@@ -142,12 +137,12 @@ public class PlayerController : MonoBehaviour {
         
         if (canBuild)
             HandleBuildInput();
-        
-        if(canInteract || canBuild)
-            HandleFocus();
 
-        if (canPlace)
-            HandlePlaceInput();
+        if (canPickUp)
+            HandlePickUpInput();
+        
+        if(canInteract || canBuild || canPickUp)
+            HandleFocus();
 
         if (settings.useHeadbob)
             HandleHeadbob();
@@ -298,39 +293,38 @@ public class PlayerController : MonoBehaviour {
             currentInteractable.OnInteract(hit.point);
         }
 
-    }private void HandleBuildInput()
-    {
-        if (Input.GetKeyDown(settings.buildKey) && currentInteractable != null && 
-            Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
-        {
-            currentInteractable.OnBuild(hit.point);
-        }
     }
-
-    /// <summary>
-    /// Place currently selected inventory-item
-    /// </summary>
-    private void HandlePlaceInput()
+    private void HandleBuildInput()
     {
-        if(Input.GetKeyDown(settings.placeKey) &&
-            Physics.Raycast(playerCamera.ViewportPointToRay(placementRayPoint), out RaycastHit hit, placementDistance))
+        if (Input.GetKeyDown(settings.buildKey) && 
+            Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance))
         {
+            Inventory inv = transform.GetComponent<Inventory>();
+            Item item = inv.CurrentItem();
 
-
-            Inventory inv = GameObject.Find("Player").GetComponent<Inventory>();
-            var item = inv.CurrentItem();
             if (item.prefab != null)
             {
-
-                item.amount = 1;
-                if (inv.RemoveItem(item))
+                if(!item.prefab.GetComponent<KeyInteractable>())
                 {
-                    GameObject newItem = Instantiate(item.prefab, new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z), gameObject.transform.rotation * item.prefab.gameObject.transform.rotation);
-                    newItem.GetComponent<PickUpInteractable>().OnPlace();
+                    item.amount = 1;
+                    if (inv.RemoveItem(item))
+                    {
+                        GameObject newItem = Instantiate(item.prefab, new Vector3(hit.point.x, hit.point.y + 0.1f, hit.point.z), gameObject.transform.rotation * item.prefab.transform.rotation);
+                        newItem.GetComponent<PickUpInteractable>().OnBuild(hit.point);
+                    }
                 }
+                else if (Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit _, interactionDistance, wallLayer) && currentInteractable != null)
+                    currentInteractable.OnBuild(hit.point);
             }
         }
-        
+    }
+    private void HandlePickUpInput()
+    {
+        if (Input.GetKeyDown(settings.pickUpKey) && currentInteractable != null && 
+            Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
+        {
+            currentInteractable.OnPickUp(hit.point);
+        }
     }
 
     /// <summary>

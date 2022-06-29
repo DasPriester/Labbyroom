@@ -22,12 +22,14 @@ public class PickUpInteractable : Interactable
     {
         prefabName = GetComponent<Moveable>().PrefabName;
         prefab = (GameObject)Resources.Load("Prefabs/" + prefabName);
+
+        toolTip.SetText(Utility.GetKeyName(pc.settings.pickUpKey));
     }
 
     /// <summary>
     /// Play placing sound
     /// </summary>
-    public void OnPlace()
+    public override void OnBuild(Vector3 hit)
     {
         if (UseAudio)
         {
@@ -51,7 +53,7 @@ public class PickUpInteractable : Interactable
     /// <summary>
     /// Play pickup sound and add item to inventory
     /// </summary>
-    public override void OnInteract(Vector3 hit)
+    public override void OnPickUp(Vector3 hit)
     {
         if (UseAudio)
         {

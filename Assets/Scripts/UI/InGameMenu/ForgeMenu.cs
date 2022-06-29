@@ -54,7 +54,7 @@ public class ForgeMenu : SubMenu
     {
         transform.GetComponent<AudioSource>().clip = audioClip;
         transform.GetComponent<AudioSource>().Play();
-        Image arrow = transform.Find("Arrow BG").GetComponent<Image>();
+        Image arrow = transform.Find("Arrow FG").GetComponent<Image>();
         float progress = 0f;
         forging = true;
         CreateForgingItemUI(recipe);
@@ -66,7 +66,7 @@ public class ForgeMenu : SubMenu
             yield return null;
         }
 
-        RemoveForgingItemUI();
+        RemoveForgingItemUI(recipe);
         arrow.fillAmount = 0f;
         forging = false;
         inv.CraftRecipe(recipe);
@@ -83,6 +83,7 @@ public class ForgeMenu : SubMenu
                 amount = recipe.Cost[cost]
             };
 
+            inv.RemoveItem(item);
             GameObject itemUI = Instantiate(itemPrefab, transform.Find("LeftSlot"));
             itemUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(50, -50);
             itemUI.GetComponent<ItemUI>().Item = item;
@@ -107,7 +108,7 @@ public class ForgeMenu : SubMenu
             break;
         }
     }
-    private void RemoveForgingItemUI()
+    private void RemoveForgingItemUI(Recipe recipe)
     {
         
         foreach(Transform t in transform.Find("LeftSlot"))
@@ -116,7 +117,18 @@ public class ForgeMenu : SubMenu
         }
         foreach(Transform t in transform.Find("RightSlot"))
         {
-            Destroy(t.gameObject);       
+            Destroy(t.gameObject);
+        }
+        foreach (PickUpInteractable cost in recipe.Yield.Keys)
+        {
+            Item item = new Item
+            {
+                prefab = cost.gameObject,
+                name = cost.name,
+                amount = recipe.Yield[cost]
+            };
+
+            inv.AddItem(item);
         }
     }
 
@@ -140,6 +152,7 @@ public class ForgeMenu : SubMenu
             if (rec.requiresForge && (rec.unlocked || rec.alwaysUnlocked))
             {
                 RectTransform entry = Instantiate(recipeEntryPrefab, content);
+                entry.GetComponent<RecipeEntry>().Recipe = rec;
 
                 // keep stuff after crafting
                 if (currentRecipe == rec)

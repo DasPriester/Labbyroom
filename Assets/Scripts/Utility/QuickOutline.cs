@@ -13,7 +13,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 
-public class Outline : MonoBehaviour {
+public class QuickOutline : MonoBehaviour {
   private readonly static HashSet<Mesh> registeredMeshes = new HashSet<Mesh>();
 
   public enum Mode {

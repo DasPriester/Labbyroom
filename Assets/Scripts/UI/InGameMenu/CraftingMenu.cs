@@ -65,6 +65,7 @@ public class CraftingMenu : SubMenu
             if (!rec.requiresForge && (rec.unlocked || rec.alwaysUnlocked))
             {
                 RectTransform entry = Instantiate(recipeEntryPrefab, content);
+                entry.GetComponent<RecipeEntry>().Recipe = rec;
 
                 // keep stuff after crafting
                 if (currentRecipe == rec)

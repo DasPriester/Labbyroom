@@ -15,6 +15,11 @@ public class ToolTip : Hideable
         set { key = value; GetComponentInChildren<Text>().text = key.ToString(); }
     }
 
+    public void SetText(string text)
+    {
+        GetComponentInChildren<Text>().text = text;
+    }
+
     private void Awake()
     {
         GetComponentInChildren<Text>().text = key.ToString();

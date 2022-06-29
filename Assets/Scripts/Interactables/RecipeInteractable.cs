@@ -40,7 +40,7 @@ public class RecipeInteractable : PickUpInteractable
     /// <summary>
     /// Play sound and unlock recipe
     /// </summary>
-    public override void OnInteract(Vector3 hit)
+    public override void OnPickUp(Vector3 hit)
     {
         if (UseAudio)
         {

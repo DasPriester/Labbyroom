@@ -286,6 +286,7 @@ GameObject:
   - component: {fileID: 2294262575892101798}
   - component: {fileID: 4120077705819408707}
   - component: {fileID: 3369370649691214094}
+  - component: {fileID: 4401384520018626282}
   m_Layer: 0
   m_Name: RecipeEntry
   m_TagString: Untagged
@@ -368,3 +369,15 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 0, a: 1}
   m_EffectDistance: {x: 3, y: -3}
   m_UseGraphicAlpha: 1
+--- !u!114 &4401384520018626282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6398403608163968180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b36bf191bb43b51419c10cf5aec08b89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

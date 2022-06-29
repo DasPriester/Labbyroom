@@ -13,8 +13,8 @@ public class Settings : ScriptableObject
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode crouchKey = KeyCode.LeftControl;
     public KeyCode buildKey = KeyCode.Mouse0;
+    public KeyCode pickUpKey = KeyCode.Mouse1;
     public KeyCode interactKey = KeyCode.E;
-    public KeyCode placeKey = KeyCode.Q;
 
     //Inventory
     public KeyCode[] inventoryKeys = new KeyCode[] { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7, KeyCode.Alpha8, KeyCode.Alpha9 };
@@ -95,11 +95,11 @@ public class Settings : ScriptableObject
             case "Build":
                 buildKey = key;
                 break;
+            case "PickUp":
+                pickUpKey = key;
+                break;
             case "Interact":
                 interactKey = key;
-                break;
-            case "Place":
-                placeKey = key;
                 break;
             case "Hotbar Slot 1":
                 inventoryKeys[0] = key;
@@ -161,10 +161,10 @@ public class Settings : ScriptableObject
                 return crouchKey;
             case "Build":
                 return crouchKey;
+            case "PickUp":
+                return pickUpKey;
             case "Interact":
                 return interactKey;
-            case "Place":
-                return placeKey;
             case "Hotbar Slot 1":
                 return inventoryKeys[0];
             case "Hotbar Slot 2":

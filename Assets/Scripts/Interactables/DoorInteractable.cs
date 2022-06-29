@@ -23,6 +23,9 @@ public class DoorInteractable : Interactable
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = doorSound;
         portal = doorAnimator.GetComponentInParent<PortalComponent>();
+
+
+        toolTip.SetText(Utility.GetKeyName(pc.settings.interactKey));
     }
 
     public void Update()
@@ -31,7 +34,7 @@ public class DoorInteractable : Interactable
         if (!blocked && focused)
         {
             if (UseOutline && !blocked)
-                gameObject.GetComponent<Outline>().enabled = true;
+                gameObject.GetComponent<QuickOutline>().enabled = true;
 
             if (UseToolTip && toolTip && !blocked)
                 toolTip.Show();
@@ -39,7 +42,7 @@ public class DoorInteractable : Interactable
         else
         {
             if (UseOutline)
-                gameObject.GetComponent<Outline>().enabled = false;
+                gameObject.GetComponent<QuickOutline>().enabled = false;
             if (UseToolTip)
                 toolTip.Hide();
         }
@@ -82,7 +85,7 @@ public class DoorInteractable : Interactable
     {
         focused = true;
         if (UseOutline && !blocked)
-            gameObject.GetComponent<Outline>().enabled = true;
+            gameObject.GetComponent<QuickOutline>().enabled = true;
 
         if (UseToolTip && toolTip && !blocked)
             toolTip.Show();
@@ -95,7 +98,7 @@ public class DoorInteractable : Interactable
     {
         focused = false;
         if (UseOutline)
-            gameObject.GetComponent<Outline>().enabled = false;
+            gameObject.GetComponent<QuickOutline>().enabled = false;
         if (UseToolTip)
             toolTip.Hide();
     }
