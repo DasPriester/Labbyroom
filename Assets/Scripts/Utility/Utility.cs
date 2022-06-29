@@ -90,7 +90,28 @@ public class Utility : MonoBehaviour
         var interfaceType = typeof(T);
         return types.Where(p => interfaceType.IsAssignableFrom(p) && !p.IsAbstract).ToArray();
     }
+
+    public static string GetKeyName(KeyCode key)
+    {
+        return key switch
+        {
+            KeyCode.Alpha0 => "0",
+            KeyCode.Alpha1 => "1",
+            KeyCode.Alpha2 => "2",
+            KeyCode.Alpha3 => "3",
+            KeyCode.Alpha4 => "4",
+            KeyCode.Alpha5 => "5",
+            KeyCode.Alpha6 => "6",
+            KeyCode.Alpha7 => "7",
+            KeyCode.Alpha8 => "8",
+            KeyCode.Alpha9 => "9",
+            KeyCode.Mouse0 => "LMB",
+            KeyCode.Mouse1 => "RMB",
+            _ => key.ToString(),
+        };
+    }
 }
+
 
 [Serializable]
 public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver

@@ -37,7 +37,7 @@ public class InputSetterButton : Button
 
     private void Update()
     {
-        text.text = currentSettings.GetKey(sets).ToString();
+        text.text = Utility.GetKeyName(currentSettings.GetKey(sets));
     }
 
     /// <summary>

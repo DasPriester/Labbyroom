@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseAudio: 1
-  UseOutline: 1
+  UseOutline: 0
   UseParticle: 1
   UseAnimation: 1
   UseToolTip: 1

@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -30,8 +31,8 @@ public class TutorialManager : MonoBehaviour
             if (pui != null)
             {
                 pui.UseOutline = false;
-                pui.GetComponent<Outline>().enabled = true;
-                StartCoroutine(FlashingOutline(pui.GetComponent<Outline>(), 1f, 0f, 1f));
+                pui.GetComponent<QuickOutline>().enabled = true;
+                StartCoroutine(FlashingOutline(pui.GetComponent<QuickOutline>(), 1f, 0f, 1f));
             }
         }
         
@@ -91,6 +92,7 @@ public class TutorialManager : MonoBehaviour
         player.canMove = true;
         player.canSprint = true;
         player.canInteract = true;
+        player.canPickUp = true;
         player.canBuild = true;
     }
 
@@ -117,7 +119,7 @@ public class TutorialManager : MonoBehaviour
 
 
     private void StartCraftUI() {
-        currentCoroutine = StartCoroutine(FlashFirstRecipe());
+        currentCoroutine = StartCoroutine(FlashRecipe(recipeToUnlock));
     }
     private void CloseCraftUI() {
         currentPopUp = Instantiate(finishPopUp);
@@ -150,12 +152,53 @@ public class TutorialManager : MonoBehaviour
             if (pui != null)
             {
                 pui.UseOutline = false;
-                pui.GetComponent<Outline>().enabled = true;
-                StartCoroutine(FlashingOutline(pui.GetComponent<Outline>(), 1f, 0f, 1f));
+                pui.GetComponent<QuickOutline>().enabled = true;
+                StartCoroutine(FlashingOutline(pui.GetComponent<QuickOutline>(), 1f, 0f, 1f));
             }
         }
     }
+    private IEnumerator FlashRecipe(Recipe recipe)
+    {
+        Transform content = UI.transform.Find("InventoryMenu(Clone)/CraftingMenu(Clone)/Scroll BG/Viewport/Content");
 
+        int i = 0;
+        foreach(Transform child in content)
+        {
+            if (child.GetComponent<RecipeEntry>().Recipe == recipe)
+                break;
+            i++;
+        }
+        GameObject oldRecipe = content.GetChild(i).gameObject;
+        GameObject newRecipe;
+
+        Coroutine flashing = StartCoroutine(FlashingUIOutline(oldRecipe, 0.75f, 0f, 1f));
+        oldRecipe.GetComponentInChildren<Button>().onClick.AddListener(() =>
+        {
+            StopCoroutine(flashing);
+            var ol = oldRecipe.GetComponent<Outline>();
+            StartCoroutine(FadeUIOutline(ol, 0.75f, 0f));
+
+        });
+
+        while (true)
+        {
+            newRecipe = content.GetChild(i).gameObject;
+            if (newRecipe && oldRecipe != newRecipe)
+            {
+                StopCoroutine(flashing);
+                flashing = StartCoroutine(FlashingUIOutline(newRecipe, 0.75f, 0f, 1f));
+                newRecipe.GetComponentInChildren<Button>().onClick.AddListener(() =>
+                {
+                    StopCoroutine(flashing);
+                    var ol = oldRecipe.GetComponent<Outline>();
+                    StartCoroutine(FadeUIOutline(ol, 0.75f, 0f));
+
+                });
+                oldRecipe = newRecipe;
+            }
+            yield return null;
+        }
+    }
     private IEnumerator FadeCanvas(GameObject uiElement, float fadeDuration, float desiredAlpha)
     {
         CanvasGroup cg = uiElement.GetComponent<CanvasGroup>();
@@ -172,7 +215,7 @@ public class TutorialManager : MonoBehaviour
             yield return null;
         }
     }
-    private IEnumerator FadeOutline(Outline ol, float fadeDuration, float desiredAlpha)
+    private IEnumerator FadeOutline(QuickOutline ol, float fadeDuration, float desiredAlpha)
     {
         float currentAlpha = ol.OutlineColor.a;
 
@@ -187,8 +230,7 @@ public class TutorialManager : MonoBehaviour
             yield return null;
         }
     }
-
-    private IEnumerator FadeUIOutline(UnityEngine.UI.Outline ol, float fadeDuration, float desiredAlpha)
+    private IEnumerator FadeUIOutline(Outline ol, float fadeDuration, float desiredAlpha)
     {
 
         float currentAlpha = ol.effectColor.a;
@@ -204,15 +246,7 @@ public class TutorialManager : MonoBehaviour
             yield return null;
         }
     }
-
-    private IEnumerator RemovePopUp(GameObject go, float time)
-    {
-        yield return new WaitForSeconds(time);
-        Destroy(go);
-        currentPopUp = null;
-    }
-
-    private IEnumerator FlashingOutline(Outline ol, float fadeDuration, float minAlpha, float maxAlpha)
+    private IEnumerator FlashingOutline(QuickOutline ol, float fadeDuration, float minAlpha, float maxAlpha)
     {
         while (true)
         {
@@ -222,43 +256,10 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    private IEnumerator FlashFirstRecipe()
-    {
-        GameObject firstRecipe = UI.transform.Find("InventoryMenu(Clone)/CraftingMenu(Clone)/Scroll BG/Viewport/Content/RecipeEntry(Clone)").gameObject;
-        GameObject newRecipe = UI.transform.Find("InventoryMenu(Clone)/CraftingMenu(Clone)/Scroll BG/Viewport/Content/RecipeEntry(Clone)").gameObject;
-
-        Coroutine flashing = StartCoroutine(FlashingUIOutline(firstRecipe, 0.75f, 0f, 1f));
-        firstRecipe.GetComponentInChildren<UnityEngine.UI.Button>().onClick.AddListener(() =>
-        {
-            StopCoroutine(flashing);
-            var ol = firstRecipe.GetComponent<UnityEngine.UI.Outline>();
-            StartCoroutine(FadeUIOutline(ol, 0.75f, 0f));
-
-        });
-
-        while (true) { 
-            newRecipe = UI.transform.Find("InventoryMenu(Clone)/CraftingMenu(Clone)/Scroll BG/Viewport/Content/RecipeEntry(Clone)").gameObject;
-            if (newRecipe && firstRecipe != newRecipe)
-            {
-                StopCoroutine(flashing);
-                flashing = StartCoroutine(FlashingUIOutline(newRecipe, 0.75f, 0f, 1f));
-                newRecipe.GetComponentInChildren<UnityEngine.UI.Button>().onClick.AddListener(() =>
-                {
-                    StopCoroutine(flashing);
-                    var ol = firstRecipe.GetComponent<UnityEngine.UI.Outline>();
-                    StartCoroutine(FadeUIOutline(ol, 0.75f, 0f));
-                    
-                });
-                firstRecipe = newRecipe;
-            }
-            yield return null;
-        }
-    }
-
     private IEnumerator FlashingUIOutline(GameObject go, float fadeDuration, float minAlpha, float maxAlpha)
     {
-        go.GetComponent<UnityEngine.UI.Outline>().enabled = true;
-        var ol = go.GetComponent<UnityEngine.UI.Outline>();
+        go.GetComponent<Outline>().enabled = true;
+        var ol = go.GetComponent<Outline>();
         while (true)
         {
             yield return StartCoroutine(FadeUIOutline(ol, fadeDuration, maxAlpha));
@@ -266,4 +267,15 @@ public class TutorialManager : MonoBehaviour
 
         }
     }
+
+    private IEnumerator RemovePopUp(GameObject go, float time)
+    {
+        yield return new WaitForSeconds(time);
+        Destroy(go);
+        currentPopUp = null;
+    }
+
+    
+
+    
 }

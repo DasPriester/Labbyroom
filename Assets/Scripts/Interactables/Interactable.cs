@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Outline))]
+[RequireComponent(typeof(QuickOutline))]
 /// <summary>
 /// base class from which each Interactable Object derives from.
 /// </summary>
@@ -24,27 +24,30 @@ public abstract class Interactable : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Interactable");
         pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
-        if(UseToolTip)
+        if (UseToolTip)
+        {
             toolTip = GetComponentInChildren<ToolTip>();
+        }
     }
 
-    private void Update()
-    {
-        if (toolTip)
-            toolTip.Key = pc.settings.interactKey;
-    }
 
     /// <summary>
     /// Called if the player uses the interact key while targeting the object.
     /// </summary>
     /// <param name="pos">Location at which the hit occured</param>
-    public abstract void OnInteract(Vector3 pos);
+    public virtual void OnInteract(Vector3 pos) { }
     
     /// <summary>
     /// Called if the player uses the build key while targeting the object.
     /// </summary>
     /// <param name="pos">Location at which the hit occured</param>
     public virtual void OnBuild(Vector3 pos) { }
+    
+    /// <summary>
+    /// Called if the player uses the pickup key while targeting the object.
+    /// </summary>
+    /// <param name="pos">Location at which the hit occured</param>
+    public virtual void OnPickUp(Vector3 pos) { }
 
    
     /// <summary>
@@ -53,7 +56,7 @@ public abstract class Interactable : MonoBehaviour
     public virtual void OnFocus()
     {
         if(UseOutline)
-            gameObject.GetComponent<Outline>().enabled = true;
+            gameObject.GetComponent<QuickOutline>().enabled = true;
         if(UseToolTip)
             toolTip.Show();
     }
@@ -64,7 +67,7 @@ public abstract class Interactable : MonoBehaviour
     public virtual void OnLoseFcous()
     {
         if (UseOutline)
-            gameObject.GetComponent<Outline>().enabled = false;
+            gameObject.GetComponent<QuickOutline>().enabled = false;
         if (UseToolTip)
             toolTip.Hide();
     }
