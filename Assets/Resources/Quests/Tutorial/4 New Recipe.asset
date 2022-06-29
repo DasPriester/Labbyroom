@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fed2e23577d44501b8f597586461a61, type: 3}
+  m_Name: 4 New Recipe
+  m_EditorClassIdentifier: 
+  description: Find a new Recipe
+  task:
+    id: 0
+  reward:
+    prefab: {fileID: 6432907728722272025, guid: 9af1450c42cfd6e4aaf596bcef03f0aa, type: 3}
+    name: RecipeForge
+    amount: 1
+  goal: 1
+  maximise: 1
+  references:
+    version: 1
+    00000000:
+      type: {class: HaveRecipe, ns: , asm: Assembly-CSharp}
+      data:
+        recipes:
+        - {fileID: 11400000, guid: 6b444ad30c9bb4f9fbdb0fd351bf410a, type: 2}
+        - {fileID: 11400000, guid: 87a17962b4f5b4a6cb842acc1524def3, type: 2}
+        - {fileID: 11400000, guid: 9d0a4e3fe40f643ea97f3fc1fdc5346c, type: 2}

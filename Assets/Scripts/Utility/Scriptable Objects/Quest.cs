@@ -10,7 +10,7 @@ public class Quest : ScriptableObject
     [TextArea(3, 10)]
     [SerializeField] private string description = "";
     [SerializeReference] private Task task;
-    [SerializeField] private PickUpInteractable reward;
+    [SerializeField] private Item reward;
     [SerializeField] private float goal = 1;
     [SerializeField] private bool maximise = true;
 
@@ -19,7 +19,7 @@ public class Quest : ScriptableObject
     public Action CloseUI;
     public Action Rewards;
 
-    public PickUpInteractable Reward { get { return reward; } }
+    public Item Reward { get { return reward; } }
     public string Description { get { return description; } }
     public Task Task { get => task; set => task = value; }
 

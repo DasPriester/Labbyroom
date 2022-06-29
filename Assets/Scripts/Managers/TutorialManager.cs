@@ -125,7 +125,8 @@ public class TutorialManager : MonoBehaviour
     private void CloseCraftUI()
     {
         StopCoroutine(currentCoroutine);
-        QuestFinished(quests[step]);
+        QuestFinished();
+
     }
     private void CraftReward()
     {
@@ -133,21 +134,31 @@ public class TutorialManager : MonoBehaviour
     }
 
 
-    public void QuestFinished(Quest quest)
+    public void QuestFinished()
     {
         if(InGameMenu.instance != null)
             UI.GetComponent<InventoryMenu>().GetInventoryMenu().ToggleMenu();
 
-        Item item = new Item{ name = quest.Reward.name };
-        print(item.name);
-        questMenu.transform.Find("BG/ItemIcon").GetComponent<Image>().sprite = Utility.GetIconFor(item);
-        questMenu.transform.Find("BG/Description").GetComponent<Text>().text = quest.Description;
+        Quest quest = quests[step];
+        questMenu.transform.Find("BG/RewardIcon").GetComponent<Image>().sprite = Utility.GetIconFor(quest.Reward);
+        questMenu.transform.Find("BG/RewardName").GetComponent<Text>().text = quest.Reward.name;
+
+        questMenu.transform.Find("BG/Description").GetComponent<Text>().text = quests[step+1].Description;
+        questMenu.transform.Find("BG/PreviewIcon").GetComponent<Image>().sprite = Utility.GetIconFor(new Item { name = quests[step+1].Reward.name });
+        questMenu.transform.Find("BG/Button").GetComponent<Button>().onClick.AddListener(() =>
+        {
+            RecipeInteractable ri = quest.Reward.prefab.GetComponent<RecipeInteractable>();
+            if (ri)
+                ri.Recipe.unlocked = true;
+            else
+                player.GetComponent<Inventory>().AddItem(quest.Reward);
+            questMenu.ToggleMenu();
+            InGameMenu.instance = null;
+        });
+
+
         questMenu.ToggleMenu();
         InGameMenu.instance = questMenu;
-    }
-    public void CloseQuestMenu()
-    {
-        InGameMenu.instance = null;
     }
 
     public void Refresh()

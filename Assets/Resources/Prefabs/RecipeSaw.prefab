@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 6091691096947518402}
   - component: {fileID: 1805468729710905559}
   m_Layer: 6
-  m_Name: Saw Recipe
+  m_Name: RecipeSaw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936f3985fae63e34087bc0798b6b46c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: Saw Recipe
+  prefabName: Recipe
 --- !u!1 &7030324898013917980
 GameObject:
   m_ObjectHideFlags: 0
