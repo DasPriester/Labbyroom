@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fed2e23577d44501b8f597586461a61, type: 3}
-  m_Name: 4 Craft Key
+  m_Name: 1 Collect Sticks
   m_EditorClassIdentifier: 
   name: 
   description: 
   task:
     id: 0
-  goal: 1
+  goal: 2
   maximise: 1
   references:
     version: 1
     00000000:
       type: {class: HaveItem, ns: , asm: Assembly-CSharp}
       data:
-        name: Simple Temporary Key
+        name: Stick

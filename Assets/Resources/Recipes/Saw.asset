@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Saw
   m_EditorClassIdentifier: 
   name: Saw
-  unlocked: 0
-  alwaysUnlocked: 1
+  unlocked: 1
+  alwaysUnlocked: 0
+  requiresForge: 0
   Cost:
     keys:
     - {fileID: -3312713435364818256, guid: 8ef433586db31460091aed7a0760dadb, type: 3}

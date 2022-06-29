@@ -184,11 +184,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: 84d5b2e9440d54f098b8edfaf7e1f1ce, type: 2}
+  canMove: 0
   canSprint: 1
   canJump: 1
   canCrouch: 1
   canInteract: 1
-  canPlace: 1
+  canPickUp: 0
+  canBuild: 0
   walkSpeed: 3
   sprintSpeed: 6
   crouchSpeed: 1.5
@@ -217,8 +219,6 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 256
-  placementRayPoint: {x: 0.5, y: 0.5, z: 0}
-  placementDistance: 4
   baseStepSpeed: 0.5
   crouchStepMultiplier: 1.5
   sprintStepMultiplier: 0.6
@@ -327,7 +327,7 @@ AudioSource:
   m_GameObject: {fileID: 8460410003938108310}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: a26995703664f174e8ffcfa44c67f563, type: 2}
+  OutputAudioMixerGroup: {fileID: -1218876715284629852, guid: a26995703664f174e8ffcfa44c67f563, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.2
@@ -426,223 +426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a55ad3c9d9a8c5448cc109ec085e1f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invList:
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
-  - prefab: {fileID: 0}
-    name: 
-    amount: 0
 --- !u!1 &8460410004057096659
 GameObject:
   m_ObjectHideFlags: 0

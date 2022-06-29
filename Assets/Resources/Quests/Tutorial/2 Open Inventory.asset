@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fed2e23577d44501b8f597586461a61, type: 3}
-  m_Name: 2 Collect Sticks
+  m_Name: 2 Open Inventory
   m_EditorClassIdentifier: 
   name: 
   description: 
   task:
     id: 0
-  goal: 2
+  goal: 1
   maximise: 1
   references:
     version: 1
     00000000:
-      type: {class: HaveItem, ns: , asm: Assembly-CSharp}
+      type: {class: PressButton, ns: , asm: Assembly-CSharp}
       data:
-        name: Stick
+        buttons: 69000000

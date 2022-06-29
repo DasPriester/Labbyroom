@@ -12,19 +12,22 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private List<Quest> quests = new List<Quest>();
     [SerializeField] private GameObject movePopUp;
     [SerializeField] private GameObject inventoryPopUp;
-    [SerializeField] private GameObject finishPopUp;
-    [SerializeField] private Recipe recipeToUnlock;
+    [SerializeField] private GameObject questBar;
+    [SerializeField] private Recipe keyRecipe;
+    [SerializeField] private AudioClip completedClip;
+    [SerializeField] private AudioClip acceptedClip;
     private Coroutine currentCoroutine = null;
     private GameObject currentPopUp = null;
     private Quest currentQuest = null;
     private bool startedQuest = false;
+    private InGameMenu questMenu;
     public int step = 0;
 
     private void Awake()
     {
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         UI = GameObject.Find("UI");
-
+        questMenu = player.settings.GetMenu("QuestMenu");
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("Highlight"))
         {
             PickUpInteractable pui = go.GetComponent<PickUpInteractable>();
@@ -48,6 +51,7 @@ public class TutorialManager : MonoBehaviour
 
         quests[3].StartUI = StartCraftUI;
         quests[3].CloseUI = CloseCraftUI;
+        quests[3].Rewards = CraftReward;
 
         currentQuest = quests[step];
 
@@ -99,7 +103,7 @@ public class TutorialManager : MonoBehaviour
 
     private void CollectRewards() { 
         StartCoroutine(FadeCanvas(UI.transform.Find("InventoryIcon").gameObject, 1f, 1f));
-        recipeToUnlock.unlocked = true;
+        keyRecipe.unlocked = true;
     }
 
 
@@ -108,7 +112,7 @@ public class TutorialManager : MonoBehaviour
         UI.GetComponent<InventoryMenu>().CloseInventoryMenu();
 
         currentPopUp = Instantiate(inventoryPopUp);
-        currentPopUp.transform.Find("Image/Text").GetComponent<UnityEngine.UI.Text>().text =
+        currentPopUp.transform.Find("Image/Text").GetComponent<Text>().text =
             "Open Inventory with \"" + player.settings.GetKey("Inventory").ToString() + "\"";
         StartCoroutine(FadeCanvas(currentPopUp, 1f, 1f));
     }
@@ -119,13 +123,50 @@ public class TutorialManager : MonoBehaviour
 
 
     private void StartCraftUI() {
-        currentCoroutine = StartCoroutine(FlashRecipe(recipeToUnlock));
+        currentCoroutine = StartCoroutine(FlashRecipe(keyRecipe));
     }
-    private void CloseCraftUI() {
-        currentPopUp = Instantiate(finishPopUp);
-        StartCoroutine(FadeCanvas(currentPopUp, 0.025f, 1f));
-        StartCoroutine(RemovePopUp(currentPopUp, 4f));
+    private void CloseCraftUI()
+    {
         StopCoroutine(currentCoroutine);
+        QuestFinished();
+
+    }
+    private void CraftReward()
+    {
+        keyRecipe.unlocked = false;
+    }
+
+
+    public void QuestFinished()
+    {
+        if(InGameMenu.instance != null)
+            UI.GetComponent<InventoryMenu>().GetInventoryMenu().ToggleMenu();
+
+        player.GetComponent<AudioSource>().clip = completedClip;
+        player.GetComponent<AudioSource>().Play();
+        Quest quest = quests[step];
+        questMenu.transform.Find("BG/RewardIcon").GetComponent<Image>().sprite = Utility.GetIconFor(quest.Reward);
+        questMenu.transform.Find("BG/RewardName").GetComponent<Text>().text = quest.Reward.name;
+
+        questMenu.transform.Find("BG/Description").GetComponent<Text>().text = quests[step+1].Description;
+        questMenu.transform.Find("BG/PreviewIcon").GetComponent<Image>().sprite = Utility.GetIconFor(new Item { name = quests[step+1].Reward.name });
+        questMenu.transform.Find("BG/Button").GetComponent<Button>().onClick.AddListener(() =>
+        {
+            RecipeInteractable ri = quest.Reward.prefab.GetComponent<RecipeInteractable>();
+            if (ri)
+                ri.Recipe.unlocked = true;
+            else
+                player.GetComponent<Inventory>().AddItem(quest.Reward);
+
+            player.GetComponent<AudioSource>().clip = acceptedClip;
+            player.GetComponent<AudioSource>().Play();
+            questMenu.ToggleMenu();
+            InGameMenu.instance = null;
+        });
+
+
+        questMenu.ToggleMenu();
+        InGameMenu.instance = questMenu;
     }
 
     public void Refresh()
@@ -274,8 +315,4 @@ public class TutorialManager : MonoBehaviour
         Destroy(go);
         currentPopUp = null;
     }
-
-    
-
-    
 }
