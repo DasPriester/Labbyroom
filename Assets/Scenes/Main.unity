@@ -201,7 +201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8742471451781474740, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.0010262
+      value: -2.02
       objectReference: {fileID: 0}
     - target: {fileID: 8742471451781474740, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -209,7 +209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8742471451781474740, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.555389
+      value: 1.49
       objectReference: {fileID: 0}
     - target: {fileID: 8742471451781474740, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -663,8 +663,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cda7cf5d1ce7f504981363ab0cb3affb, type: 2}
   movePopUp: {fileID: 6212059647101658467, guid: 900b8b59d919cda48ad1c9cc60fd4a42, type: 3}
   inventoryPopUp: {fileID: 6212059647101658467, guid: 63557c1ef309ea543908bd58a6340ac4, type: 3}
-  finishPopUp: {fileID: 6212059647101658467, guid: ca4b2aac8d78c4a45ac2106727d69caa, type: 3}
-  recipeToUnlock: {fileID: 11400000, guid: b70ab8ce50164cf4197d15993623d8ec, type: 2}
+  keyRecipe: {fileID: 11400000, guid: b70ab8ce50164cf4197d15993623d8ec, type: 2}
+  sawRecipe: {fileID: 5910781459884920113, guid: 13e337ff8c20a2f4f9d8efb81d4978ac, type: 3}
   step: 0
 --- !u!4 &1071342230
 Transform:
@@ -771,7 +771,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8742471451781474740, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.079
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 8742471451781474740, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -779,7 +779,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8742471451781474740, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.875
+      value: 1.94
       objectReference: {fileID: 0}
     - target: {fileID: 8742471451781474740, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
       propertyPath: m_LocalRotation.w

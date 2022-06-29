@@ -7,11 +7,10 @@ using System;
 [CreateAssetMenu(fileName = "Quest", menuName = "Scriptable Object/Quest", order = 1)]
 public class Quest : ScriptableObject
 {
-    [SerializeField] new private string name = default;
     [TextArea(3, 10)]
     [SerializeField] private string description = "";
-
     [SerializeReference] private Task task;
+    [SerializeField] private PickUpInteractable reward;
     [SerializeField] private float goal = 1;
     [SerializeField] private bool maximise = true;
 
@@ -20,15 +19,8 @@ public class Quest : ScriptableObject
     public Action CloseUI;
     public Action Rewards;
 
-    Quest(string pName, string pDescription, Task pTask, float pGoal = 1f, bool pMaximise = true)
-    {
-        name = pName;
-        description = pDescription;
-        task = pTask;
-        goal = pGoal;
-        maximise = pMaximise;
-    }
-
+    public PickUpInteractable Reward { get { return reward; } }
+    public string Description { get { return description; } }
     public Task Task { get => task; set => task = value; }
 
     public bool IsDone()

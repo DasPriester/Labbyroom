@@ -32,7 +32,7 @@ public class InGameMenu : Hideable
         else
             menuCooldown = 0;
 
-        if ((instance == null || instance == this) && Input.GetKey(openKey) && menuCooldown == 0)
+        if ((instance == null || instance == this) && Input.GetKey(openKey) && menuCooldown == 0 && openKey != KeyCode.None)
         {
             ToggleMenu();
         }
@@ -44,7 +44,6 @@ public class InGameMenu : Hideable
     public void ToggleMenu()
     {
         menuCooldown = 0.2f;
-
         Hidden = !Hidden;
 
         if (hidden)

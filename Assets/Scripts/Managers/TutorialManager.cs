@@ -12,19 +12,19 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private List<Quest> quests = new List<Quest>();
     [SerializeField] private GameObject movePopUp;
     [SerializeField] private GameObject inventoryPopUp;
-    [SerializeField] private GameObject finishPopUp;
-    [SerializeField] private Recipe recipeToUnlock;
+    [SerializeField] private Recipe keyRecipe;
     private Coroutine currentCoroutine = null;
     private GameObject currentPopUp = null;
     private Quest currentQuest = null;
     private bool startedQuest = false;
+    private InGameMenu questMenu;
     public int step = 0;
 
     private void Awake()
     {
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         UI = GameObject.Find("UI");
-
+        questMenu = player.settings.GetMenu("QuestMenu");
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("Highlight"))
         {
             PickUpInteractable pui = go.GetComponent<PickUpInteractable>();
@@ -48,6 +48,7 @@ public class TutorialManager : MonoBehaviour
 
         quests[3].StartUI = StartCraftUI;
         quests[3].CloseUI = CloseCraftUI;
+        quests[3].Rewards = CraftReward;
 
         currentQuest = quests[step];
 
@@ -99,7 +100,7 @@ public class TutorialManager : MonoBehaviour
 
     private void CollectRewards() { 
         StartCoroutine(FadeCanvas(UI.transform.Find("InventoryIcon").gameObject, 1f, 1f));
-        recipeToUnlock.unlocked = true;
+        keyRecipe.unlocked = true;
     }
 
 
@@ -108,7 +109,7 @@ public class TutorialManager : MonoBehaviour
         UI.GetComponent<InventoryMenu>().CloseInventoryMenu();
 
         currentPopUp = Instantiate(inventoryPopUp);
-        currentPopUp.transform.Find("Image/Text").GetComponent<UnityEngine.UI.Text>().text =
+        currentPopUp.transform.Find("Image/Text").GetComponent<Text>().text =
             "Open Inventory with \"" + player.settings.GetKey("Inventory").ToString() + "\"";
         StartCoroutine(FadeCanvas(currentPopUp, 1f, 1f));
     }
@@ -119,13 +120,34 @@ public class TutorialManager : MonoBehaviour
 
 
     private void StartCraftUI() {
-        currentCoroutine = StartCoroutine(FlashRecipe(recipeToUnlock));
+        currentCoroutine = StartCoroutine(FlashRecipe(keyRecipe));
     }
-    private void CloseCraftUI() {
-        currentPopUp = Instantiate(finishPopUp);
-        StartCoroutine(FadeCanvas(currentPopUp, 0.025f, 1f));
-        StartCoroutine(RemovePopUp(currentPopUp, 4f));
+    private void CloseCraftUI()
+    {
         StopCoroutine(currentCoroutine);
+        QuestFinished(quests[step]);
+    }
+    private void CraftReward()
+    {
+        keyRecipe.unlocked = false;
+    }
+
+
+    public void QuestFinished(Quest quest)
+    {
+        if(InGameMenu.instance != null)
+            UI.GetComponent<InventoryMenu>().GetInventoryMenu().ToggleMenu();
+
+        Item item = new Item{ name = quest.Reward.name };
+        print(item.name);
+        questMenu.transform.Find("BG/ItemIcon").GetComponent<Image>().sprite = Utility.GetIconFor(item);
+        questMenu.transform.Find("BG/Description").GetComponent<Text>().text = quest.Description;
+        questMenu.ToggleMenu();
+        InGameMenu.instance = questMenu;
+    }
+    public void CloseQuestMenu()
+    {
+        InGameMenu.instance = null;
     }
 
     public void Refresh()
@@ -274,8 +296,4 @@ public class TutorialManager : MonoBehaviour
         Destroy(go);
         currentPopUp = null;
     }
-
-    
-
-    
 }
