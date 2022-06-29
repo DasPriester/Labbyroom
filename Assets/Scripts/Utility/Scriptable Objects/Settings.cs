@@ -8,6 +8,8 @@ using System.Collections.Generic;
 public class Settings : ScriptableObject
 {
     //Controlls
+    public bool wheel = false;
+
     //Movement
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode jumpKey = KeyCode.Space;
@@ -26,7 +28,6 @@ public class Settings : ScriptableObject
     //Video
     public bool useHeadbob = true;
     public bool particlesActivated = true;
-    public bool wheel = false;
 
     //Audio
     public float masterVolume = 1f;
@@ -219,7 +220,7 @@ public class Settings : ScriptableObject
             case "Particles":
                 particlesActivated = value;
                 break;
-            case "Wheel":
+            case "Invert Wheel":
                 wheel = value;
                 break;
         }
@@ -235,7 +236,7 @@ public class Settings : ScriptableObject
                 return useHeadbob;
             case "Particles":
                 return particlesActivated;
-            case "Wheel":
+            case "Invert Wheel":
                 return wheel;
             default:
                 break;

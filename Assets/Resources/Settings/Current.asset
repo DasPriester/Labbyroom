@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ce7f7a8ce544982b86d3842f59ad12, type: 3}
   m_Name: Current
   m_EditorClassIdentifier: 
+  wheel: 0
   sprintKey: 304
   jumpKey: 32
   crouchKey: 306
+  buildKey: 323
+  pickUpKey: 324
   interactKey: 101
-  placeKey: 113
   inventoryKeys: 310000003200000033000000340000003500000036000000370000003800000039000000
   menus:
   - {fileID: 7474936290871201502, guid: b1ad98fa2a3d84aea9714053348896ab, type: 3}
