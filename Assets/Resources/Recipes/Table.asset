@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Table
   unlocked: 0
-  alwaysUnlocked: 1
+  alwaysUnlocked: 0
   requiresForge: 0
   Cost:
     keys:

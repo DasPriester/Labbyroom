@@ -7,6 +7,7 @@ using System;
 [CreateAssetMenu(fileName = "Quest", menuName = "Scriptable Object/Quest", order = 1)]
 public class Quest : ScriptableObject
 {
+    [SerializeField] new private string name = "";
     [TextArea(3, 10)]
     [SerializeField] private string description = "";
     [SerializeReference] private Task task;

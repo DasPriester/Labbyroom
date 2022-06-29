@@ -12,7 +12,10 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private List<Quest> quests = new List<Quest>();
     [SerializeField] private GameObject movePopUp;
     [SerializeField] private GameObject inventoryPopUp;
+    [SerializeField] private GameObject questBar;
     [SerializeField] private Recipe keyRecipe;
+    [SerializeField] private AudioClip completedClip;
+    [SerializeField] private AudioClip acceptedClip;
     private Coroutine currentCoroutine = null;
     private GameObject currentPopUp = null;
     private Quest currentQuest = null;
@@ -139,6 +142,8 @@ public class TutorialManager : MonoBehaviour
         if(InGameMenu.instance != null)
             UI.GetComponent<InventoryMenu>().GetInventoryMenu().ToggleMenu();
 
+        player.GetComponent<AudioSource>().clip = completedClip;
+        player.GetComponent<AudioSource>().Play();
         Quest quest = quests[step];
         questMenu.transform.Find("BG/RewardIcon").GetComponent<Image>().sprite = Utility.GetIconFor(quest.Reward);
         questMenu.transform.Find("BG/RewardName").GetComponent<Text>().text = quest.Reward.name;
@@ -152,6 +157,9 @@ public class TutorialManager : MonoBehaviour
                 ri.Recipe.unlocked = true;
             else
                 player.GetComponent<Inventory>().AddItem(quest.Reward);
+
+            player.GetComponent<AudioSource>().clip = acceptedClip;
+            player.GetComponent<AudioSource>().Play();
             questMenu.ToggleMenu();
             InGameMenu.instance = null;
         });

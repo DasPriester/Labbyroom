@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Chair
   unlocked: 0
-  alwaysUnlocked: 1
+  alwaysUnlocked: 0
+  requiresForge: 0
   Cost:
     keys:
     - {fileID: -3312713435364818256, guid: 00b567454b6c444578425a2069268b48, type: 3}
