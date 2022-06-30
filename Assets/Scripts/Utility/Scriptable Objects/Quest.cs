@@ -23,6 +23,7 @@ public class Quest : ScriptableObject
     public Action CloseUI;
     public Action Rewards;
 
+    public string Name { get { return name; } }
     public List<string> Explanations { get { return explanations; } }
     public bool NeedsExplanation { get { return needsExplanation; } }
     public Item Reward { get { return reward; } }
@@ -35,5 +36,10 @@ public class Quest : ScriptableObject
             return task.Done() >= goal;
         else
             return task.Done() <= goal;
+    }
+
+    public string Progress()
+    {
+        return Task.Progress() + " / " + goal;
     }
 }

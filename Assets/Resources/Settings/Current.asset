@@ -24,6 +24,7 @@ MonoBehaviour:
   - {fileID: 7474936290871201502, guid: b1ad98fa2a3d84aea9714053348896ab, type: 3}
   - {fileID: -1519762587764670316, guid: bcb6f88260ed14284997d7692eb491a9, type: 3}
   - {fileID: 8633524593906728619, guid: a815d846da6dc2c40a9aeb9e9d22169e, type: 3}
+  - {fileID: 8633524593906728619, guid: 9b0d3468a6845324fb71a3470350ec49, type: 3}
   useHeadbob: 1
   particlesActivated: 1
   masterVolume: 0.3

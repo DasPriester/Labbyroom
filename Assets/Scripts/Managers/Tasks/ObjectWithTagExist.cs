@@ -21,4 +21,9 @@ public class ObjectWithTagExist : Task
     {
         return GameObject.FindGameObjectsWithTag(tag).Length;
     }
+
+    public override string Progress()
+    {
+        return tag + ": " + Done();
+    }
 }

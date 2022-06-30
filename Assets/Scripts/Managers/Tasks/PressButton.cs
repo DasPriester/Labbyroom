@@ -27,4 +27,8 @@ public class PressButton : Task
         }
         return k;
     }
+    public override string Progress()
+    {
+        return "Pressed: " + Done();
+    }
 }

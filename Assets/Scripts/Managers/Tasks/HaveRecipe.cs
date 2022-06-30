@@ -29,4 +29,8 @@ public class HaveRecipe : Task
         return k;
     }
 
+    public override string Progress()
+    {
+        return "Recipes: " + Done();
+    }
 }

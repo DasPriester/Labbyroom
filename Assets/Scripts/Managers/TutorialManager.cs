@@ -51,10 +51,12 @@ public class TutorialManager : MonoBehaviour
 
         quests[3].StartUI = StartCraftUI;
         quests[3].CloseUI = CloseCraftUI;
+        quests[3].Rewards = CraftRewards;
 
         quests[4].Explanations[2] = "To create a temporary room equip your key and move towards a wall. Click the " +
             Utility.GetKeyName(player.settings.buildKey)
             + " to place a door.";
+        
         for (int i = 4; i < quests.Count; i++)
         {
             quests[i].CloseUI = QuestFinished;
@@ -87,6 +89,8 @@ public class TutorialManager : MonoBehaviour
                 startedQuest = true;
             }
         }
+
+        UI.transform.Find("Quest BG/Task").GetComponent<Text>().text = quests[step].Progress();
     }
 
     private void StartMoveUI()
@@ -104,7 +108,6 @@ public class TutorialManager : MonoBehaviour
         player.canSprint = true;
         player.canInteract = true;
         player.canPickUp = true;
-        player.canBuild = true;
     }
 
 
@@ -138,12 +141,17 @@ public class TutorialManager : MonoBehaviour
         QuestFinished();
 
     }
+    private void CraftRewards()
+    {
+        player.canBuild = true;
+    }
 
 
     private void QuestFinished()
     {
         if(InGameMenu.instance != null)
             UI.GetComponent<InventoryMenu>().GetInventoryMenu().ToggleMenu();
+        StartCoroutine(FadeCanvas(UI.transform.Find("Quest BG").gameObject, 1f, 0f));
 
         player.GetComponent<AudioSource>().clip = completedClip;
         player.GetComponent<AudioSource>().Play();
@@ -164,6 +172,11 @@ public class TutorialManager : MonoBehaviour
 
             player.GetComponent<AudioSource>().clip = acceptedClip;
             player.GetComponent<AudioSource>().Play();
+
+            StartCoroutine(FadeCanvas(UI.transform.Find("Quest BG").gameObject, 1f, 1f));
+            UI.transform.Find("Quest BG/Name").GetComponent<Text>().text = nextQuest.Name;
+            UI.transform.Find("Quest BG/Description").GetComponent<Text>().text = nextQuest.Description;
+
             questMenu.ToggleMenu();
             InGameMenu.instance = null;
 
@@ -182,10 +195,9 @@ public class TutorialManager : MonoBehaviour
                     {
                         explanationMenu.ToggleMenu();
                         InGameMenu.instance = null;
+                        return;
                     }
-
                     explanationMenu.transform.Find("BG/Text").GetComponent<Text>().text = nextQuest.Explanations[pos++];
-
                 });
             }
         });
@@ -247,19 +259,22 @@ public class TutorialManager : MonoBehaviour
 
         while (true)
         {
-            newRecipe = content.GetChild(i).gameObject;
-            if (newRecipe && oldRecipe != newRecipe)
+            if (i < content.childCount)
             {
-                StopCoroutine(flashing);
-                flashing = StartCoroutine(FlashingUIOutline(newRecipe, 0.75f, 0f, 1f));
-                newRecipe.GetComponentInChildren<Button>().onClick.AddListener(() =>
+                newRecipe = content.GetChild(i)?.gameObject;
+                if (newRecipe && oldRecipe != newRecipe)
                 {
                     StopCoroutine(flashing);
-                    var ol = oldRecipe.GetComponent<Outline>();
-                    StartCoroutine(FadeUIOutline(ol, 0.75f, 0f));
+                    flashing = StartCoroutine(FlashingUIOutline(newRecipe, 0.75f, 0f, 1f));
+                    newRecipe.GetComponentInChildren<Button>().onClick.AddListener(() =>
+                    {
+                        StopCoroutine(flashing);
+                        var ol = oldRecipe.GetComponent<Outline>();
+                        StartCoroutine(FadeUIOutline(ol, 0.75f, 0f));
 
-                });
-                oldRecipe = newRecipe;
+                    });
+                    oldRecipe = newRecipe;
+                }
             }
             yield return null;
         }

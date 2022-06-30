@@ -23,4 +23,8 @@ public class HaveItem : Task
         player = GameObject.FindGameObjectWithTag("Player");
         return player.GetComponent<Inventory>().GetAmount(name);
     }
+    public override string Progress()
+    {
+        return name + ": " + Done();
+    }
 }

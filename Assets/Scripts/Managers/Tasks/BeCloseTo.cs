@@ -23,4 +23,8 @@ public class BeCloseTo : Task
         player = GameObject.FindGameObjectWithTag("Player");
         return Vector3.Distance(position, player.transform.position);
     }
+    public override string Progress()
+    {
+        return "Distance: " + Done();
+    }
 }

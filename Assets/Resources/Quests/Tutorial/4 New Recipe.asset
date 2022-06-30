@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fed2e23577d44501b8f597586461a61, type: 3}
   m_Name: 4 New Recipe
   m_EditorClassIdentifier: 
-  description: Find a new Recipe
+  name: 
+  description: Travel to dimensions and find a new recipe
   task:
     id: 0
   reward:
@@ -21,6 +22,15 @@ MonoBehaviour:
     amount: 1
   goal: 1
   maximise: 1
+  needsExplanation: 1
+  explanations:
+  - The room you are in right now is your hub. This room is permanent and you can
+    always return to it. Here you are able to place down objects or furniture.
+  - You can now use your basic temporary key to enter other dimensions. There you
+    can find all kinds of new recipes and materials. But be warned - connections
+    to other dimensions are unstable, so better be careful.
+  - To create a temporary room equip your key and move towards a wall. Click the
+    LMB to place a door.
   references:
     version: 1
     00000000:
