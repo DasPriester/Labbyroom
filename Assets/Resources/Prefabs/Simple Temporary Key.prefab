@@ -92,10 +92,13 @@ MonoBehaviour:
   placeSound: {fileID: 8300000, guid: 6f0cfe23fe02b18488c69d04d5aa969b, type: 3}
   pickUpSound: {fileID: 8300000, guid: c2587d145786f4d4e8dae8d1bbb44973, type: 3}
   pickUpParticle: {fileID: 8452545625293292680, guid: 547fd1e2e7e6e44418ce27e79cd08083, type: 3}
+  isConsumable: 1
   rooms:
     keys:
     - {fileID: 1255976478663795016, guid: cf59ea0b9aeee400c923f035f41e2ea3, type: 3}
+    - {fileID: 1255976478663795016, guid: df349cec523c44a7e858e390d033a00b, type: 3}
     values:
+    - {fileID: 3254051265726217479, guid: bda5f4d16b7ac4e628adf2c8bd4175d8, type: 3}
     - {fileID: 3254051265726217479, guid: bda5f4d16b7ac4e628adf2c8bd4175d8, type: 3}
   temporary: 1
 --- !u!65 &9190451834867064235

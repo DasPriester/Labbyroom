@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1819586498260209660}
   - component: {fileID: 7411803245611265613}
   m_Layer: 8
-  m_Name: Transparent Wall
+  m_Name: DungeonWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d1a73b91120c158469b4c4ddce756d92, type: 2}
+  - {fileID: 2100000, guid: 9948d364bb5d44f12845470d0086bc03, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -56,6 +56,11 @@ public class PortalConnector : MonoBehaviour
         }
         foreach (MeshRenderer mr in p2.GetComponentsInChildren<MeshRenderer>())
         {
+            if (mr.gameObject.name == "_Wall")
+                mr.material = room.GetComponentInChildren<WallManager>().Wall.GetComponent<MeshRenderer>().sharedMaterial;
+        }
+        foreach (MeshRenderer mr in p2.GetComponentsInChildren<MeshRenderer>())
+        {
             if (mr.gameObject.name == "_Hide")
                 mr.enabled = false;
         }

@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class WallManager : SurfaceManager
 {
-    [SerializeField] private WallInteractable Wall = null;
+    [SerializeField] private WallInteractable wall = null;
     [SerializeField] private Vector3 Dimensions = Vector3.one;
     [SerializeField] private Hideable Preview = null;
     [SerializeField] private int roomWMID = 0;
@@ -21,6 +21,7 @@ public class WallManager : SurfaceManager
 
     public int RoomWMID { get => roomWMID; set => roomWMID = value; }
     public bool IsTemporary { get => isTemporary; set => isTemporary = value; }
+    public WallInteractable Wall { get => wall; }
 
     void Start()
     {
@@ -76,7 +77,7 @@ public class WallManager : SurfaceManager
                 PlayerController.hasTempPath = true;
             }
 
-            InsertPortal(left + door.x * transform.right - transform.up * Dimensions.y / 2, transform.rotation, roomType, portalType, Wall.GetComponent<MeshRenderer>().sharedMaterial, temporary, GetComponentInParent<Room>(), door, this);
+            InsertPortal(left + door.x * transform.right - transform.up * Dimensions.y / 2, transform.rotation, roomType, portalType, wall.GetComponent<MeshRenderer>().sharedMaterial, temporary, GetComponentInParent<Room>(), door, this);
 
             return true;
         }
@@ -207,14 +208,14 @@ public class WallManager : SurfaceManager
 
         center = (leftPoint + rightPoint) / 2;
         dimensions = new Vector3(Dimensions.x - at, Dimensions.y, Dimensions.z);
-        Wall.transform.localScale = dimensions;
+        wall.transform.localScale = dimensions;
 
-        w = Instantiate(Wall, center, transform.rotation, transform);
+        w = Instantiate(wall, center, transform.rotation, transform);
         w.manager = this;
         w.IsTemporary = isTemporary;
         walls.Add(w);
 
-        Wall.transform.localScale = Vector3.one;
-        Wall.transform.position = Vector3.zero;
+        wall.transform.localScale = Vector3.one;
+        wall.transform.position = Vector3.zero;
     }
 }
