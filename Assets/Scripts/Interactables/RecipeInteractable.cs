@@ -35,8 +35,10 @@ public class RecipeInteractable : PickUpInteractable
             break;
         }
         image.sprite = Utility.GetIconFor(item);
+        toolTip.SetText(Utility.GetKeyName(pc.settings.pickUpKey));
+
     }
-   
+
     /// <summary>
     /// Play sound and unlock recipe
     /// </summary>

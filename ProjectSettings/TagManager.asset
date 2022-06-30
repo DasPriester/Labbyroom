@@ -8,6 +8,8 @@ TagManager:
   - Footsteps/Wood
   - Footsteps/Sand
   - Highlight
+  - Anvil
+  - Furniture
   layers:
   - Default
   - TransparentFX

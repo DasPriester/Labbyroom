@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fed2e23577d44501b8f597586461a61, type: 3}
   m_Name: 4 New Recipe
   m_EditorClassIdentifier: 
-  name: 
+  name: New Recipe
   description: Travel to dimensions and find a new recipe
   task:
     id: 0

@@ -63,7 +63,6 @@ public class TutorialManager : MonoBehaviour
         }
 
         currentQuest = quests[step];
-
     }
 
     private void Update()
@@ -155,13 +154,15 @@ public class TutorialManager : MonoBehaviour
 
         player.GetComponent<AudioSource>().clip = completedClip;
         player.GetComponent<AudioSource>().Play();
-        Quest quest = quests[step];
-        Quest nextQuest = quests[step+1];
+
+        Quest quest = currentQuest;
+        Quest nextQuest = quests[step + 1];
         questMenu.transform.Find("BG/RewardIcon").GetComponent<Image>().sprite = Utility.GetIconFor(quest.Reward);
         questMenu.transform.Find("BG/RewardName").GetComponent<Text>().text = quest.Reward.name;
 
         questMenu.transform.Find("BG/Description").GetComponent<Text>().text = nextQuest.Description;
         questMenu.transform.Find("BG/PreviewIcon").GetComponent<Image>().sprite = Utility.GetIconFor(new Item { name = nextQuest.Reward.name });
+        questMenu.transform.Find("BG/Button").GetComponent<Button>().onClick.RemoveAllListeners();
         questMenu.transform.Find("BG/Button").GetComponent<Button>().onClick.AddListener(() =>
         {
             RecipeInteractable ri = quest.Reward.prefab.GetComponent<RecipeInteractable>();
@@ -169,7 +170,7 @@ public class TutorialManager : MonoBehaviour
                 ri.Recipe.unlocked = true;
             else
                 player.GetComponent<Inventory>().AddItem(quest.Reward);
-
+            print(quest);
             player.GetComponent<AudioSource>().clip = acceptedClip;
             player.GetComponent<AudioSource>().Play();
 
