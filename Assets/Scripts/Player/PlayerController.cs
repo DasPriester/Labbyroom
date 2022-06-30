@@ -127,11 +127,14 @@ public class PlayerController : MonoBehaviour {
     void Update()
     {
         List<PortalComponent> allPortals = FindObjectsOfType<PortalComponent>().ToList();
+        pp.profile.TryGet(out ca);
+        ca.intensity.overrideState = true;
         if (allPortals.Count > 0)
         {
-            pp.profile.TryGet(out ca);
-            ca.intensity.overrideState = true;
             ca.intensity.value = Mathf.Clamp(1f - allPortals.Select(x => Vector3.Distance(x.transform.position, transform.position) - 1f).Min(), 0f, 1f);
+        } else
+        {
+            ca.intensity.value = 0f;
         }
 
         // super ugly but w/e
