@@ -14,7 +14,7 @@ abstract class SerializableDictionaryEditor : PropertyDrawer
     public static GUILayoutOption miniButtonWidth = GUILayout.Width(20f);
     private static GUIContent
          moveButtonContent = new GUIContent("\u21b4", "move down"),
-         duplicateButtonContent = new GUIContent("+", "duplicate"),
+         duplicateButtonContent = new GUIContent("+", "add"),
          deleteButtonContent = new GUIContent("-", "delete");
 
     private void ShowButtons(SerializedProperty keys, SerializedProperty values, int index)

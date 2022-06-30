@@ -716,7 +716,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a8de3f2c57d0eae4a984cfd26aec9596, type: 2}
   movePopUp: {fileID: 6212059647101658467, guid: 900b8b59d919cda48ad1c9cc60fd4a42, type: 3}
   inventoryPopUp: {fileID: 6212059647101658467, guid: 63557c1ef309ea543908bd58a6340ac4, type: 3}
+  questBar: {fileID: 0}
   keyRecipe: {fileID: 11400000, guid: b70ab8ce50164cf4197d15993623d8ec, type: 2}
+  completedClip: {fileID: 0}
+  acceptedClip: {fileID: 0}
   step: 0
 --- !u!4 &1071342230
 Transform:

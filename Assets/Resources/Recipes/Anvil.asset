@@ -16,6 +16,7 @@ MonoBehaviour:
   unlocked: 0
   alwaysUnlocked: 0
   requiresForge: 0
+  oneTime: 1
   Cost:
     keys:
     - {fileID: -3312713435364818256, guid: e318ef014f2c447488e3142ee2b54e94, type: 3}

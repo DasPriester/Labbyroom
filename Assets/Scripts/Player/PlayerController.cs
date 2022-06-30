@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine;
+using System.Linq;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// Controller class for the player
@@ -92,6 +96,14 @@ public class PlayerController : MonoBehaviour {
     private float pitch;
     private float yaw;
 
+    private Volume pp;
+    private ChromaticAberration ca;
+
+    private void Start()
+    {
+        pp = FindObjectOfType<Volume>();
+    }
+
     void Awake()
     {
         PreviousOffsetFromPortal = new Vector3();
@@ -115,6 +127,14 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
+        List<PortalComponent> allPortals = FindObjectsOfType<PortalComponent>().ToList();
+        if (allPortals.Count > 0)
+        {
+            pp.profile.TryGet(out ca);
+            ca.intensity.overrideState = true;
+            ca.intensity.value = Mathf.Clamp(1f - allPortals.Select(x => Vector3.Distance(x.transform.position, transform.position) - 1f).Min(), 0f, 1f);
+        }
+
         // super ugly but w/e
         audioMixer.SetFloat("Master Volume", Mathf.Log10(settings.masterVolume) * 20);
         audioMixer.SetFloat("Effects Volume", Mathf.Log10(settings.effectsVolume) * 20);

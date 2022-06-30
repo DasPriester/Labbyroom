@@ -167,6 +167,8 @@ public class Inventory : MonoBehaviour
             {
                 AddItem(new Item(yieldName.gameObject, yieldName.name, recipe.Yield[yieldName]));
             }
+            if (recipe.oneTime)
+                recipe.unlocked = false;
         } 
         else
         {

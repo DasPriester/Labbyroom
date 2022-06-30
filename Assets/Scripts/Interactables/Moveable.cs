@@ -9,4 +9,10 @@ public class Moveable : MonoBehaviour
 {
     [SerializeField] protected string prefabName = "";
     public string PrefabName { get => prefabName; set => prefabName = value; }
+
+    private void Update()
+    {
+        if (transform.position.y < 10)
+            Destroy(gameObject);
+    }
 }

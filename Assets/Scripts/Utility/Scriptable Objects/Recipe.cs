@@ -10,6 +10,7 @@ public class Recipe : ScriptableObject
     public bool unlocked = false;
     public bool alwaysUnlocked = false;
     public bool requiresForge = false;
+    public bool oneTime = false;
 
     public SerializableDictionary<PickUpInteractable, int> Cost;
     public SerializableDictionary<PickUpInteractable, int> Yield;
