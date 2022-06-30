@@ -95,9 +95,7 @@ MonoBehaviour:
   rooms:
     keys:
     - {fileID: 1255976478663795016, guid: cf59ea0b9aeee400c923f035f41e2ea3, type: 3}
-    - {fileID: 1255976478663795016, guid: 41fd099b52b11274cae067413b70f319, type: 3}
     values:
-    - {fileID: 3254051265726217479, guid: bda5f4d16b7ac4e628adf2c8bd4175d8, type: 3}
     - {fileID: 3254051265726217479, guid: bda5f4d16b7ac4e628adf2c8bd4175d8, type: 3}
   temporary: 1
 --- !u!65 &9190451834867064235

@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 6091691096947518402}
   - component: {fileID: 1805468729710905559}
   m_Layer: 6
-  m_Name: RecipeForge
+  m_Name: RecipeChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

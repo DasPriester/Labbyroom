@@ -18,13 +18,14 @@ MonoBehaviour:
   task:
     id: 0
   reward:
-    prefab: {fileID: 6432907728722272025, guid: 9af1450c42cfd6e4aaf596bcef03f0aa, type: 3}
-    name: RecipeForge
+    prefab: {fileID: 6432907728722272025, guid: 681f603ade4be2f4e8ef026890c46430, type: 3}
+    name: RecipeChest
     amount: 1
   goal: 1
   maximise: 1
-  needsExplanation: 0
-  explanations: []
+  needsExplanation: 1
+  explanations:
+  - Place down objects and furniture with LMB.
   references:
     version: 1
     00000000:

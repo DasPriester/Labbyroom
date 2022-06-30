@@ -56,7 +56,9 @@ public class TutorialManager : MonoBehaviour
         quests[4].Explanations[2] = "To create a temporary room equip your key and move towards a wall. Click the " +
             Utility.GetKeyName(player.settings.buildKey)
             + " to place a door.";
-        
+        quests[5].Explanations[0] = "Place down objects and furniture with " +
+            Utility.GetKeyName(player.settings.buildKey)
+            + ".";
         for (int i = 4; i < quests.Count; i++)
         {
             quests[i].CloseUI = QuestFinished;
@@ -170,7 +172,6 @@ public class TutorialManager : MonoBehaviour
                 ri.Recipe.unlocked = true;
             else
                 player.GetComponent<Inventory>().AddItem(quest.Reward);
-            print(quest);
             player.GetComponent<AudioSource>().clip = acceptedClip;
             player.GetComponent<AudioSource>().Play();
 
@@ -187,7 +188,7 @@ public class TutorialManager : MonoBehaviour
                 InGameMenu.instance = explanationMenu;
                 int pos = 0;
                 explanationMenu.transform.Find("BG/Text").GetComponent<Text>().text = nextQuest.Explanations[pos++];
-
+                explanationMenu.transform.Find("BG/Button").GetComponent<Button>().onClick.RemoveAllListeners();
                 explanationMenu.transform.Find("BG/Button").GetComponent<Button>().onClick.AddListener(() =>
                 {
                     if (pos == nextQuest.Explanations.Count - 1)
