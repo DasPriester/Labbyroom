@@ -335,7 +335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   access: {fileID: 2078976873531788659}
   hasAccessDoor: 1
-  accessDoor: {x: 5, y: 2}
+  accessDoor: {x: 10, y: 2}
   accessWall: {fileID: 6256262798643488238}
   prefabName: Garden
   possibleRecipes:
