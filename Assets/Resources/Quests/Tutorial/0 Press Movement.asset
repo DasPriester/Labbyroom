@@ -16,8 +16,14 @@ MonoBehaviour:
   description: 
   task:
     id: 0
+  reward:
+    prefab: {fileID: 0}
+    name: 
+    amount: 0
   goal: 1
   maximise: 1
+  needsExplanation: 0
+  explanations: []
   references:
     version: 1
     00000000:

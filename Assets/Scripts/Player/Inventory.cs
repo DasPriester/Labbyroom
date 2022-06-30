@@ -159,6 +159,11 @@ public class Inventory : MonoBehaviour
         {
             if (!RemoveItem(new Item(costName.gameObject, costName.name, recipe.Cost[costName])))
                 canCraft = false;
+
+            if (!costName.IsConsumable)
+            {
+                AddItem(new Item(costName.gameObject, costName.name, recipe.Cost[costName]));
+            }
         }
 
         if (canCraft)

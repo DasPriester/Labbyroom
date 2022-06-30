@@ -14,9 +14,12 @@ public class PickUpInteractable : Interactable
     [SerializeField] protected AudioClip pickUpSound = default;
     [SerializeField] protected ParticleSystem pickUpParticle = default;
 
+    [SerializeField] private bool isConsumable = true;
 
     protected GameObject prefab;
     protected string prefabName = "";
+
+    public bool IsConsumable { get => isConsumable; set => isConsumable = value; }
 
     public virtual void Start()
     {

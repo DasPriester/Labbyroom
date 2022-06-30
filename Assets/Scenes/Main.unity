@@ -676,10 +676,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quests:
     keys:
-    - {fileID: 11400000, guid: a21e9ff6fba18408aa295e6d8095e813, type: 2}
-    - {fileID: 11400000, guid: 6dab40a764fb54687abe2fff296c7462, type: 2}
-    - {fileID: 11400000, guid: 8ebb65fdf5b244789b0be07b8bfef75e, type: 2}
-    values: 000000
+    - {fileID: 11400000, guid: d37719805d151504f8e2825cb0f05d7a, type: 2}
+    values: 00
   OnQuestAdded:
     m_PersistentCalls:
       m_Calls: []
