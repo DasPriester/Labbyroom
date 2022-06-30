@@ -34,12 +34,16 @@ public class Room : MonoBehaviour
     {
         if(Random.value <= recipeChance)
         {
-            recipe.SetActive(true);
+            List<Recipe> notFoundRecipes = new List<Recipe>();
             foreach (Recipe rec in possibleRecipes) {
-                if (rec.unlocked)
-                    possibleRecipes.Remove(rec);
+                if (!rec.unlocked)
+                    notFoundRecipes.Add(rec);
             }
-            recipe.GetComponent<RecipeInteractable>().Recipe = possibleRecipes[Random.Range(0, possibleRecipes.Count)];
+            if (notFoundRecipes.Count > 0)
+            {
+                recipe.SetActive(true);
+                recipe.GetComponent<RecipeInteractable>().Recipe = notFoundRecipes[Random.Range(0, notFoundRecipes.Count)];
+            }
         }
     }
 
