@@ -235,7 +235,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 311313efa011949e98b6761d652ad13c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -372,7 +372,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7128917391634493329}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.2, y: 0, z: 4.9}
+  m_LocalPosition: {x: 0.2, y: 0, z: 9.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5518771474986691156}
@@ -877,40 +877,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.339
+      value: 2.3366623
       objectReference: {fileID: 0}
     - target: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.525
+      value: -0.715
       objectReference: {fileID: 0}
     - target: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 0.9990764
       objectReference: {fileID: 0}
     - target: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.04296958
       objectReference: {fileID: 0}
     - target: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9990483
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.043619405
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 5
+      value: 4.925
       objectReference: {fileID: 0}
     - target: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5910781459884920113, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
+      propertyPath: recipe
+      value: 
+      objectReference: {fileID: 11400000, guid: 6b444ad30c9bb4f9fbdb0fd351bf410a, type: 2}
     - target: {fileID: 6432907728722272025, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_Name
       value: Recipe
@@ -921,14 +925,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
---- !u!4 &4247761645419241074 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
-  m_PrefabInstance: {fileID: 1749983522885594013}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4688097408183891076 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6432907728722272025, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
+  m_PrefabInstance: {fileID: 1749983522885594013}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4247761645419241074 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
   m_PrefabInstance: {fileID: 1749983522885594013}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2240467090948241645
@@ -1082,14 +1086,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2b7f3e44a3b84d9b85afad4fc9f9862, type: 3}
---- !u!4 &2787430325716355917 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b2b7f3e44a3b84d9b85afad4fc9f9862, type: 3}
-  m_PrefabInstance: {fileID: 2388113286525938854}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6481308678830140598 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -516098083770646512, guid: b2b7f3e44a3b84d9b85afad4fc9f9862, type: 3}
+  m_PrefabInstance: {fileID: 2388113286525938854}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2787430325716355917 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b2b7f3e44a3b84d9b85afad4fc9f9862, type: 3}
   m_PrefabInstance: {fileID: 2388113286525938854}
   m_PrefabAsset: {fileID: 0}
 --- !u!65 &5456657787271713169
@@ -1440,6 +1444,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3a2319b42d25d4666b3be5ab6197beb5, type: 3}
+      propertyPath: m_TagString
+      value: Footsteps/Wood
+      objectReference: {fileID: 0}
     - target: {fileID: 5334037119324981776, guid: 3a2319b42d25d4666b3be5ab6197beb5, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1450,14 +1458,14 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 2331f65a6f0c64942afd6d3efa52e9a1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a2319b42d25d4666b3be5ab6197beb5, type: 3}
---- !u!4 &5931202793284906759 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3a2319b42d25d4666b3be5ab6197beb5, type: 3}
-  m_PrefabInstance: {fileID: 6180457086362601708}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6793969714032966280 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: 3a2319b42d25d4666b3be5ab6197beb5, type: 3}
+  m_PrefabInstance: {fileID: 6180457086362601708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5931202793284906759 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3a2319b42d25d4666b3be5ab6197beb5, type: 3}
   m_PrefabInstance: {fileID: 6180457086362601708}
   m_PrefabAsset: {fileID: 0}
 --- !u!64 &1764705428271499726
