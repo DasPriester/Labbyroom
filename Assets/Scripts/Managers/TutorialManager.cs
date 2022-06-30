@@ -12,7 +12,6 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private List<Quest> quests = new List<Quest>();
     [SerializeField] private GameObject movePopUp;
     [SerializeField] private GameObject inventoryPopUp;
-    [SerializeField] private GameObject questBar;
     [SerializeField] private Recipe keyRecipe;
     [SerializeField] private AudioClip completedClip;
     [SerializeField] private AudioClip acceptedClip;
@@ -21,6 +20,7 @@ public class TutorialManager : MonoBehaviour
     private Quest currentQuest = null;
     private bool startedQuest = false;
     private InGameMenu questMenu;
+    private InGameMenu explanationMenu;
     public int step = 0;
 
     private void Awake()
@@ -28,10 +28,10 @@ public class TutorialManager : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         UI = GameObject.Find("UI");
         questMenu = player.settings.GetMenu("QuestMenu");
+        explanationMenu = player.settings.GetMenu("ExplanationMenu");
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("Highlight"))
         {
-            PickUpInteractable pui = go.GetComponent<PickUpInteractable>();
-            if (pui != null)
+            if (go.TryGetComponent<PickUpInteractable>(out var pui))
             {
                 pui.UseOutline = false;
                 pui.GetComponent<QuickOutline>().enabled = true;
@@ -51,7 +51,14 @@ public class TutorialManager : MonoBehaviour
 
         quests[3].StartUI = StartCraftUI;
         quests[3].CloseUI = CloseCraftUI;
-        quests[3].Rewards = CraftReward;
+
+        quests[4].Explanations[2] = "To create a temporary room equip your key and move towards a wall. Click the " +
+            Utility.GetKeyName(player.settings.buildKey)
+            + " to place a door.";
+        for (int i = 4; i < quests.Count; i++)
+        {
+            quests[i].CloseUI = QuestFinished;
+        }
 
         currentQuest = quests[step];
 
@@ -131,13 +138,9 @@ public class TutorialManager : MonoBehaviour
         QuestFinished();
 
     }
-    private void CraftReward()
-    {
-        keyRecipe.unlocked = false;
-    }
 
 
-    public void QuestFinished()
+    private void QuestFinished()
     {
         if(InGameMenu.instance != null)
             UI.GetComponent<InventoryMenu>().GetInventoryMenu().ToggleMenu();
@@ -145,11 +148,12 @@ public class TutorialManager : MonoBehaviour
         player.GetComponent<AudioSource>().clip = completedClip;
         player.GetComponent<AudioSource>().Play();
         Quest quest = quests[step];
+        Quest nextQuest = quests[step+1];
         questMenu.transform.Find("BG/RewardIcon").GetComponent<Image>().sprite = Utility.GetIconFor(quest.Reward);
         questMenu.transform.Find("BG/RewardName").GetComponent<Text>().text = quest.Reward.name;
 
-        questMenu.transform.Find("BG/Description").GetComponent<Text>().text = quests[step+1].Description;
-        questMenu.transform.Find("BG/PreviewIcon").GetComponent<Image>().sprite = Utility.GetIconFor(new Item { name = quests[step+1].Reward.name });
+        questMenu.transform.Find("BG/Description").GetComponent<Text>().text = nextQuest.Description;
+        questMenu.transform.Find("BG/PreviewIcon").GetComponent<Image>().sprite = Utility.GetIconFor(new Item { name = nextQuest.Reward.name });
         questMenu.transform.Find("BG/Button").GetComponent<Button>().onClick.AddListener(() =>
         {
             RecipeInteractable ri = quest.Reward.prefab.GetComponent<RecipeInteractable>();
@@ -162,13 +166,33 @@ public class TutorialManager : MonoBehaviour
             player.GetComponent<AudioSource>().Play();
             questMenu.ToggleMenu();
             InGameMenu.instance = null;
-        });
 
+            if (nextQuest.NeedsExplanation)
+            {
+                explanationMenu.ToggleMenu();
+                InGameMenu.instance = explanationMenu;
+                int pos = 0;
+                explanationMenu.transform.Find("BG/Text").GetComponent<Text>().text = nextQuest.Explanations[pos++];
+
+                explanationMenu.transform.Find("BG/Button").GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    if (pos == nextQuest.Explanations.Count - 1)
+                        explanationMenu.transform.Find("BG/Button/Text").GetComponent<Text>().text = "Got It";
+                    else if (pos == nextQuest.Explanations.Count)
+                    {
+                        explanationMenu.ToggleMenu();
+                        InGameMenu.instance = null;
+                    }
+
+                    explanationMenu.transform.Find("BG/Text").GetComponent<Text>().text = nextQuest.Explanations[pos++];
+
+                });
+            }
+        });
 
         questMenu.ToggleMenu();
         InGameMenu.instance = questMenu;
     }
-
     public void Refresh()
     {
         player = GameObject.Find("Player").GetComponent<PlayerController>();

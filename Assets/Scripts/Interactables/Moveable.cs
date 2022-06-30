@@ -12,7 +12,7 @@ public class Moveable : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y < 10)
+        if (transform.position.y < -10)
             Destroy(gameObject);
     }
 }

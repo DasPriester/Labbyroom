@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Scriptable object to represent a Quest
@@ -14,12 +15,16 @@ public class Quest : ScriptableObject
     [SerializeField] private Item reward;
     [SerializeField] private float goal = 1;
     [SerializeField] private bool maximise = true;
+    [SerializeField] private bool needsExplanation = false;
+    [SerializeField] private List<string> explanations = new List<string>();
 
     public delegate void Action();
     public Action StartUI;
     public Action CloseUI;
     public Action Rewards;
 
+    public List<string> Explanations { get { return explanations; } }
+    public bool NeedsExplanation { get { return needsExplanation; } }
     public Item Reward { get { return reward; } }
     public string Description { get { return description; } }
     public Task Task { get => task; set => task = value; }
