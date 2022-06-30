@@ -12,6 +12,10 @@ public class Room : MonoBehaviour
     [SerializeField] private Vector2 accessDoor = Vector2.zero;
     [SerializeField] private WallManager accessWall = null;
     [SerializeField] private string prefabName = null;
+    [SerializeField] private List<Recipe> possibleRecipes = new List<Recipe>();
+    [SerializeField] private float recipeChance = 0f;
+    [SerializeField] private GameObject recipe;
+
     private bool isTemporary = false;
 
     public string PrefabName { get => prefabName; set => prefabName = value; }
@@ -23,6 +27,19 @@ public class Room : MonoBehaviour
             {
                 wm.IsTemporary = value;
             }
+        }
+    }
+
+    private void Awake()
+    {
+        if(Random.value <= recipeChance)
+        {
+            recipe.SetActive(true);
+            foreach (Recipe rec in possibleRecipes) {
+                if (rec.unlocked)
+                    possibleRecipes.Remove(rec);
+            }
+            recipe.GetComponent<RecipeInteractable>().Recipe = possibleRecipes[Random.Range(0, possibleRecipes.Count)];
         }
     }
 
