@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6360081744531502788}
   - component: {fileID: 7051082775928456621}
   - component: {fileID: 7255654328563765883}
-  - component: {fileID: 1776612155705896090}
+  - component: {fileID: 6054367065050364385}
   m_Layer: 6
   m_Name: Sheets
   m_TagString: Untagged
@@ -125,6 +125,7 @@ MonoBehaviour:
   placeSound: {fileID: 8300000, guid: b52f420b56a2ca24a912fac149691eb7, type: 3}
   pickUpSound: {fileID: 8300000, guid: 3b759c6d04c9145459fb9d8ef8264889, type: 3}
   pickUpParticle: {fileID: 7034904094744888385, guid: 9ecc2c82f0942184283e3fd40a2aff72, type: 3}
+  isConsumable: 1
 --- !u!114 &6360081744531502788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,7 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabName: Nail
---- !u!64 &1776612155705896090
+--- !u!64 &6054367065050364385
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -298,9 +299,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -5495902117074765545, guid: 283a303a7bdef4e209765697641de50a, type: 3}
+  m_Mesh: {fileID: -5495902117074765545, guid: bdf5b7f55967044a1a17930770352a76, type: 3}
 --- !u!1001 &3428708720309783845
 PrefabInstance:
   m_ObjectHideFlags: 0
