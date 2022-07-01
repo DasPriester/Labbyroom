@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec9ed41941b4d46c693d18a3e97febb0, type: 3}
   m_Name: Picture
   m_EditorClassIdentifier: 
-  name: 
+  name: Picture
   unlocked: 0
   alwaysUnlocked: 0
   requiresForge: 0
