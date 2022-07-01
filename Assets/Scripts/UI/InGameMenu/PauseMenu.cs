@@ -11,7 +11,7 @@ using System.IO;
 public class PauseMenu : MonoBehaviour
 {
     InGameMenu pauseMenu;
-    private readonly string startScene = "Start";
+    [SerializeField] private string startScene = "Start";
 
     private void Awake()
     {
