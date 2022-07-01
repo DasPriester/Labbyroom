@@ -340,7 +340,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c99f713f3bd004a5f99c97f5b9fede35, type: 2}
   - {fileID: 11400000, guid: f31935bc77d764f98a7258781c3f4196, type: 2}
   - {fileID: 11400000, guid: 22470550af3134217b695f7aab3abf2e, type: 2}
-  recipeChance: 1
+  recipeChance: 0.3
   recipe: {fileID: 4688097408183891076}
 --- !u!1 &7128917391634493329
 GameObject:
@@ -844,14 +844,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2b7f3e44a3b84d9b85afad4fc9f9862, type: 3}
---- !u!1 &6481308678830140598 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -516098083770646512, guid: b2b7f3e44a3b84d9b85afad4fc9f9862, type: 3}
-  m_PrefabInstance: {fileID: 2388113286525938854}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2787430325716355917 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b2b7f3e44a3b84d9b85afad4fc9f9862, type: 3}
+  m_PrefabInstance: {fileID: 2388113286525938854}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6481308678830140598 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -516098083770646512, guid: b2b7f3e44a3b84d9b85afad4fc9f9862, type: 3}
   m_PrefabInstance: {fileID: 2388113286525938854}
   m_PrefabAsset: {fileID: 0}
 --- !u!65 &5456657787271713169

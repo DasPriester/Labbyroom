@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6360081744531502788}
   - component: {fileID: 7051082775928456621}
   - component: {fileID: 7255654328563765883}
+  - component: {fileID: 8945165340620985635}
   m_Layer: 6
   m_Name: Sheets
   m_TagString: Untagged
@@ -287,6 +288,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabName: Sheets
+--- !u!64 &8945165340620985635
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8742471451781248404}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5495902117074765545, guid: bdf5b7f55967044a1a17930770352a76, type: 3}
 --- !u!1001 &3428708720309783845
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -95,11 +95,11 @@ MonoBehaviour:
   isConsumable: 1
   rooms:
     keys:
-    - {fileID: 1255976478663795016, guid: cf59ea0b9aeee400c923f035f41e2ea3, type: 3}
     - {fileID: 1255976478663795016, guid: df349cec523c44a7e858e390d033a00b, type: 3}
     - {fileID: 1255976478663795016, guid: f8f648cc7b5f449d787146ea70958eb1, type: 3}
-    - {fileID: 1255976478663795016, guid: aa9666794893e4f60aef14e048f7d203, type: 3}
+    - {fileID: 1255976478663795016, guid: cf59ea0b9aeee400c923f035f41e2ea3, type: 3}
     - {fileID: 1255976478663795016, guid: c92a13ca935184cfd8fedad63cd25451, type: 3}
+    - {fileID: 1255976478663795016, guid: aa9666794893e4f60aef14e048f7d203, type: 3}
     values:
     - {fileID: 3254051265726217479, guid: bda5f4d16b7ac4e628adf2c8bd4175d8, type: 3}
     - {fileID: 3254051265726217479, guid: bda5f4d16b7ac4e628adf2c8bd4175d8, type: 3}

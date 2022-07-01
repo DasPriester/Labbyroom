@@ -30,27 +30,25 @@ public class Room : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        if(Random.value <= recipeChance)
-        {
-            List<Recipe> notFoundRecipes = new List<Recipe>();
-            foreach (Recipe rec in possibleRecipes) {
-                if (!rec.unlocked)
-                    notFoundRecipes.Add(rec);
-            }
-            if (notFoundRecipes.Count > 0)
-            {
-                recipe.SetActive(true);
-                recipe.GetComponent<RecipeInteractable>().Recipe = notFoundRecipes[Random.Range(0, notFoundRecipes.Count)];
-            }
-        }
-    }
 
     public Transform AddAccessDoor()
     {
         if (hasAccessDoor)
         {
+            if (Random.value <= recipeChance)
+            {
+                List<Recipe> notFoundRecipes = new List<Recipe>();
+                foreach (Recipe rec in possibleRecipes)
+                {
+                    if (!rec.unlocked)
+                        notFoundRecipes.Add(rec);
+                }
+                if (notFoundRecipes.Count > 0)
+                {
+                    recipe.SetActive(true);
+                    recipe.GetComponent<RecipeInteractable>().Recipe = notFoundRecipes[Random.Range(0, notFoundRecipes.Count)];
+                }
+            }
             accessWall.doors.Add(accessDoor);
             accessWall.UpdateWall();
         }
