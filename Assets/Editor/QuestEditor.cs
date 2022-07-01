@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Linq;
 
+#if (UNITY_EDITOR)
 [CustomEditor(typeof(Quest))]
 class QuestInspector : Editor
 {
@@ -47,3 +48,4 @@ class QuestInspector : Editor
         }
     }
 }
+#endif

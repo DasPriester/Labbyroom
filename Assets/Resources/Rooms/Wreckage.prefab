@@ -906,7 +906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b2b7f3e44a3b84d9b85afad4fc9f9862, type: 3}
       propertyPath: m_TagString
-      value: Footsteps/Grass
+      value: Footsteps/Sand
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2b7f3e44a3b84d9b85afad4fc9f9862, type: 3}
@@ -1251,6 +1251,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c91fb14d7edf74ec284aa676a90fa347, type: 3}
       propertyPath: m_Name
       value: wreck
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c91fb14d7edf74ec284aa676a90fa347, type: 3}
+      propertyPath: m_TagString
+      value: Footsteps/Wood
       objectReference: {fileID: 0}
     - target: {fileID: 5696494855991954268, guid: c91fb14d7edf74ec284aa676a90fa347, type: 3}
       propertyPath: m_Materials.Array.data[0]

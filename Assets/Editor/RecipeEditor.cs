@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Linq;
 
+#if (UNITY_EDITOR)
 [CustomEditor(typeof(Recipe))]
 class RecipeInspector : Editor
 {
@@ -67,3 +68,4 @@ class RecipeInspector : Editor
         GUILayout.EndHorizontal();
     }
 }
+#endif

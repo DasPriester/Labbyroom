@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 1776612155705896090}
   m_Layer: 6
   m_Name: Plank
-  m_TagString: Untagged
+  m_TagString: Footsteps/Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,6 +125,7 @@ MonoBehaviour:
   placeSound: {fileID: 8300000, guid: b52f420b56a2ca24a912fac149691eb7, type: 3}
   pickUpSound: {fileID: 8300000, guid: 3b759c6d04c9145459fb9d8ef8264889, type: 3}
   pickUpParticle: {fileID: 7034904094744888385, guid: 9ecc2c82f0942184283e3fd40a2aff72, type: 3}
+  isConsumable: 1
 --- !u!114 &6360081744531502788
 MonoBehaviour:
   m_ObjectHideFlags: 0

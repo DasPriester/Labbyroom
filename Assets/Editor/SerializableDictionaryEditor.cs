@@ -5,6 +5,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
+#if (UNITY_EDITOR)
 abstract class SerializableDictionaryEditor : PropertyDrawer
 {
     protected UnityEngine.Object[] _implementations_key;
@@ -244,3 +245,4 @@ class KeyEditor : Editor
         base.OnInspectorGUI();
     }
 }
+#endif

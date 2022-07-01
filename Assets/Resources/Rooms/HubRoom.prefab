@@ -330,6 +330,9 @@ MonoBehaviour:
   possibleRecipes: []
   recipeChance: 0
   recipe: {fileID: 0}
+  chancedItems:
+    keys: []
+    values: []
 --- !u!1 &5518771476128126092
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,7 +347,7 @@ GameObject:
   - component: {fileID: 5518771476128126093}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Footsteps/Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
