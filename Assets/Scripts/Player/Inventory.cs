@@ -9,11 +9,11 @@ using System;
 /// </summary>
 public class Inventory : MonoBehaviour
 {
-    private static readonly int inventorySize = 63;
-    private static readonly int hotbarSize = 9;
+    [SerializeField] private int inventorySize = 63;
+    [SerializeField] private int hotbarSize = 9;
 
     private InventoryMenu InvUI;
-    private Item[] invList = new Item[hotbarSize + inventorySize];
+    private Item[] invList;
 
     private int current = 0;
     public Item[] Items {
@@ -30,6 +30,7 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
+        invList = new Item[hotbarSize + inventorySize];
         InvUI = GameObject.Find("UI").GetComponent<InventoryMenu>();
     }
 

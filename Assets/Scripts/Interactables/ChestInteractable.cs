@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForgeInteractable : PickUpInteractable
+public class ChestInteractable : PickUpInteractable
 {
     private InventoryMenu inventoryMenu;
 
@@ -18,7 +18,7 @@ public class ForgeInteractable : PickUpInteractable
     {
 
         inventoryMenu = GameObject.Find("UI").GetComponent<InventoryMenu>();
-        inventoryMenu.SwitchMenu("ForgeMenu");
+        inventoryMenu.SwitchMenu("ChestMenu", this);
         inventoryMenu.GetInventoryMenu().ToggleMenu();
         inventoryMenu.oldKey = pc.settings.GetMenu("InventoryMenu").openKey;
         inventoryMenu.GetInventoryMenu().openKey = pc.settings.interactKey;

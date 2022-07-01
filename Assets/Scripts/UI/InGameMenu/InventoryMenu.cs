@@ -29,7 +29,9 @@ public class InventoryMenu : MonoBehaviour
     // Crafting UI
     [SerializeField] private CraftingMenu craftingMenuPrefab;
     [SerializeField] private ForgeMenu forgeMenuPrefab;
+    [SerializeField] private ChestMenu chestMenuPrefab;
     private SubMenu subMenu;
+    public KeyCode oldKey;
 
     private void Awake()
     {
@@ -161,7 +163,7 @@ public class InventoryMenu : MonoBehaviour
 
     }
 
-    public void SwitchMenu(string name)
+    public void SwitchMenu(string name, PickUpInteractable interactable = null)
     {
         Destroy(subMenu.gameObject);
         switch (name)
@@ -171,6 +173,11 @@ public class InventoryMenu : MonoBehaviour
                 break;
             case "ForgeMenu":
                 subMenu = Instantiate(forgeMenuPrefab, inventoryMenu.transform);
+                break;
+            case "ChestMenu":
+                subMenu = Instantiate(chestMenuPrefab, inventoryMenu.transform);
+                ((ChestMenu)subMenu).Inv = interactable.GetComponent<Inventory>();
+                ((ChestMenu)subMenu).CreateInv();
                 break;
         }
     }
