@@ -71,6 +71,7 @@ public class DoorInteractable : Interactable
             {
                 audioSource.Play();
                 audioSource2.Play();
+                
             }
 
             doorAnimator.SetTrigger("ToggleTrigger");

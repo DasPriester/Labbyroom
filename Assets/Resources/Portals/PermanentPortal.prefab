@@ -103,7 +103,8 @@ MonoBehaviour:
   UseParticle: 1
   UseAnimation: 1
   UseToolTip: 1
-  doorSound: {fileID: 8300000, guid: 1fc04f96bd9490e488fa28e105c66a3b, type: 3}
+  doorSound: {fileID: 8300000, guid: 95b7b9459475c324b925340a7020b691, type: 3}
+  doorClose: {fileID: 8300000, guid: 3990c8b50e93eea4e9a2f96dec3ac1a3, type: 3}
   doorAnimator: {fileID: 3840976072580582445}
 --- !u!114 &8807976177840939430
 MonoBehaviour:

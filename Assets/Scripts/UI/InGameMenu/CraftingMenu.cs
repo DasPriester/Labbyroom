@@ -8,6 +8,7 @@ public class CraftingMenu : SubMenu
 
     [SerializeField] private RectTransform recipeEntryPrefab = null;
     [SerializeField] private RectTransform recipeCostPrefab = null;
+    [SerializeField] private AudioClip craftSound = null;
     private RectTransform content = null;
     private Recipe[] recipes;
     private Recipe currentRecipe = null;
@@ -23,7 +24,9 @@ public class CraftingMenu : SubMenu
         {
             if (inv.IsCraftable(currentRecipe))
             {
-                inv.CraftRecipe(currentRecipe);
+                inv.CraftRecipe(currentRecipe); 
+                transform.GetComponent<AudioSource>().clip = craftSound;
+                transform.GetComponent<AudioSource>().Play();
                 OpenMenu();
             }
         });
