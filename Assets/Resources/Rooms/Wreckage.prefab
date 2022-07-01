@@ -337,6 +337,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6b444ad30c9bb4f9fbdb0fd351bf410a, type: 2}
   - {fileID: 11400000, guid: 87a17962b4f5b4a6cb842acc1524def3, type: 2}
   - {fileID: 11400000, guid: 9d0a4e3fe40f643ea97f3fc1fdc5346c, type: 2}
+  - {fileID: 11400000, guid: c99f713f3bd004a5f99c97f5b9fede35, type: 2}
   recipeChance: 1
   recipe: {fileID: 4688097408183891076}
 --- !u!1 &7128917391634493329
@@ -624,15 +625,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.442
+      value: 0.41
       objectReference: {fileID: 0}
     - target: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.293
+      value: 3.981
       objectReference: {fileID: 0}
     - target: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.583
+      value: -0.323
       objectReference: {fileID: 0}
     - target: {fileID: 2502352176813176303, guid: 8a260da650dc249c3bc5844d95a62dc8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1186,7 +1187,7 @@ PrefabInstance:
     - target: {fileID: 5696494855991954268, guid: c91fb14d7edf74ec284aa676a90fa347, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 88ad707e6cd48cd4b996ddc1b40e8521, type: 2}
+      objectReference: {fileID: 2100000, guid: f63d4279dcdc24c65a7d92200110359e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c91fb14d7edf74ec284aa676a90fa347, type: 3}
 --- !u!4 &6793819651215285424 stripped
