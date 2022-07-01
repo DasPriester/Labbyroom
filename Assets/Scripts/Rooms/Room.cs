@@ -15,6 +15,7 @@ public class Room : MonoBehaviour
     [SerializeField] private List<Recipe> possibleRecipes = new List<Recipe>();
     [SerializeField] private float recipeChance = 0f;
     [SerializeField] private GameObject recipe;
+    [SerializeField] private SerializableDictionary<GameObject, float> chancedItems;
 
     private bool isTemporary = false;
 
@@ -47,6 +48,12 @@ public class Room : MonoBehaviour
                 {
                     recipe.SetActive(true);
                     recipe.GetComponent<RecipeInteractable>().Recipe = notFoundRecipes[Random.Range(0, notFoundRecipes.Count)];
+                }
+
+                foreach (KeyValuePair<GameObject, float> ci in chancedItems)
+                {
+                    if (Random.Range(0, 1) > ci.Value)
+                        ci.Key.SetActive(true);
                 }
             }
             accessWall.doors.Add(accessDoor);
