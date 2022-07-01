@@ -262,6 +262,7 @@ public class ForgeMenu : SubMenu
 
         InventoryMenu inventoryMenu = GameObject.Find("UI").GetComponent<InventoryMenu>();
         inventoryMenu.SwitchMenu("CraftingMenu");
+        inventoryMenu.GetInventoryMenu().openKey = inventoryMenu.oldKey;
         currentRecipe = null;
         currentEntry = null;
     }
