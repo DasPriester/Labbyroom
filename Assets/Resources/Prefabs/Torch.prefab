@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936f3985fae63e34087bc0798b6b46c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: Saw
+  prefabName: Torch
 --- !u!65 &4136340107041966027
 BoxCollider:
   m_ObjectHideFlags: 0

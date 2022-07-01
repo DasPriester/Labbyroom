@@ -19,7 +19,7 @@ MonoBehaviour:
     id: 0
   reward:
     prefab: {fileID: 6432907728722272025, guid: 681f603ade4be2f4e8ef026890c46430, type: 3}
-    name: RecipeChest
+    name: Recipe for the Chest
     amount: 1
   goal: 1
   maximise: 1

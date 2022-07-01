@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fed2e23577d44501b8f597586461a61, type: 3}
   m_Name: 3 Craft Key
   m_EditorClassIdentifier: 
+  name: 
   description: 
   task:
     id: 0
   reward:
     prefab: {fileID: 6432907728722272025, guid: 3134286e84aaa114d8cda78f444c4b5e, type: 3}
-    name: RecipeSaw
+    name: Recipe for the Saw
     amount: 1
   goal: 1
   maximise: 1
+  needsExplanation: 0
+  explanations: []
   references:
     version: 1
     00000000:

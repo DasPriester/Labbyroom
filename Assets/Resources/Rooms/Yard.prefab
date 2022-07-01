@@ -531,7 +531,7 @@ MonoBehaviour:
   hasAccessDoor: 1
   accessDoor: {x: 5, y: 2}
   accessWall: {fileID: 5518771475098346700}
-  prefabName: DungeonRoom
+  prefabName: Yard
   possibleRecipes: []
   recipeChance: 0
   recipe: {fileID: 0}

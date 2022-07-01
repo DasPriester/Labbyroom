@@ -339,7 +339,7 @@ MonoBehaviour:
   hasAccessDoor: 1
   accessDoor: {x: 5, y: 2}
   accessWall: {fileID: 5518771475098346700}
-  prefabName: DungeonRoom
+  prefabName: Cave
   possibleRecipes: []
   recipeChance: 0
   recipe: {fileID: 0}
@@ -531,6 +531,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -127.952
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 17bb9fae5afc74102a14e21a4250d512, type: 2}
     - target: {fileID: 919132149155446097, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
       propertyPath: m_Name
       value: stalagnite (6)
@@ -624,6 +628,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -198.049
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 17bb9fae5afc74102a14e21a4250d512, type: 2}
     - target: {fileID: 919132149155446097, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
       propertyPath: m_Name
       value: stalagnite (5)
@@ -717,6 +725,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 17bb9fae5afc74102a14e21a4250d512, type: 2}
     - target: {fileID: 919132149155446097, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
       propertyPath: m_Name
       value: stalagnite (2)
@@ -810,6 +822,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 17bb9fae5afc74102a14e21a4250d512, type: 2}
     - target: {fileID: 919132149155446097, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
       propertyPath: m_Name
       value: stalagnite (4)
@@ -1075,6 +1091,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -212.194
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 17bb9fae5afc74102a14e21a4250d512, type: 2}
     - target: {fileID: 919132149155446097, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
       propertyPath: m_Name
       value: stalagnite (8)
@@ -1122,7 +1142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8742471451781474740, guid: 3dc0032bda0a3a24f848db19061df8c0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.1953123
+      value: 3.344
       objectReference: {fileID: 0}
     - target: {fileID: 8742471451781474740, guid: 3dc0032bda0a3a24f848db19061df8c0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1130,7 +1150,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8742471451781474740, guid: 3dc0032bda0a3a24f848db19061df8c0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.0216203
+      value: -3.537
       objectReference: {fileID: 0}
     - target: {fileID: 8742471451781474740, guid: 3dc0032bda0a3a24f848db19061df8c0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1147,18 +1167,6 @@ PrefabInstance:
     - target: {fileID: 8742471451781474740, guid: 3dc0032bda0a3a24f848db19061df8c0, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8742471451781474740, guid: 3dc0032bda0a3a24f848db19061df8c0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8742471451781474740, guid: 3dc0032bda0a3a24f848db19061df8c0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 38.513
-      objectReference: {fileID: 0}
-    - target: {fileID: 8742471451781474740, guid: 3dc0032bda0a3a24f848db19061df8c0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3dc0032bda0a3a24f848db19061df8c0, type: 3}
@@ -1192,7 +1200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.22729859
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1200,7 +1208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.609168
+      value: -3.74
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1230,6 +1238,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -212.194
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 17bb9fae5afc74102a14e21a4250d512, type: 2}
     - target: {fileID: 919132149155446097, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
       propertyPath: m_Name
       value: stalagnite (7)
@@ -1323,6 +1335,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 17bb9fae5afc74102a14e21a4250d512, type: 2}
     - target: {fileID: 919132149155446097, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
       propertyPath: m_Name
       value: stalagnite (1)
@@ -1404,6 +1420,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 17bb9fae5afc74102a14e21a4250d512, type: 2}
     - target: {fileID: 919132149155446097, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
       propertyPath: m_Name
       value: stalagnite
@@ -1497,6 +1517,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -212.194
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 17bb9fae5afc74102a14e21a4250d512, type: 2}
     - target: {fileID: 919132149155446097, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
       propertyPath: m_Name
       value: stalagnite (9)
@@ -1590,6 +1614,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 17bb9fae5afc74102a14e21a4250d512, type: 2}
     - target: {fileID: 919132149155446097, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
       propertyPath: m_Name
       value: stalagnite (3)
@@ -1831,6 +1859,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -212.194
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 17bb9fae5afc74102a14e21a4250d512, type: 2}
     - target: {fileID: 919132149155446097, guid: fb4629ead630240a0b531014371a3d4a, type: 3}
       propertyPath: m_Name
       value: stalagnite (10)
