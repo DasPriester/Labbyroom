@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 4136340107041966027}
   m_Layer: 6
   m_Name: Torch
-  m_TagString: Untagged
+  m_TagString: Furniture
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,7 +81,7 @@ MonoBehaviour:
   UseParticle: 1
   UseAnimation: 1
   UseToolTip: 1
-  placeSound: {fileID: 8300000, guid: b52f420b56a2ca24a912fac149691eb7, type: 3}
+  placeSound: {fileID: 8300000, guid: 29e2a874dc0e814469ded5e293e7ba8a, type: 3}
   pickUpSound: {fileID: 8300000, guid: 3b759c6d04c9145459fb9d8ef8264889, type: 3}
   pickUpParticle: {fileID: 7034904094744888385, guid: 9ecc2c82f0942184283e3fd40a2aff72, type: 3}
   isConsumable: 1
