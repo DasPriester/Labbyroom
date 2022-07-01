@@ -18,8 +18,10 @@ MonoBehaviour:
   requiresForge: 0
   oneTime: 0
   Cost:
-    keys: []
-    values: 
+    keys:
+    - {fileID: -3312713435364818256, guid: 8ef433586db31460091aed7a0760dadb, type: 3}
+    values: 06000000
   Yield:
-    keys: []
-    values: 
+    keys:
+    - {fileID: -3312713435364818256, guid: da1299f0f16394b69ba899a52e7c73b2, type: 3}
+    values: 01000000

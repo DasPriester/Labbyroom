@@ -10,6 +10,7 @@ TagManager:
   - Highlight
   - Anvil
   - Furniture
+  - Footsteps/Stone
   layers:
   - Default
   - TransparentFX

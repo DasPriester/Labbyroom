@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fed2e23577d44501b8f597586461a61, type: 3}
-  m_Name: 6 Place 3 Furniture
+  m_Name: 7 second room
   m_EditorClassIdentifier: 
   name: Place Furniture
   description: Collect new recipies and materials to craft more furniture
   task:
     id: 0
   reward:
-    prefab: {fileID: 8696993802869622926, guid: 0b03c9bc1e3e04e6ba27999abaa9eb96, type: 3}
-    name: Permanent Key
+    prefab: {fileID: 8742471451781248404, guid: c5ea96cad9f254ccda41e9fefb9f52f2, type: 3}
+    name: Bed
     amount: 1
   goal: 3
   maximise: 1

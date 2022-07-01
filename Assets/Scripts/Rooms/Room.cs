@@ -38,6 +38,7 @@ public class Room : MonoBehaviour
         {
             if (Random.value <= recipeChance)
             {
+
                 List<Recipe> notFoundRecipes = new List<Recipe>();
                 foreach (Recipe rec in possibleRecipes)
                 {
@@ -46,8 +47,8 @@ public class Room : MonoBehaviour
                 }
                 if (notFoundRecipes.Count > 0)
                 {
-                    recipe.SetActive(true);
                     recipe.GetComponent<RecipeInteractable>().Recipe = notFoundRecipes[Random.Range(0, notFoundRecipes.Count)];
+                    recipe.SetActive(true);
                 }
 
                 foreach (KeyValuePair<GameObject, float> ci in chancedItems)
