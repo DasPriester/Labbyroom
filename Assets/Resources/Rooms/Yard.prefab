@@ -542,7 +542,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c99f713f3bd004a5f99c97f5b9fede35, type: 2}
   - {fileID: 11400000, guid: f31935bc77d764f98a7258781c3f4196, type: 2}
   - {fileID: 11400000, guid: 22470550af3134217b695f7aab3abf2e, type: 2}
-  recipeChance: 0.3
+  recipeChance: 0.5
   recipe: {fileID: 5960003768450119827}
   chancedItems:
     keys:
@@ -563,7 +563,7 @@ GameObject:
   - component: {fileID: 5518771476128126093}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Footsteps/Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2119,11 +2119,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
---- !u!4 &5518771475098346703 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3792920370674848359, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
-  m_PrefabInstance: {fileID: 8662029094883522216}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5518771475098346700 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3792920370674848356, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
@@ -2135,6 +2130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f3b77a25d30e49058ce3de0476f61b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &5518771475098346703 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3792920370674848359, guid: 195fae6f4d2ba467fa612e6127227eb7, type: 3}
+  m_PrefabInstance: {fileID: 8662029094883522216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9049107780257025365
 PrefabInstance:
   m_ObjectHideFlags: 0

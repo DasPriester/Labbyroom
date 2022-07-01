@@ -29,5 +29,5 @@ MonoBehaviour:
   particlesActivated: 1
   masterVolume: 0.3
   effectsVolume: 1
-  musicVolume: 1
+  musicVolume: 0.2
   useFootsteps: 1
