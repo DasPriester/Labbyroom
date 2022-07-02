@@ -326,13 +326,26 @@ public class PlayerController : MonoBehaviour {
 
             if (item.prefab != null)
             {
-                if(!item.prefab.GetComponent<KeyInteractable>())
+                if(!item.prefab.GetComponent<KeyInteractable>() && !hasTempPath)
                 {
-                    item.amount = 1;
-                    if (inv.RemoveItem(item))
+                    if (Vector3.Distance(hit.point, transform.position) > 1.5f)
                     {
-                        GameObject newItem = Instantiate(item.prefab, new Vector3(hit.point.x, hit.point.y, hit.point.z), gameObject.transform.rotation * item.prefab.transform.rotation);
-                        newItem.GetComponent<PickUpInteractable>().OnBuild(hit.point);
+                        Quaternion rot;
+                        if (hit.collider.gameObject.GetComponent<WallInteractable>())
+                        {
+                            rot = hit.collider.transform.rotation * item.prefab.transform.rotation;
+                        }
+                        else
+                        {
+                            rot = gameObject.transform.rotation * item.prefab.transform.rotation;
+                        }
+                        item.amount = 1;
+                        if (inv.RemoveItem(item))
+                        {
+                            
+                            GameObject newItem = Instantiate(item.prefab, hit.point, rot);
+                            newItem.GetComponent<PickUpInteractable>().OnBuild(hit.point);
+                        }
                     }
                 }
                 else if (Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit _, interactionDistance, wallLayer) && currentInteractable != null)

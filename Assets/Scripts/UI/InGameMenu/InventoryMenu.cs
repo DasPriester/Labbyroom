@@ -89,12 +89,12 @@ public class InventoryMenu : MonoBehaviour
     public void AddItemUI(Item item, int index)
     {
         GameObject itemUI = Instantiate(itemPref,
-            index <= inv.HotbarSize ?
+            index < inv.HotbarSize ?
             this.transform.Find("Hotbar BG") :
             inventoryMenu.transform.Find("BG"));
 
         itemUI.GetComponent<RectTransform>().anchoredPosition =
-            (index <= inv.HotbarSize ?
+            (index < inv.HotbarSize ?
             hotbarSlots[index].GetComponent<RectTransform>().anchoredPosition :
             inventorySlots[index - inv.HotbarSize].GetComponent<RectTransform>().anchoredPosition)
             + spacing;
