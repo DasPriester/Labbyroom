@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 6 Place 3 Furniture
   m_EditorClassIdentifier: 
   name: Place Furniture
-  description: Collect new recipies and materials to craft more furniture
+  description: Collect new recipies and materials to craft more furniture.
   task:
     id: 0
   reward:

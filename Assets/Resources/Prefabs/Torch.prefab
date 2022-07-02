@@ -9,12 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8742471451781474740}
-  - component: {fileID: 8742471451780180372}
   - component: {fileID: -3312713435364818256}
   - component: {fileID: 6360081744531502788}
   - component: {fileID: 7051082775928456621}
   - component: {fileID: 7255654328563765883}
-  - component: {fileID: 4136340107041966027}
+  - component: {fileID: 6636894322428602984}
   m_Layer: 6
   m_Name: Torch
   m_TagString: Furniture
@@ -29,8 +28,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8742471451781248404}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -0.38}
+  m_LocalRotation: {x: 0.7071068, y: 0.7071068, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2536940643557718079}
@@ -38,15 +37,7 @@ Transform:
   - {fileID: 8477865603566474563}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!33 &8742471451780180372
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8742471451781248404}
-  m_Mesh: {fileID: -5495902117074765545, guid: 283a303a7bdef4e209765697641de50a, type: 3}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 90}
 --- !u!114 &-3312713435364818256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseAudio: 1
-  UseOutline: 1
+  UseOutline: 0
   UseParticle: 1
   UseAnimation: 1
   UseToolTip: 1
@@ -230,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabName: Torch
---- !u!65 &4136340107041966027
+--- !u!65 &6636894322428602984
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -241,8 +232,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.15, y: 0.15, z: 1.1}
-  m_Center: {x: 0, y: 0, z: -0.05}
+  m_Size: {x: 1, y: 0.25, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3428708720309783845
 PrefabInstance:
   m_ObjectHideFlags: 0

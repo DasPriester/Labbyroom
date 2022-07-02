@@ -292,7 +292,7 @@ MonoBehaviour:
   itemPref: {fileID: 3880007534733317040, guid: 38f26a2e172bc7245b70d6922269f4b8, type: 3}
   craftingMenuPrefab: {fileID: 4067547992909285854, guid: bbc8b2b07643c024a86111f49b919738, type: 3}
   forgeMenuPrefab: {fileID: 4390727328520105870, guid: 30338862cbd945d478616d2a5610dfe3, type: 3}
-  chestMenuPrefab: {fileID: 0}
+  chestMenuPrefab: {fileID: -6829766859355530601, guid: 1e3c00bac02f21b41829a0aac50d6b1f, type: 3}
   oldKey: 0
 --- !u!114 &2593714845108191455
 MonoBehaviour:
@@ -306,7 +306,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8693fa55050018449b95fdc0b7e2b7eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicClip: {fileID: 8300000, guid: 65ce858ee92b5074da196238b48d66a7, type: 3}
+  musicClip: {fileID: 8300000, guid: 739f3a3518d08b14e8fa0b09af291085, type: 3}
+  audioMixer: {fileID: 24100000, guid: a26995703664f174e8ffcfa44c67f563, type: 2}
 --- !u!114 &6884926892899863739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,6 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 032bd41e17b64df45be01ac29bfe6b4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startScene: StartScene
 --- !u!225 &4965210404045033193
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -345,7 +347,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chest
   m_EditorClassIdentifier: 
   name: Chest
-  unlocked: 0
+  unlocked: 1
   alwaysUnlocked: 0
   requiresForge: 0
   oneTime: 0
@@ -26,5 +26,5 @@ MonoBehaviour:
     values: 04000000040000000600000001000000
   Yield:
     keys:
-    - {fileID: 6464453846103816777, guid: faf114930f347475a9f33a8c32d5f49c, type: 3}
+    - {fileID: 5633936946707854087, guid: faf114930f347475a9f33a8c32d5f49c, type: 3}
     values: 01000000

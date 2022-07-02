@@ -188,7 +188,7 @@ MonoBehaviour:
   pickUpSound: {fileID: 8300000, guid: 3b759c6d04c9145459fb9d8ef8264889, type: 3}
   pickUpParticle: {fileID: 0}
   isConsumable: 1
-  recipe: {fileID: 11400000, guid: 510a54f791cdf4f89ac5906080da3402, type: 2}
+  recipe: {fileID: 11400000, guid: 657a8b20dbc374ed4938e543d7dff84e, type: 2}
 --- !u!114 &1428377365005982976
 MonoBehaviour:
   m_ObjectHideFlags: 0

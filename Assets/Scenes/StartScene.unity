@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8693fa55050018449b95fdc0b7e2b7eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicClip: {fileID: 8300000, guid: 65ce858ee92b5074da196238b48d66a7, type: 3}
+  musicClip: {fileID: 8300000, guid: 739f3a3518d08b14e8fa0b09af291085, type: 3}
   audioMixer: {fileID: 24100000, guid: a26995703664f174e8ffcfa44c67f563, type: 2}
 --- !u!4 &59131178
 Transform:

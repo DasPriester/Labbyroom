@@ -138,7 +138,6 @@ public class PlayerController : MonoBehaviour {
             ca.intensity.value = 0f;
         }
 
-        // super ugly but w/e
         audioMixer.SetFloat("Master Volume", Mathf.Log10(settings.masterVolume) * 20);
         audioMixer.SetFloat("Effects Volume", Mathf.Log10(settings.effectsVolume) * 20);
         audioMixer.SetFloat("Music Volume", Mathf.Log10(settings.musicVolume) * 20);
@@ -296,7 +295,7 @@ public class PlayerController : MonoBehaviour {
 
             try
             {
-                if ((surface && item.prefab.GetComponent<KeyInteractable>()) && (!(!item.prefab.GetComponent<KeyInteractable>().temporary && surface.IsTemporary)) && !(item.prefab.GetComponent<KeyInteractable>().temporary && PlayerController.hasTempPath && !surface.IsTemporary))
+                if ((surface && item.prefab.GetComponent<KeyInteractable>()) && (!(!item.prefab.GetComponent<KeyInteractable>().temporary && surface.IsTemporary)) && !(item.prefab.GetComponent<KeyInteractable>().temporary && hasTempPath && !surface.IsTemporary))
                 {
                     surface.OnViewedAtWithKey(wall.point, item.prefab.GetComponent<KeyInteractable>().MaxWidth());
                 }
@@ -332,7 +331,7 @@ public class PlayerController : MonoBehaviour {
                     item.amount = 1;
                     if (inv.RemoveItem(item))
                     {
-                        GameObject newItem = Instantiate(item.prefab, new Vector3(hit.point.x, hit.point.y + 0.1f, hit.point.z), gameObject.transform.rotation * item.prefab.transform.rotation);
+                        GameObject newItem = Instantiate(item.prefab, new Vector3(hit.point.x, hit.point.y, hit.point.z), gameObject.transform.rotation * item.prefab.transform.rotation);
                         newItem.GetComponent<PickUpInteractable>().OnBuild(hit.point);
                     }
                 }

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fed2e23577d44501b8f597586461a61, type: 3}
   m_Name: 7 second room
   m_EditorClassIdentifier: 
-  name: Place Furniture
-  description: Collect new recipies and materials to craft more furniture
+  name: Second Room
+  description: Use the permanent key to create a second permanent room four your
+    hub.
   task:
     id: 0
   reward:

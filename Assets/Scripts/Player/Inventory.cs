@@ -16,6 +16,7 @@ public class Inventory : MonoBehaviour
     private Item[] invList;
 
     private int current = 0;
+
     public Item[] Items {
         get { return invList; }
         set { invList = value; }
@@ -153,7 +154,7 @@ public class Inventory : MonoBehaviour
     /// </summary>
     /// <param name="recipe">Recipe to craft</param>
     public void CraftRecipe(Recipe recipe)
-    {
+    { 
         Item[] invBackup = invList;
         bool canCraft = true;
         foreach (PickUpInteractable costName in recipe.Cost.Keys)

@@ -21,8 +21,7 @@ MonoBehaviour:
     keys:
     - {fileID: -3312713435364818256, guid: e318ef014f2c447488e3142ee2b54e94, type: 3}
     - {fileID: -3312713435364818256, guid: 3dc0032bda0a3a24f848db19061df8c0, type: 3}
-    - {fileID: -3312713435364818256, guid: 00b567454b6c444578425a2069268b48, type: 3}
-    values: 060000000800000004000000
+    values: 0200000003000000
   Yield:
     keys:
     - {fileID: 4837620872022203919, guid: 8bfeff5e16aced24bb2cbc6e3c559713, type: 3}
