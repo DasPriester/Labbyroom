@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec9ed41941b4d46c693d18a3e97febb0, type: 3}
   m_Name: Bed
   m_EditorClassIdentifier: 
-  name: Bes
-  unlocked: 0
+  name: Bed
+  unlocked: 1
   alwaysUnlocked: 0
   requiresForge: 0
   oneTime: 0
